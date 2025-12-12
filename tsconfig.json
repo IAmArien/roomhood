@@ -1,5 +1,16 @@
 {
   "extends": "@react-native/typescript-config",
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["**/node_modules", "**/Pods"]
+  "exclude": ["**/node_modules", "**/Pods"],
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@app": ["app"],
+      "@branding/components": ["presentation/components/branding/components"],
+      "@branding/assets": ["presentation/components/branding/assets"],
+      "@branding/provider": ["presentation/components/branding/provider"],
+      "@branding/styles": ["presentation/components/branding/styles"],
+      "@branding/types": ["presentation/components/branding/types"]
+    }
+  }
 }
