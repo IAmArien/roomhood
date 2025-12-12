@@ -6,4 +6,4 @@
 export * from './context';
 export * from './navigation';
 export * from './providers';
-export * from './App';
+export { default as RoomHoodApp } from './App';
