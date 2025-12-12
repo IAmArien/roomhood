@@ -5,6 +5,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
+      "@app/context": ["app/context"],
       "@app/navigation": ["app/navigation"],
       "@app/hooks": ["app/hooks"],
       "@branding/components": ["presentation/components/branding/components"],
