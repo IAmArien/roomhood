@@ -3,10 +3,11 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Typography } from "@branding/components";
+import { MainNavigation } from "@app/navigation";
 import { ThemeProvider } from "@branding/provider";
+import { NavigationContainer } from "@react-navigation/native";
 import { ReactElement } from "react";
-import { StatusBar, StyleSheet, useColorScheme, View } from "react-native";
+import { StatusBar, StyleSheet, useColorScheme } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App(): ReactElement {
@@ -15,13 +16,9 @@ export default function App(): ReactElement {
     <ThemeProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <SafeAreaView style={styles.container}>
-        <View>
-          <Typography
-            variant="title"
-            size="bold-md">
-            Hello World
-          </Typography>
-        </View>
+        <NavigationContainer>
+          <MainNavigation />
+        </NavigationContainer>
       </SafeAreaView>
     </ThemeProvider>
   );

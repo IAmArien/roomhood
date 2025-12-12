@@ -5,12 +5,14 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@app": ["app"],
+      "@app/navigation": ["app/navigation"],
+      "@app/hooks": ["app/hooks"],
       "@branding/components": ["presentation/components/branding/components"],
       "@branding/assets": ["presentation/components/branding/assets"],
       "@branding/provider": ["presentation/components/branding/provider"],
       "@branding/styles": ["presentation/components/branding/styles"],
-      "@branding/types": ["presentation/components/branding/types"]
+      "@branding/types": ["presentation/components/branding/types"],
+      "@presentation/screens": ["presentation/screens"]
     }
   }
 }
