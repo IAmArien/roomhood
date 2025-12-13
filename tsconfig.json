@@ -5,6 +5,7 @@
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
+      "@assets/icons": ["../assets/icons"],
       "@app/context": ["app/context"],
       "@app/navigation": ["app/navigation"],
       "@app/hooks": ["app/hooks"],
@@ -13,7 +14,8 @@
       "@branding/provider": ["presentation/components/branding/provider"],
       "@branding/styles": ["presentation/components/branding/styles"],
       "@branding/types": ["presentation/components/branding/types"],
-      "@presentation/screens": ["presentation/screens"]
+      "@presentation/screens": ["presentation/screens"],
+      "@utils": ["utils"]
     }
   }
 }

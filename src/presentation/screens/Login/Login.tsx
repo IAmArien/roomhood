@@ -3,18 +3,238 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Typography } from "@branding/components";
-import { ReactElement } from "react";
-import { View } from "react-native";
+import { AppleIcon, FacebookIcon, GoogleIcon, LoginHeaderLogo } from "@assets/icons";
+import { Button, FormProvider, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
+import { useTheme } from "@branding/provider";
+import { ReactElement, useRef } from "react";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
+import Animated from "react-native-reanimated";
+import { useContentAnimation } from "./hooks/useContentAnimation";
+import { LoginSSOType } from "./types";
 
 export default function Login(): ReactElement {
+  const theme = useTheme();
+  const { colors } = theme;
+
+  const scrollViewRef = useRef<ScrollView | null>(null);
+
+  const form = useForm<string, IFormControl<string>[]>();
+
+  const emailTextField = useFormControl<string>("email");
+  const passwordTextField = useFormControl<string>("password");
+
+  const {
+    containerAnimatedStyle,
+    textFieldAnimatedStyle,
+    buttonAnimatedStyle,
+    ssoDividerAnimatedStyle,
+    fbButtonAnimatedStyle,
+    ggButtonAnimatedStyle,
+    apButtonAnimatedStyle
+  } = useContentAnimation();
+
+  const handleLoginPress = () => form.formRef.current?.submit?.();
+
+  const handleForgotPasswordPress = () => {};
+
+  const handleSSOLogin = (type: LoginSSOType) => {};
+
+  const handleFormSubmit = () => {};
+
   return (
-    <View>
-      <Typography
-        variant="title"
-        size="bold-md">
-        Hello World
-      </Typography>
-    </View>
+    <FormProvider {...form} onSubmit={handleFormSubmit}>
+      <ScrollView
+        testID="login-scroll-container"
+        accessibilityLabel="login-scroll-container"
+        accessible={false}
+        ref={scrollViewRef}
+        style={[
+          styles.container,
+          {
+            backgroundColor: colors.ui["pure-white"]
+          }
+        ]}>
+        <Animated.View
+          testID="login-content-container"
+          accessible={false}
+          style={[containerAnimatedStyle, styles.contentContainer]}>
+          {/** LOGIN ILLUSTRATION */}
+          <View style={styles.lgContainer}>
+            <LoginHeaderLogo width={300} height={300} />
+          </View>
+          {/** LOGIN ILLUSTRATION */}
+          {/** TEXT FIELDS FOR EMAIL AND PASSWORD */}
+          <Animated.View style={textFieldAnimatedStyle}>
+            <TextField
+              testID="email-textfield"
+              accessibilityLabel="email-textfield"
+              label="Email"
+              {...emailTextField}
+            />
+            <TextField
+              testID="password-textfield"
+              accessibilityLabel="password-textfield"
+              secureTextEntry
+              autoCapitalize="none"
+              textContentType="password"
+              label="Password"
+              {...passwordTextField}
+            />
+            <View style={styles.fpContainer}>
+              <Pressable onPress={handleForgotPasswordPress}>
+                <Typography
+                  variant="interactions"
+                  size="md"
+                  color={colors.ui.primary}>
+                  Forgot Password?
+                </Typography>
+              </Pressable>
+            </View>
+          </Animated.View>
+          {/** TEXT FIELDS FOR EMAIL AND PASSWORD */}
+          {/** LOGIN BUTTON */}
+          <Animated.View style={buttonAnimatedStyle}>
+            <Button
+              testID="btn-login"
+              type="standard"
+              variant="primary"
+              size="md"
+              title="Login"
+              onTap={handleLoginPress}
+              ripplePosition="on-tap"
+              style={{ marginTop: 30 }}
+            />
+          </Animated.View>
+          {/** LOGIN BUTTON */}
+          {/** LOGIN WITH OPTIONS */}
+          <View style={styles.lwContainer}>
+            <View style={styles.lwContentContainer}>
+              <Animated.View
+                style={[
+                  ssoDividerAnimatedStyle,
+                  styles.lwDivider,
+                  {
+                    backgroundColor: colors.border.grey
+                  }
+                ]}
+              />
+              <Typography
+                variant="overline"
+                size="sm"
+                color={colors.border.grey}
+                style={{
+                  backgroundColor: colors.ui["pure-white"],
+                  paddingHorizontal: 12
+                }}>
+                OR CONTINUE WITH
+              </Typography>
+            </View>
+            {/** SSO LOGIN BUTTONS */}
+            <View style={styles.ssoContainer}>
+              <View style={styles.ssoContentContainer}>
+                <Animated.View style={fbButtonAnimatedStyle}>
+                  <Pressable
+                    testID="facebook-sso"
+                    accessibilityLabel="facebook-sso"
+                    onPress={() => handleSSOLogin('FACEBOOK')}>
+                    <FacebookIcon />
+                  </Pressable>
+                </Animated.View>
+                <Animated.View style={ggButtonAnimatedStyle}>
+                  <Pressable
+                    testID="google-sso"
+                    accessibilityLabel="google-sso"
+                    onPress={() => handleSSOLogin('GOOGLE')}>
+                    <GoogleIcon />
+                  </Pressable>
+                </Animated.View>
+                <Animated.View style={apButtonAnimatedStyle}>
+                  <Pressable
+                    testID="apple-sso"
+                    accessibilityLabel="apple-sso"
+                    onPress={() => handleSSOLogin('APPLE')}>
+                    <AppleIcon />
+                  </Pressable>
+                </Animated.View>
+              </View>
+            </View>
+            {/** SSO LOGIN BUTTONS */}
+          </View>
+          {/** LOGIN WITH OPTIONS */}
+        </Animated.View>
+      </ScrollView>
+      {/** FOOTER CONTENT */}
+      <View
+        testID="login-footer-container"
+        accessibilityLabel="login-footer-container"
+        accessible={false}
+        style={[
+          styles.footerContainer,
+          {
+            backgroundColor: colors.ui["pure-white"]
+          }
+        ]}>
+        <Typography
+          variant="description"
+          size="sm"
+          color={colors.text.clear}
+          style={{ fontSize: 12 }}>
+          Powered By&nbsp;
+          <Typography
+            variant="interactions"
+            size="md"
+            color={colors.text.clear}
+            style={{ fontSize: 12 }}>
+            Room8.ph
+          </Typography>
+        </Typography>
+      </View>
+      {/** FOOTER CONTENT */}
+    </FormProvider>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginBottom: 20
+  },
+  contentContainer: {
+    paddingHorizontal: 16,
+    gap: 8
+  },
+  lgContainer: {
+    alignSelf: 'center'
+  },
+  fpContainer: {
+    flexDirection: 'row',
+    marginTop: 12
+  },
+  footerContainer: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    paddingBottom: 4,
+    alignItems: 'center'
+  },
+  lwContainer: {
+    marginTop: 24
+  },
+  lwContentContainer: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  lwDivider: {
+    position: 'absolute',
+    height: 1
+  },
+  ssoContainer: {
+    alignItems: 'center',
+    marginTop: 16
+  },
+  ssoContentContainer: {
+    flexDirection: 'row',
+    gap: 12
+  }
+});

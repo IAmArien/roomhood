@@ -45,15 +45,15 @@ import { SpringConfig } from 'react-native-reanimated/lib/typescript/animation/s
 export const DEFAULT_TEXT_FIELD_LABEL_ANIM_DURATION = 500;
 export const defaultLabelStyle: TextFieldLabelStyle = {
   lineHeight: 32,
-  fontSize: 20,
+  fontSize: 16,
   paddingHorizontal: 0
 };
 export const topLabelStyle: TextFieldLabelStyle = {
   lineHeight: 28,
   fontSize: 14,
-  paddingHorizontal: 5
+  paddingHorizontal: 2
 };
-const defaultContainerPosition = 28.5;
+const defaultContainerPosition = 24.5;
 const topContainerPosition = 2;
 
 /**
@@ -209,9 +209,9 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
   );
 
   const defaultTextStyle: TextStyle = {
-    fontFamily: typography.description.lg.fontFamily,
-    fontWeight: typography.description.lg.fontWeight as TextStyle['fontWeight'],
-    fontSize: typography.description.lg.fontSize,
+    fontFamily: typography.description.md.fontFamily,
+    fontWeight: typography.description.md.fontWeight as TextStyle['fontWeight'],
+    fontSize: typography.description.md.fontSize,
     opacity: localState === 'disabled' ? 0.5 : undefined
   };
 
@@ -737,9 +737,9 @@ const styles = StyleSheet.create({
     paddingTop: 17
   },
   textField: {
-    height: 56,
+    height: 48,
     borderWidth: 1,
-    padding: 12
+    padding: 8
   },
   trailingIcon: {
     position: 'absolute',

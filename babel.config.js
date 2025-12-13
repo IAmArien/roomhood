@@ -7,6 +7,7 @@ module.exports = {
         root: ['./src'],
         extensions: ['.ts', '.tsx', '.js', '.json'],
         alias: {
+          '@assets/icons': './assets/icons',
           '@app/context': './src/app/context',
           '@app/hooks': './src/app/hooks',
           '@app/navigation': './src/app/navigation',
@@ -15,7 +16,8 @@ module.exports = {
           '@branding/provider': './src/presentation/components/branding/provider',
           '@branding/styles': './src/presentation/components/branding/styles',
           '@branding/types': './src/presentation/components/branding/types',
-          "@presentation/screens": './src/presentation/screens'
+          "@presentation/screens": './src/presentation/screens',
+          "@utils": './src/utils'
         }
       }
     ],

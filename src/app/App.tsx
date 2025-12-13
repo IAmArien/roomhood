@@ -4,30 +4,45 @@
  */
 
 import { MainNavigation } from "@app/navigation";
-import { ThemeProvider } from "@branding/provider";
+import { extendTheme, ThemeProvider } from "@branding/provider";
 import { NavigationContainer } from "@react-navigation/native";
 import { ReactElement } from "react";
-import { StatusBar, StyleSheet, useColorScheme } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar, StyleSheet } from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { AppContextProvider } from "./context";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App(): ReactElement {
-  const isDarkMode = useColorScheme() === 'dark';
+  const theme = extendTheme({
+    colors: {
+      ui: {
+        primary: '#706bfa',
+        secondary: '#9c99f7'
+      }
+    }
+  });
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <AppContextProvider>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <SafeAreaView style={styles.container}>
-          <NavigationContainer>
-            <MainNavigation />
-          </NavigationContainer>
-        </SafeAreaView>
+        <SafeAreaProvider>
+          <GestureHandlerRootView style={styles.gestureContainer}>
+            <StatusBar barStyle='dark-content' />
+            <SafeAreaView style={styles.container}>
+              <NavigationContainer>
+                <MainNavigation />
+              </NavigationContainer>
+            </SafeAreaView>
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
       </AppContextProvider>
     </ThemeProvider>
   );
 };
 
 const styles = StyleSheet.create({
+  gestureContainer: {
+    flex: 1
+  },
   container: {
     flex: 1
   }

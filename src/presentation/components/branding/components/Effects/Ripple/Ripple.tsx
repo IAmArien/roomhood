@@ -14,6 +14,7 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated';
 import { JSX } from 'react';
+import { runOnJS } from 'react-native-worklets';
 
 export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
   const {
@@ -70,7 +71,9 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
     .onEnd((e) => {
       'worklet';
       rippleOpacity.value = withTiming(0);
-      onTap?.(e);
+      if (onTap) {
+        runOnJS(onTap)(e);
+      }
     });
 
   const animatedRippleStyle = useAnimatedStyle(() => {
