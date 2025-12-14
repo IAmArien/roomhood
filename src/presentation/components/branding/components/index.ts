@@ -12,5 +12,6 @@ export * from './FormControl/components/TextField/TextField';
 export * from './FormControl/components/TextField/types';
 export * from './FormControl/hooks';
 export * from './FormControl/types';
+export * from './Header/Header';
 export * from './Typography/Typography';
 export * from './Typography/types';

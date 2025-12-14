@@ -3,6 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
+export * from './ArrowLeftIcon';
 export * from './AppleIcon';
 export * from './FacebookIcon';
 export * from './ForgotPasswordIcon';

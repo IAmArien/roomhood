@@ -3,14 +3,16 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
+import { useNavigator } from "@app/hooks";
 import { ForgotPasswordIcon } from "@assets/icons";
-import { Button, FormProvider, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
+import { Button, FormProvider, Header, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
 import { useTheme } from "@branding/provider";
 import { isEmailAddressValid } from "@utils";
 import { ReactElement } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
 export default function ForgotPassword(): ReactElement {
+  const navigator = useNavigator();
   const theme = useTheme();
   const { colors } = theme;
   
@@ -33,6 +35,10 @@ export default function ForgotPassword(): ReactElement {
 
   const handleFormSubmit = () => {};
 
+  const handleHeaderLeftIconPress = () => {
+    navigator.goBack();
+  };
+
   const keyboardBehavior = () => Platform.OS === 'ios' ? 'padding' : 'height';
 
   const disableSendResetLink = !form.formState.isValid;
@@ -51,41 +57,54 @@ export default function ForgotPassword(): ReactElement {
         ]}>
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={keyboardBehavior()}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <View
-              testID="forgot-password-content-container"
-              accessibilityLabel="forgot-password-content-container"
-              accessible={false}
-              style={styles.contentContainer}>
-              <View style={{ marginTop: -24 }}>
-                <View style={styles.lgContainer}>
-                  <ForgotPasswordIcon />
-                </View>
-                <View style={{ marginTop: 24 }}>
-                  <Typography
-                    variant="description"
-                    size="md"
-                    color={colors.text.clearest}>
-                    Please enter your email address to send the password reset link.
-                  </Typography>
-                  <TextField
-                    testID="email-textfield"
-                    accessibilityLabel="email-textfield"
-                    label="Email Address"
-                    autoCapitalize="none"
-                    textContentType="emailAddress"
-                    {...emailTextField}
-                  />
-                  <Button
-                    testID="btn-forgot-password"
-                    type="standard"
-                    variant="primary"
-                    size="md"
-                    title="Send Reset Link"
-                    disabled={disableSendResetLink}
-                    onPress={handleSendResetLink}
-                    ripplePosition="on-tap"
-                    style={{ marginTop: 30 }}
-                  />
+            <View style={{ flex: 1 }}>
+              <Header
+                testID="forgot-password-header"
+                title="Forgot Password"
+                titleTestID="forgot-password-header-title"
+                iconType="outlined"
+                headerLeftIconTestID="forgot-password-header-left-icon"
+                headerLeftIconStyle={{ borderColor: colors.ui.primary }}
+                headerLeftIconOptions={{ customIconColor: colors.ui.primary }}
+                onHeaderLeftIconPress={handleHeaderLeftIconPress}
+                style={{ gap: 16 }}
+              />
+              <View
+                testID="forgot-password-content-container"
+                accessibilityLabel="forgot-password-content-container"
+                accessible={false}
+                style={styles.contentContainer}>
+                <View style={{ marginTop: 16 }}>
+                  <View style={styles.lgContainer}>
+                    <ForgotPasswordIcon />
+                  </View>
+                  <View style={{ marginTop: 24 }}>
+                    <Typography
+                      variant="description"
+                      size="md"
+                      color={colors.text.clearest}>
+                      Please enter your email address to send the password reset link.
+                    </Typography>
+                    <TextField
+                      testID="email-textfield"
+                      accessibilityLabel="email-textfield"
+                      label="Email Address"
+                      autoCapitalize="none"
+                      textContentType="emailAddress"
+                      {...emailTextField}
+                    />
+                    <Button
+                      testID="btn-forgot-password"
+                      type="standard"
+                      variant="primary"
+                      size="md"
+                      title="Send Reset Link"
+                      disabled={disableSendResetLink}
+                      onPress={handleSendResetLink}
+                      ripplePosition="on-tap"
+                      style={{ marginTop: 30 }}
+                    />
+                  </View>
                 </View>
               </View>
             </View>
@@ -103,8 +122,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 16,
     gap: 8,
-    flex: 1,
-    justifyContent: 'center'
+    flex: 1
   },
   lgContainer: {
     alignSelf: 'center',
