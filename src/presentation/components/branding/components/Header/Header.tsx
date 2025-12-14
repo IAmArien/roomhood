@@ -3,14 +3,15 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { JSX, useMemo } from "react";
+import React, { JSX, ReactElement, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
 import { HeaderProps } from "./types";
 import { useTheme } from "@branding/provider";
 import Animated from "react-native-reanimated";
-import { HeaderLeftIcon } from "./components/HeaderLeftIcon";
+import { HeaderIcon } from "./components/HeaderIcon";
 import { Typography } from "../Typography/Typography";
 import { Ripple } from "../Effects";
+import { ArrowLeftIcon, CloseIcon } from "@assets/icons";
 
 export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();
@@ -24,14 +25,14 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
     accessibilityLabel = "header-accessibility-label",
     accessibilityRole = 'header',
     role = 'heading',
+    type = 'back',
     title,
     titleTestID,
-    iconType = 'default',
     animationEnabled = false,
     headerLeftIconTestID,
-    headerLeftIconOptions,
     headerLeftIconStyle,
     onHeaderLeftIconPress,
+    headerActions,
     style,
     ...restProps
   } = props;
@@ -41,6 +42,13 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
   const handleHeaderLeftIconPress = () => {
     onHeaderLeftIconPress?.();
   };
+
+  const headerLeftIcon = useMemo((): ReactElement => {
+    if (type === 'back') {
+      return <ArrowLeftIcon fillColor={colors.text.clearest} />
+    }
+    return <CloseIcon fillColor={colors.text.clearest} />
+  }, [colors.text.clearest, type]);
 
   return (
     <Animated.View
@@ -54,6 +62,7 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
         accessible={false}
         style={[styles.contentContainer, style]}
         {...restProps}>
+        {/** HEADER LEFT ICON */}
         <Ripple
           testID={headerLeftIconTestID}
           rippleColor={colors.text.clear}
@@ -61,24 +70,18 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
           onPress={handleHeaderLeftIconPress}
           style={[
             styles.iconContainer,
-            iconType === 'outlined' && styles.outlineIconContainer,
-            iconType === 'outlined' && {
-              borderColor: colors.text.clearest
-            },
             headerLeftIconStyle
           ]}>
-          <HeaderLeftIcon
-            customIcon={headerLeftIconOptions.customIcon}
-            customIconColor={headerLeftIconOptions.customIconColor}
-            theme={theme}
-          />
+          <HeaderIcon icon={headerLeftIcon} />
         </Ripple>
-        {hasTitle ? (
-          <View
-            testID="header-title"
-            accessibilityLabel="header-title"
-            accessible={false}
-            style={styles.titleContainer}>
+        {/** HEADER LEFT ICON */}
+        {/** HEADER TITLE */}
+        <View
+          testID="header-title"
+          accessibilityLabel="header-title"
+          accessible={false}
+          style={styles.titleContainer}>
+          {hasTitle && (
             <Typography
               testID={titleTestID}
               variant="title"
@@ -88,8 +91,27 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
               ellipsizeMode="tail">
               {title}
             </Typography>
-          </View>
-        ) : <></>}
+          )}
+        </View>
+        {/** HEADER TITLE */}
+        {/** HEADER ACTIONS */}
+        <View accessible={false} style={styles.actionsContainer}>
+          {headerActions?.map?.((value, index) => (
+            <Ripple
+              key={index}
+              testID={value.testID}
+              rippleColor={colors.text.clear}
+              ripplePosition="center"
+              onPress={value.onPress}
+              style={[
+                styles.iconContainer,
+                value.style
+              ]}>
+              <HeaderIcon icon={value.icon} />
+            </Ripple>
+          ))}
+        </View>
+        {/** HEADER ACTIONS */}
       </View>
     </Animated.View>
   );
@@ -112,11 +134,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  outlineIconContainer: {
-    borderRadius: 99,
-    borderWidth: 1,
-  },
   titleContainer: {
     flex: 1
+  },
+  actionsContainer: {
+    flexDirection: 'row',
+    gap: 8
   }
 });

@@ -5,22 +5,32 @@
 
 import { Theme } from "presentation/components/branding/types/Theme";
 import { ReactElement } from "react";
-import { StyleProp, ViewProps, ViewStyle } from "react-native";
+import { AccessibilityProps, StyleProp, ViewProps, ViewStyle } from "react-native";
+
+export type HeaderIconType = 'back' | 'close';
 
 export type HeaderProps = {
+  testID?: string;
+  type?: HeaderIconType;
   title?: string;
   titleTestID?: string;
   animationEnabled?: false;
-  iconType?: 'default' | 'outlined';
   headerLeftIconTestID?: string;
-  headerLeftIconOptions: Pick<HeaderLeftIconProps, 'customIcon' | 'customIconColor'>;
-  onHeaderLeftIconPress?: () => void;
   headerLeftIconStyle?: StyleProp<ViewStyle>;
+  onHeaderLeftIconPress?: () => void;
+  headerActions?: HeaderActionsProps[];
+  style?: StyleProp<ViewStyle>;
   theme?: Theme;
-} & ViewProps;
+} & AccessibilityProps;
 
-export type HeaderLeftIconProps = {
-  customIcon?: ReactElement;
-  customIconColor?: string;
-  theme?: Theme;
-} & ViewProps;
+export type HeaderIconProps = {
+  testID?: string;
+  icon?: ReactElement;
+} & AccessibilityProps & Pick<ViewProps, 'onLayout'>;
+
+export type HeaderActionsProps = {
+  testID?: string;
+  icon: ReactElement;
+  onPress?: () => void;
+  style?: StyleProp<ViewStyle>;
+} & AccessibilityProps;

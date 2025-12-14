@@ -4,7 +4,7 @@
  */
 
 import { useNavigator } from "@app/hooks";
-import { ForgotPasswordIcon } from "@assets/icons";
+import { ForgotPasswordIcon, HelpOutlinedIcon } from "@assets/icons";
 import { Button, FormProvider, Header, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
 import { useTheme } from "@branding/provider";
 import { isEmailAddressValid } from "@utils";
@@ -39,6 +39,8 @@ export default function ForgotPassword(): ReactElement {
     navigator.goBack();
   };
 
+  const handleHeaderActionIconPress = () => {};
+
   const keyboardBehavior = () => Platform.OS === 'ios' ? 'padding' : 'height';
 
   const disableSendResetLink = !form.formState.isValid;
@@ -60,14 +62,19 @@ export default function ForgotPassword(): ReactElement {
             <View style={{ flex: 1 }}>
               <Header
                 testID="forgot-password-header"
+                type="close"
                 title="Forgot Password"
                 titleTestID="forgot-password-header-title"
-                iconType="outlined"
                 headerLeftIconTestID="forgot-password-header-left-icon"
-                headerLeftIconStyle={{ borderColor: colors.ui.primary }}
-                headerLeftIconOptions={{ customIconColor: colors.ui.primary }}
                 onHeaderLeftIconPress={handleHeaderLeftIconPress}
-                style={{ gap: 16 }}
+                style={styles.header}
+                headerActions={[
+                  {
+                    testID: 'header-help-icon',
+                    icon: <HelpOutlinedIcon />,
+                    onPress: handleHeaderActionIconPress
+                  }
+                ]}
               />
               <View
                 testID="forgot-password-content-container"
@@ -127,5 +134,9 @@ const styles = StyleSheet.create({
   lgContainer: {
     alignSelf: 'center',
     marginTop: 24
+  },
+  header: {
+    paddingLeft: 8,
+    paddingRight: 8
   }
 });
