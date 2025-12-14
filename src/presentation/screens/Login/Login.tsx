@@ -13,6 +13,7 @@ import { useContentAnimation } from "./hooks/useContentAnimation";
 import { LoginSSOType } from "./types";
 import { SSOButton } from "./components/SSOButton";
 import { useNavigator } from "@app/hooks";
+import { isEmailAddressValid } from "@utils";
 
 export default function Login(): ReactElement {
   const navigator = useNavigator();
@@ -23,8 +24,24 @@ export default function Login(): ReactElement {
 
   const form = useForm<string, IFormControl<string>[]>();
 
-  const emailTextField = useFormControl<string>("email");
-  const passwordTextField = useFormControl<string>("password");
+  const emailTextField = useFormControl<string>("email", {
+    validations: {
+      validationTrigger: 'onTextChange',
+      required: true,
+      customValidation(controlValue) {
+        return {
+          valid: isEmailAddressValid(controlValue ?? ''),
+          message: 'Invalid Email Address.'
+        }
+      },
+    }
+  });
+  const passwordTextField = useFormControl<string>("password", {
+    validations: {
+      validationTrigger: 'onTextChange',
+      required: true
+    }
+  });
 
   const {
     containerAnimatedStyle,
@@ -45,6 +62,8 @@ export default function Login(): ReactElement {
   const handleSSOLogin = (type: LoginSSOType) => {};
 
   const handleFormSubmit = () => {};
+
+  const disableLoginButton = !form.formState.isValid;
 
   return (
     <FormProvider {...form} onSubmit={handleFormSubmit}>
@@ -111,6 +130,7 @@ export default function Login(): ReactElement {
               title="Login"
               onPress={handleLoginPress}
               ripplePosition="on-tap"
+              disabled={disableLoginButton}
               style={{ marginTop: 30 }}
             />
           </Animated.View>
