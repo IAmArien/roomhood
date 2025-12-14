@@ -21,7 +21,7 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
     rippleRef,
     testID,
     disabled = false,
-    onTap,
+    onPress,
     containerStyle,
     style,
     ripplePosition,
@@ -71,8 +71,8 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
     .onEnd((e) => {
       'worklet';
       rippleOpacity.value = withTiming(0);
-      if (onTap) {
-        runOnJS(onTap)(e);
+      if (onPress) {
+        runOnJS(onPress)(e);
       }
     });
 

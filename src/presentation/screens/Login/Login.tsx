@@ -109,7 +109,7 @@ export default function Login(): ReactElement {
               variant="primary"
               size="md"
               title="Login"
-              onTap={handleLoginPress}
+              onPress={handleLoginPress}
               ripplePosition="on-tap"
               style={{ marginTop: 30 }}
             />

@@ -15,7 +15,7 @@ export type RippleProps = {
   rippleRef?: React.RefObject<View | null>;
   testID?: string;
   disabled?: boolean;
-  onTap?: (e: GestureStateChangeEvent<TapGestureHandlerEventPayload>) => void;
+  onPress?: (e: GestureStateChangeEvent<TapGestureHandlerEventPayload>) => void;
   containerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
   ripplePosition?: RipplePosition;

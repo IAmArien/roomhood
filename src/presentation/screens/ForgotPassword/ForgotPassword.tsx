@@ -82,7 +82,7 @@ export default function ForgotPassword(): ReactElement {
                     size="md"
                     title="Send Reset Link"
                     disabled={disableSendResetLink}
-                    onTap={handleSendResetLink}
+                    onPress={handleSendResetLink}
                     ripplePosition="on-tap"
                     style={{ marginTop: 30 }}
                   />

@@ -93,7 +93,7 @@ export type DefaultButtonProps = {
   theme?: Theme;
 } & Pick<RippleProps, 'ripplePosition' | 'rippleColor'> &
   Pick<PressableProps, 'testID'> &
-  Pick<RippleProps, 'onTap'> &
+  Pick<RippleProps, 'onPress'> &
   AccessibilityProps;
 
 /**

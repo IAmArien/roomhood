@@ -44,7 +44,7 @@ export const Button = <T extends ButtonType>(
     badgeNumber = undefined,
     badgePlacement = 'right',
     testID,
-    onTap,
+    onPress,
     disabled = false,
     style,
     rippleContainerStyle,
@@ -227,7 +227,7 @@ export const Button = <T extends ButtonType>(
       rippleColor={getRippleColor()}
       disabled={disabled}
       containerStyle={rippleContainerStyle}
-      onTap={onTap}
+      onPress={onPress}
       style={[getButtonStyle(), styles.button, style]}
       {...restProps}>
       {iconPlacement === 'left' && <>{icon}</>}
