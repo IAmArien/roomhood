@@ -5,5 +5,6 @@
 
 export * from './AppleIcon';
 export * from './FacebookIcon';
+export * from './ForgotPasswordIcon';
 export * from './GoogleIcon';
 export * from './LoginHeaderIcon';

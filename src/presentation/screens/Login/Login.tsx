@@ -11,8 +11,11 @@ import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useContentAnimation } from "./hooks/useContentAnimation";
 import { LoginSSOType } from "./types";
+import { SSOButton } from "./components/SSOButton";
+import { useNavigator } from "@app/hooks";
 
 export default function Login(): ReactElement {
+  const navigator = useNavigator();
   const theme = useTheme();
   const { colors } = theme;
 
@@ -35,7 +38,9 @@ export default function Login(): ReactElement {
 
   const handleLoginPress = () => form.formRef.current?.submit?.();
 
-  const handleForgotPasswordPress = () => {};
+  const handleForgotPasswordPress = () => navigator.navigate('NoAuthStack', {
+    screen: 'ForgotPassword'
+  });
 
   const handleSSOLogin = (type: LoginSSOType) => {};
 
@@ -47,6 +52,8 @@ export default function Login(): ReactElement {
         testID="login-scroll-container"
         accessibilityLabel="login-scroll-container"
         accessible={false}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         ref={scrollViewRef}
         style={[
           styles.container,
@@ -68,7 +75,9 @@ export default function Login(): ReactElement {
             <TextField
               testID="email-textfield"
               accessibilityLabel="email-textfield"
-              label="Email"
+              label="Email Address"
+              autoCapitalize="none"
+              textContentType="emailAddress"
               {...emailTextField}
             />
             <TextField
@@ -81,7 +90,7 @@ export default function Login(): ReactElement {
               {...passwordTextField}
             />
             <View style={styles.fpContainer}>
-              <Pressable onPress={handleForgotPasswordPress}>
+              <Pressable accessible={false} onPress={handleForgotPasswordPress}>
                 <Typography
                   variant="interactions"
                   size="md"
@@ -133,28 +142,25 @@ export default function Login(): ReactElement {
             <View style={styles.ssoContainer}>
               <View style={styles.ssoContentContainer}>
                 <Animated.View style={fbButtonAnimatedStyle}>
-                  <Pressable
-                    testID="facebook-sso"
-                    accessibilityLabel="facebook-sso"
-                    onPress={() => handleSSOLogin('FACEBOOK')}>
-                    <FacebookIcon />
-                  </Pressable>
+                  <SSOButton
+                    type="FACEBOOK"
+                    onPress={handleSSOLogin}
+                    icon={<FacebookIcon />}
+                  />
                 </Animated.View>
                 <Animated.View style={ggButtonAnimatedStyle}>
-                  <Pressable
-                    testID="google-sso"
-                    accessibilityLabel="google-sso"
-                    onPress={() => handleSSOLogin('GOOGLE')}>
-                    <GoogleIcon />
-                  </Pressable>
+                  <SSOButton
+                    type="GOOGLE"
+                    onPress={handleSSOLogin}
+                    icon={<GoogleIcon />}
+                  />
                 </Animated.View>
                 <Animated.View style={apButtonAnimatedStyle}>
-                  <Pressable
-                    testID="apple-sso"
-                    accessibilityLabel="apple-sso"
-                    onPress={() => handleSSOLogin('APPLE')}>
-                    <AppleIcon />
-                  </Pressable>
+                  <SSOButton
+                    type="APPLE"
+                    onPress={handleSSOLogin}
+                    icon={<AppleIcon />}
+                  />
                 </Animated.View>
               </View>
             </View>

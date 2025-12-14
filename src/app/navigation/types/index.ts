@@ -14,6 +14,7 @@ export type MainStackNavigator = {
 export type NoAuthStackNavigator = {
   Login: undefined;
   SignUp: undefined;
+  ForgotPassword: undefined;
 };
 
 export type AuthStackNavigator = {
