@@ -4,9 +4,9 @@
  */
 
 import { AppleIcon, FacebookIcon, GoogleIcon, LoginHeaderLogo } from "@assets/icons";
-import { Button, FormProvider, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
+import { Button, FormProvider, IFormControl, ModalLoader, TextField, Typography, useForm, useFormControl } from "@branding/components";
 import { useTheme } from "@branding/provider";
-import { ReactElement, useRef } from "react";
+import { ReactElement, useRef, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { useContentAnimation } from "./hooks/useContentAnimation";
@@ -23,6 +23,8 @@ export default function Login(): ReactElement {
   const scrollViewRef = useRef<ScrollView | null>(null);
 
   const form = useForm<string, IFormControl<string>[]>();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const emailTextField = useFormControl<string>("email", {
     validations: {
@@ -61,7 +63,9 @@ export default function Login(): ReactElement {
 
   const handleSSOLogin = (type: LoginSSOType) => {};
 
-  const handleFormSubmit = () => {};
+  const handleFormSubmit = () => {
+    setIsLoading(true);
+  };
 
   const disableLoginButton = !form.formState.isValid;
 
@@ -216,6 +220,9 @@ export default function Login(): ReactElement {
         </Typography>
       </View>
       {/** FOOTER CONTENT */}
+      {/** MODAL LOADER */}
+      <ModalLoader isVisible={isLoading} />
+      {/** MODAL LOADER */}
     </FormProvider>
   );
 };

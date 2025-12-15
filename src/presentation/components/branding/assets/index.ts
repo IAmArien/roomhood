@@ -5,3 +5,5 @@
 
 export * from './icons/CircleCheckIcon';
 export * from './icons/WarningIcon';
+
+export const GENERIC_LOADER = require('./lottie/roomhood-loading-animation.json');
