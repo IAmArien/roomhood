@@ -14,6 +14,7 @@ export * from './FormControl/hooks';
 export * from './FormControl/types';
 export * from './Header/Header';
 export * from './Modal/Loader/ModalLoader';
+export * from './Modal/Dialog/ModalDialog';
 export * from './Scrims/ScrimOverlay';
 export * from './Typography/Typography';
 export * from './Typography/types';

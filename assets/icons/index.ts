@@ -11,3 +11,4 @@ export * from './ForgotPasswordIcon';
 export * from './GoogleIcon';
 export * from './HelpOutlinedIcon';
 export * from './LoginHeaderIcon';
+export * from './WarningIllustrationIcon';
