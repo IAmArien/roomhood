@@ -103,7 +103,7 @@ export type TextFieldProps = TextInputProps & {
   /**
    * @param textFieldRef React RefObject of TextInput to be used as ref
    */
-  textFieldRef?: React.RefObject<TextInput>;
+  textFieldRef?: React.RefObject<TextInput | null>;
   /**
    * @param extendedRef React RefObject of TextInput to be used as ref
    */
