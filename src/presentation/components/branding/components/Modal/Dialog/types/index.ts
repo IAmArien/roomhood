@@ -11,9 +11,8 @@ import {
   ViewStyle
 } from 'react-native';
 import { Theme } from '../../../../types/Theme';
-import { ScrimOverlayProps } from '../../../Scrims/types';
-import AnimatedLottieView from 'lottie-react-native';
 import { ButtonPropsWithType } from '../../../FormControl/components/Button/types';
+import { ScrimOverlayProps } from '../../../Scrims/types';
 import { TypographyProps } from '../../../Typography/types';
 
 /**

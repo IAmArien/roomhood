@@ -62,7 +62,14 @@ export default function Login(): ReactElement {
     screen: 'ForgotPassword'
   });
 
-  const handleSSOLogin = (type: LoginSSOType) => {};
+  const handleSSOLogin = (type: LoginSSOType) => {
+    navigator.navigate('NoAuthStack', {
+      screen: 'SignUp',
+      params: {
+        type
+      }
+    });
+  };
 
   const handleFormSubmit = () => {
     setShowLoadingModal(true);
