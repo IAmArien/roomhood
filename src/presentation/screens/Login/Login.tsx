@@ -63,12 +63,18 @@ export default function Login(): ReactElement {
   });
 
   const handleSSOLogin = (type: LoginSSOType) => {
-    navigator.navigate('NoAuthStack', {
-      screen: 'SignUp',
-      params: {
-        type
-      }
-    });
+    setShowLoadingModal(true);
+    setTimeout(() => {
+      setShowLoadingModal(false);
+    }, 2000);
+    setTimeout(() => {
+      navigator.navigate('NoAuthStack', {
+        screen: 'SignUp',
+        params: {
+          type
+        }
+      });
+    }, 2300);
   };
 
   const handleFormSubmit = () => {

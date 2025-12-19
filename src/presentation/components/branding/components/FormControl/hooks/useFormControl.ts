@@ -126,6 +126,13 @@ export interface IFormControlParams<T> {
    */
   onValueChange?: (controlValue?: T) => void;
   /**
+   * @param overrideChangeText overrides the onChangeText function of TextField before
+   * using the default prop of the TextInput `onChangeText`
+   * @param controlValue generic type of `T` from the controlValue of the form control
+   * @returns generic type of `T` of the form control
+   */
+  overrideChangeText?: (controlValue?: T) => T;
+  /**
    * @param validations FormValidations for validating fields with certain requirements
    * being validated
    */
@@ -185,6 +192,7 @@ export const useFormControl = <T extends any>(
     defaultErrorMessage,
     defaultValue,
     onValueChange,
+    overrideChangeText,
     validations
   } = params ?? {};
 
@@ -217,7 +225,11 @@ export const useFormControl = <T extends any>(
   }, [selectedValue]);
 
   const onChangeText = (value: T | undefined) => {
-    setValue(value);
+    if (overrideChangeText) {
+      setValue(overrideChangeText(value));
+    } else {
+      setValue(value);
+    }
   };
 
   const resetValue = () => {

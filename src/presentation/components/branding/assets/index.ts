@@ -3,6 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
+export * from './icons/CheckIcon';
 export * from './icons/CircleCheckIcon';
 export * from './icons/CircleChevronDownIcon';
 export * from './icons/WarningIcon';

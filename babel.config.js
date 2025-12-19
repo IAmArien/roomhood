@@ -15,8 +15,9 @@ module.exports = {
           '@branding/assets': './src/presentation/components/branding/assets',
           '@branding/provider': './src/presentation/components/branding/provider',
           '@branding/styles': './src/presentation/components/branding/styles',
-          '@branding/types': './src/presentation/components/branding/types',
+          '@branding/types': './src/presentation/components/branding/types/Theme.ts',
           "@presentation/screens": './src/presentation/screens',
+          '@presentation/components/common': './src/presentation/components/common',
           "@utils": './src/utils'
         }
       }

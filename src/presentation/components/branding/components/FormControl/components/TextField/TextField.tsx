@@ -92,12 +92,12 @@ const StaticPlaceholder: React.FC<StaticPlaceholderProps> = (
           <Typography
             testID={testID}
             variant="description"
-            size="lg"
+            size="md"
             color={colors.text.ghost}
             {...textProps}>
             <Typography
               variant="description"
-              size="lg"
+              size="md"
               style={{ color: 'transparent' }}
               {...textProps}>
               {value}

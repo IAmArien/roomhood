@@ -283,27 +283,25 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
 
   const onTextFieldPress = (e: GestureResponderEvent) => {
     e.preventDefault();
-    fieldElement.current?.measureInWindow(
-      (pageOffsetX, pageOffsetY, width, height) => {
-        const screenHeight = Dimensions.get('screen').height;
-        const position: TTextFieldPosition = {
-          x: pageOffsetX,
-          y: pageOffsetY,
-          width,
-          height,
-          position: 'bottom'
-        };
-        const exactFieldPositionInY = position.y + height / 2;
-        const halfOfScreen = screenHeight / 2;
-        if (exactFieldPositionInY > halfOfScreen) {
-          position.position = 'top';
-        }
-        fieldPosition.current = position;
-        dropdownContentAlpha.value = withTiming(1, { duration: 1 });
-        setLabelPosition('top');
-        setToggleMenu(true);
+    fieldElement.current?.measureInWindow((x, y, width, height) => {
+      const screenHeight = Dimensions.get('screen').height;
+      const position: TTextFieldPosition = {
+        x,
+        y,
+        width,
+        height,
+        position: 'bottom'
+      };
+      const exactFieldPositionInY = position.y + height / 2;
+      const halfOfScreen = screenHeight / 2;
+      if (exactFieldPositionInY > halfOfScreen) {
+        position.position = 'top';
       }
-    );
+      fieldPosition.current = position;
+      dropdownContentAlpha.value = withTiming(1, { duration: 1 });
+      setLabelPosition('top');
+      setToggleMenu(true);
+    });
   };
 
   const onCloseModal = () => {
@@ -359,7 +357,7 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
   };
 
   return (
-    <>
+    <View>
       <Pressable
         testID={testID}
         accessible={accessible}
@@ -423,7 +421,7 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
           {...props}
         />
       </Modal>
-    </>
+    </View>
   );
 };
 
