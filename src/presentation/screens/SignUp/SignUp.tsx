@@ -4,12 +4,13 @@
  */
 
 import { useNavigator } from "@app/hooks";
-import { Dropdown, DropdownOption, FormControl, FormProvider, Header, IFormControl, Option, TextField, useForm, useFormControl } from "@branding/components";
+import { CalendarOutlinedIcon, EmailOutlinedIcon, PersonOutlinedIcon, PhoneOutlinedIcon } from "@assets/icons";
+import { Dropdown, DropdownOption, FormControl, FormProvider, Header, IFormControl, Option, TextField, Typography, useForm, useFormControl } from "@branding/components";
 import { useTheme } from "@branding/provider";
 import { toBirthDateTextField } from "@utils";
 import { BottomNavigationButton } from "presentation/components";
 import { ReactElement, useRef } from "react";
-import { InputAccessoryView, Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 
 type FormType = string | DropdownOption | string[];
 
@@ -76,55 +77,70 @@ export default function SignUp(): ReactElement {
               accessible={false}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
               style={{ flex: 1 }}>
               <View style={styles.contentContainer}>
+                <Typography
+                  variant="description"
+                  size="md"
+                  color={colors.text.clearer}>
+                  Find roommates and manage life together — from bills and chores to shared moments at home.
+                </Typography>
                 <TextField
                   testID="email-textfield"
                   accessibilityLabel="email-textfield"
-                  inputAccessoryViewID="bottom-button"
+                  inputAccessoryViewID="email-textfield"
                   label="Email Address"
                   autoCapitalize="none"
                   textContentType="emailAddress"
                   keyboardType="email-address"
+                  trailingIcon={<EmailOutlinedIcon fillColor={colors.text.clear} />}
                   {...emTextField}
                 />
                 <TextField
                   testID="first-name-textfield"
                   accessibilityLabel="first-name-textfield"
-                  inputAccessoryViewID="bottom-button"
+                  inputAccessoryViewID="first-name-textfield"
                   label="First Name"
                   autoCapitalize="words"
                   textContentType="givenName"
+                  trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
                   {...fnTextField}
                 />
                 <TextField
                   testID="last-name-textfield"
                   accessibilityLabel="last-name-textfield"
-                  inputAccessoryViewID="bottom-button"
+                  inputAccessoryViewID="last-name-textfield"
                   label="Last Name"
                   autoCapitalize="words"
                   textContentType="familyName"
+                  trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
                   {...lnTextField}
                 />
                 <TextField
                   testID="mobile-number-textfield"
                   accessibilityLabel="mobile-number-textfield"
-                  inputAccessoryViewID="bottom-button"
+                  inputAccessoryViewID="mobile-number-textfield"
                   label="Mobile Number"
+                  placeholder="(+63) 927-389-4063"
                   autoCapitalize="none"
                   textContentType="telephoneNumber"
                   keyboardType="number-pad"
+                  trailingIcon={<PhoneOutlinedIcon fillColor={colors.text.clear} />}
                   {...noTextField}
                 />
                 <TextField
                   testID="birth-date-textfield"
                   accessibilityLabel="birth-date-textfield"
-                  inputAccessoryViewID="bottom-button"
+                  inputAccessoryViewID="birth-date-textfield"
                   label="Birth Date"
                   staticPlaceholder="MM/DD/YYYY"
                   textContentType="birthdate"
                   keyboardType="number-pad"
                   maxLength={10}
+                  notes="Format: MM/DD/YYYY"
+                  notesVisibility="always"
+                  trailingIcon={<CalendarOutlinedIcon fillColor={colors.text.clear} />}
                   {...bdTextField}
                 />
                 <FormControl {...genderSelection}>
@@ -139,21 +155,18 @@ export default function SignUp(): ReactElement {
             </ScrollView>
           </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
-        {Platform.OS === 'ios' && (
-          <InputAccessoryView nativeID="bottom-button">
-            <BottomNavigationButton
-              testID="signup-bottom-button"
-              title="Continue"
-              style={styles.bottomButton}
-              onPress={handleContinuePress}
-            />
-          </InputAccessoryView>
-        )}
         <BottomNavigationButton
           testID="signup-bottom-button"
           title="Continue"
           style={styles.bottomButton}
           onPress={handleContinuePress}
+          nativeIDs={[
+            "email-textfield",
+            "first-name-textfield",
+            "last-name-textfield",
+            "mobile-number-textfield",
+            "birth-date-textfield"
+          ]}
         />
       </View>
     </FormProvider>
@@ -170,7 +183,8 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 16
+    paddingBottom: 16,
+    paddingTop: 8
   },
   bottomButton: {
     position: 'absolute',

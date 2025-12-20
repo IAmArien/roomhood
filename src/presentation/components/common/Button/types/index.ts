@@ -11,5 +11,6 @@ export type BottomButtonsProps = {
   title: string;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
+  nativeIDs?: string[];
   theme?: Theme;
 } & AccessibilityProps;
