@@ -92,12 +92,12 @@ const StaticPlaceholder: React.FC<StaticPlaceholderProps> = (
           <Typography
             testID={testID}
             variant="description"
-            size="lg"
+            size="md"
             color={colors.text.ghost}
             {...textProps}>
             <Typography
               variant="description"
-              size="lg"
+              size="md"
               style={{ color: 'transparent' }}
               {...textProps}>
               {value}
@@ -179,6 +179,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
     validations,
     accessible = true,
     accessibilityLabel = 'animated-text-input',
+    inputAccessoryViewID,
     ...restProps
   } = props;
 
@@ -643,6 +644,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
           accessible={accessible}
           accessibilityLabel={accessibilityLabel}
           accessibilityState={accessibilityState}
+          inputAccessoryViewID={inputAccessoryViewID}
           onLayout={onTextInputLayout}
           inputMode={inputMode}
           value={value}

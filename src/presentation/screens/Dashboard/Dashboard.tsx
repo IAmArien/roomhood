@@ -8,6 +8,6 @@ import { View } from "react-native";
 
 export default function Dashboard(): ReactElement {
   return (
-    <View></View>
+    <View />
   );
 };

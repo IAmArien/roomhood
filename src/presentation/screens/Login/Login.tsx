@@ -3,28 +3,48 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
+import { useAppContext } from "@app/context";
+import { useNavigator } from "@app/hooks";
 import { AppleIcon, FacebookIcon, GoogleIcon, LoginHeaderLogo } from "@assets/icons";
 import { Button, FormProvider, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
 import { useTheme } from "@branding/provider";
+import { isEmailAddressValid } from "@utils";
 import { ReactElement, useRef } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
+import { SSOButton } from "./components/SSOButton";
 import { useContentAnimation } from "./hooks/useContentAnimation";
 import { LoginSSOType } from "./types";
-import { SSOButton } from "./components/SSOButton";
-import { useNavigator } from "@app/hooks";
 
 export default function Login(): ReactElement {
   const navigator = useNavigator();
   const theme = useTheme();
   const { colors } = theme;
 
+  const { setShowLoadingModal, setShowErrorModal } = useAppContext();
+
   const scrollViewRef = useRef<ScrollView | null>(null);
 
   const form = useForm<string, IFormControl<string>[]>();
 
-  const emailTextField = useFormControl<string>("email");
-  const passwordTextField = useFormControl<string>("password");
+  const emailTextField = useFormControl<string>("email", {
+    validations: {
+      validationTrigger: 'onTextChange',
+      required: true,
+      customValidation(controlValue) {
+        return {
+          valid: isEmailAddressValid(controlValue ?? ''),
+          message: 'Invalid Email Address.'
+        }
+      },
+    }
+  });
+  const passwordTextField = useFormControl<string>("password", {
+    validations: {
+      validationTrigger: 'onTextChange',
+      required: true
+    }
+  });
 
   const {
     containerAnimatedStyle,
@@ -42,9 +62,37 @@ export default function Login(): ReactElement {
     screen: 'ForgotPassword'
   });
 
-  const handleSSOLogin = (type: LoginSSOType) => {};
+  const handleSSOLogin = (type: LoginSSOType) => {
+    setShowLoadingModal(true);
+    setTimeout(() => {
+      setShowLoadingModal(false);
+    }, 2000);
+    setTimeout(() => {
+      navigator.navigate('NoAuthStack', {
+        screen: 'SignUp',
+        params: {
+          type
+        }
+      });
+    }, 2300);
+  };
 
-  const handleFormSubmit = () => {};
+  const handleFormSubmit = () => {
+    setShowLoadingModal(true);
+    setTimeout(() => {
+      setShowLoadingModal(false);
+    }, 2000);
+    setTimeout(() => {
+      setShowErrorModal({
+        title: "Something went wrong",
+        description: "Unable to proceed to the next action, tap on Next to continue.",
+        positiveButtonTitle: "Retry",
+        negativeButtonTitle: "Cancel"
+      });
+    }, 2300);
+  };
+
+  const disableLoginButton = !form.formState.isValid;
 
   return (
     <FormProvider {...form} onSubmit={handleFormSubmit}>
@@ -111,6 +159,7 @@ export default function Login(): ReactElement {
               title="Login"
               onPress={handleLoginPress}
               ripplePosition="on-tap"
+              disabled={disableLoginButton}
               style={{ marginTop: 30 }}
             />
           </Animated.View>

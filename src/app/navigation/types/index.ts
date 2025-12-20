@@ -3,8 +3,9 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { NavigatorScreenParams } from "@react-navigation/native";
+import { NavigatorScreenParams, RouteProp } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { SignUpProps } from "presentation/screens/SignUp/types";
 
 export type MainStackNavigator = {
   NoAuthStack: NavigatorScreenParams<NoAuthStackNavigator>;
@@ -13,7 +14,7 @@ export type MainStackNavigator = {
 
 export type NoAuthStackNavigator = {
   Login: undefined;
-  SignUp: undefined;
+  SignUp: SignUpProps;
   ForgotPassword: undefined;
 };
 
@@ -24,3 +25,5 @@ export type AuthStackNavigator = {
 };
 
 export type AppNavigation = NativeStackScreenProps<MainStackNavigator>['navigation'];
+
+export type SignUpRouteProp = RouteProp<NoAuthStackNavigator, 'SignUp'>;

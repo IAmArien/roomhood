@@ -13,9 +13,15 @@
       "@branding/assets": ["presentation/components/branding/assets"],
       "@branding/provider": ["presentation/components/branding/provider"],
       "@branding/styles": ["presentation/components/branding/styles"],
-      "@branding/types": ["presentation/components/branding/types"],
+      "@branding/types": ["presentation/components/branding/types/Theme.ts"],
       "@presentation/screens": ["presentation/screens"],
+      "@presentation/components/common": ["presentation/components/common"],
       "@utils": ["utils"]
-    }
+    },
+    "types": [
+      "node",
+      "react",
+      "react-native"
+    ]
   }
 }
