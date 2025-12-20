@@ -10,7 +10,7 @@ import { useTheme } from "@branding/provider";
 import { isEmailAddressValid, isValidFormattedPHMobile, isValidMMDDYYYY, toBirthDateTextField, toPHMobileNumber } from "@utils";
 import { BottomNavigationButton } from "presentation/components";
 import { ReactElement, useRef } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
 
 type FormType = string | DropdownOption | string[];
 
@@ -98,6 +98,11 @@ export default function SignUp(): ReactElement {
     }
   });
 
+  const { extendedRef: fnRef } = fnTextField;
+  const { extendedRef: lnRef } = lnTextField;
+  const { extendedRef: noRef } = noTextField;
+  const { extendedRef: bdRef } = bdTextField;
+
   const keyboardBehavior = Platform.OS === 'ios' ? 'padding' : 'height';
 
   const handleFormSubmit = () => {};
@@ -131,154 +136,168 @@ export default function SignUp(): ReactElement {
           onHeaderLeftIconPress={handleHeaderLeftIconPress}
           style={styles.header}
         />
-        <KeyboardAvoidingView style={{ flex: 1 }} behavior={keyboardBehavior}>
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <ScrollView
-              ref={scrollViewRef}
-              testID="signup-scroll-container"
-              accessibilityLabel="signup-scroll-container"
-              accessible={false}
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
-              style={{ flex: 1 }}>
-              <View style={styles.contentContainer}>
-                <Typography
-                  variant="description"
-                  size="md"
-                  color={colors.text.clearer}>
-                  Find roommates and manage life together — from bills and chores to shared moments at home.
-                </Typography>
-                <TextField
-                  testID="email-textfield"
-                  accessibilityLabel="email-textfield"
-                  inputAccessoryViewID="email-textfield"
-                  label="Email Address"
-                  autoCapitalize="none"
-                  textContentType="emailAddress"
-                  keyboardType="email-address"
-                  trailingIcon={<EmailOutlinedIcon fillColor={colors.text.clear} />}
-                  autoCorrect={false}
-                  spellCheck={false}
-                  {...emTextField}
-                />
-                <TextField
-                  testID="first-name-textfield"
-                  accessibilityLabel="first-name-textfield"
-                  inputAccessoryViewID="first-name-textfield"
-                  label="First Name"
-                  autoCapitalize="words"
-                  textContentType="givenName"
-                  trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
-                  autoCorrect={false}
-                  spellCheck={false}
-                  {...fnTextField}
-                />
-                <TextField
-                  testID="last-name-textfield"
-                  accessibilityLabel="last-name-textfield"
-                  inputAccessoryViewID="last-name-textfield"
-                  label="Last Name"
-                  autoCapitalize="words"
-                  textContentType="familyName"
-                  trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
-                  autoCorrect={false}
-                  spellCheck={false}
-                  {...lnTextField}
-                />
-                <TextField
-                  testID="mobile-number-textfield"
-                  accessibilityLabel="mobile-number-textfield"
-                  inputAccessoryViewID="mobile-number-textfield"
-                  label="Mobile Number"
-                  placeholder="(+63) 927-389-4063"
-                  autoCapitalize="none"
-                  textContentType="telephoneNumber"
-                  keyboardType="number-pad"
-                  maxLength={18}
-                  trailingIcon={<PhoneOutlinedIcon fillColor={colors.text.clear} />}
-                  {...noTextField}
-                />
-                <TextField
-                  testID="birth-date-textfield"
-                  accessibilityLabel="birth-date-textfield"
-                  inputAccessoryViewID="birth-date-textfield"
-                  label="Birth Date"
-                  staticPlaceholder="MM/DD/YYYY"
-                  textContentType="birthdate"
-                  keyboardType="number-pad"
-                  maxLength={10}
-                  notes="Format: MM/DD/YYYY"
-                  notesVisibility="always"
-                  trailingIcon={<CalendarOutlinedIcon fillColor={colors.text.clear} />}
-                  {...bdTextField}
-                />
-                <FormControl {...genderSelection}>
-                  <Dropdown type="selection" label="Gender">
-                    <Option title="Male" value="Male" />
-                    <Option title="Female" value="Female" />
-                    <Option title="Others" value="Others" />
-                    <Option title="I prefer not to say" value="None" />
-                  </Dropdown>
-                </FormControl>
-                <FormControl {...termsSelection}>
-                  <View accessible={false} style={styles.checkboxContainer}>
-                    <Checkbox
-                      customLabel={
+        <KeyboardAvoidingView
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
+          style={{ flex: 1 }}
+          behavior={keyboardBehavior}>
+          <ScrollView
+            ref={scrollViewRef}
+            testID="signup-scroll-container"
+            accessibilityLabel="signup-scroll-container"
+            accessible={false}
+            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            style={{ flex: 1 }}>
+            <View style={styles.contentContainer}>
+              <Typography
+                variant="description"
+                size="md"
+                color={colors.text.clearer}>
+                Find roommates and manage life together — from bills and chores to shared moments at home.
+              </Typography>
+              <TextField
+                testID="email-textfield"
+                accessibilityLabel="email-textfield"
+                inputAccessoryViewID="email-textfield"
+                label="Email Address"
+                autoCapitalize="none"
+                textContentType="emailAddress"
+                keyboardType="email-address"
+                returnKeyType="next"
+                trailingIcon={<EmailOutlinedIcon fillColor={colors.text.clear} />}
+                autoCorrect={false}
+                spellCheck={false}
+                onSubmitEditing={() => fnRef?.current?.requestFocus(true)}
+                {...emTextField}
+              />
+              <TextField
+                testID="first-name-textfield"
+                accessibilityLabel="first-name-textfield"
+                inputAccessoryViewID="first-name-textfield"
+                label="First Name"
+                autoCapitalize="words"
+                textContentType="givenName"
+                keyboardType="name-phone-pad"
+                returnKeyType="next"
+                trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
+                autoCorrect={false}
+                spellCheck={false}
+                onSubmitEditing={() => lnRef?.current?.requestFocus(true)}
+                {...fnTextField}
+              />
+              <TextField
+                testID="last-name-textfield"
+                accessibilityLabel="last-name-textfield"
+                inputAccessoryViewID="last-name-textfield"
+                label="Last Name"
+                autoCapitalize="words"
+                textContentType="familyName"
+                keyboardType="name-phone-pad"
+                returnKeyType="next"
+                trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
+                autoCorrect={false}
+                spellCheck={false}
+                onSubmitEditing={() => noRef?.current?.requestFocus(true)}
+                {...lnTextField}
+              />
+              <TextField
+                testID="mobile-number-textfield"
+                accessibilityLabel="mobile-number-textfield"
+                inputAccessoryViewID="mobile-number-textfield"
+                label="Mobile Number"
+                placeholder="(+63) 927 389 4063"
+                autoCapitalize="none"
+                textContentType="telephoneNumber"
+                keyboardType="number-pad"
+                returnKeyType="next"
+                maxLength={18}
+                trailingIcon={<PhoneOutlinedIcon fillColor={colors.text.clear} />}
+                onSubmitEditing={() => bdRef?.current?.requestFocus(true)}
+                {...noTextField}
+              />
+              <TextField
+                testID="birth-date-textfield"
+                accessibilityLabel="birth-date-textfield"
+                inputAccessoryViewID="birth-date-textfield"
+                label="Birth Date"
+                staticPlaceholder="MM/DD/YYYY"
+                textContentType="birthdate"
+                keyboardType="number-pad"
+                returnKeyType="done"
+                maxLength={10}
+                notes="Format: MM/DD/YYYY"
+                notesVisibility="always"
+                trailingIcon={<CalendarOutlinedIcon fillColor={colors.text.clear} />}
+                onSubmitEditing={Keyboard.dismiss}
+                {...bdTextField}
+              />
+              <FormControl {...genderSelection}>
+                <Dropdown type="selection" label="Gender">
+                  <Option title="Male" value="Male" />
+                  <Option title="Female" value="Female" />
+                  <Option title="Others" value="Others" />
+                  <Option title="I prefer not to say" value="None" />
+                </Dropdown>
+              </FormControl>
+              <FormControl {...termsSelection}>
+                <View accessible={false} style={styles.checkboxContainer}>
+                  <Checkbox
+                    customLabel={
+                      <Typography
+                        variant="description"
+                        size="sm"
+                        color={colors.text.clearest}
+                        style={{ flex: 1 }}>
+                        I agree to Room8.ph&nbsp;
                         <Typography
                           variant="description"
                           size="sm"
-                          color={colors.text.clearest}>
-                          I agree to Room8.ph&nbsp;
-                          <Typography
-                            variant="description"
-                            size="sm"
-                            color={colors.ui.primary}
-                            onPress={handleTermsOfServicePress}
-                            style={{
-                              textDecorationLine: 'underline'
-                            }}>
-                            Terms of Service
-                          </Typography>
-                          &nbsp;and&nbsp;
-                          <Typography
-                            variant="description"
-                            size="sm"
-                            color={colors.ui.primary}
-                            onPress={handlePrivacyPolicyPress}
-                            style={{
-                              textDecorationLine: 'underline'
-                            }}>
-                            Privacy Policy
-                          </Typography>
+                          color={colors.ui.primary}
+                          onPress={handleTermsOfServicePress}
+                          style={{
+                            textDecorationLine: 'underline'
+                          }}>
+                          Terms of Service
                         </Typography>
-                      }
-                      value="agree-terms"
-                    />
-                    <Checkbox
-                      label="I'd like to get useful tips, inspiration, and offers via email."
-                      value="agree-updates"
-                    />
-                  </View>
-                </FormControl>
-              </View>
-            </ScrollView>
-          </TouchableWithoutFeedback>
+                        &nbsp;and&nbsp;
+                        <Typography
+                          variant="description"
+                          size="sm"
+                          color={colors.ui.primary}
+                          onPress={handlePrivacyPolicyPress}
+                          style={{
+                            textDecorationLine: 'underline'
+                          }}>
+                          Privacy Policy
+                        </Typography>
+                      </Typography>
+                    }
+                    value="agree-terms"
+                  />
+                  <Checkbox
+                    label="I'd like to get useful tips, inspiration, and offers via email."
+                    value="agree-updates"
+                  />
+                </View>
+              </FormControl>
+            </View>
+          </ScrollView>
+          <BottomNavigationButton
+            testID="signup-bottom-button"
+            title="Continue"
+            enabled={form.formState.isValid}
+            onPress={handleContinuePress}
+            showDefaultButton={!form.formState.isFocused}
+            nativeIDs={[
+              "email-textfield",
+              "first-name-textfield",
+              "last-name-textfield",
+              "mobile-number-textfield",
+              "birth-date-textfield"
+            ]}
+          />
         </KeyboardAvoidingView>
-        <BottomNavigationButton
-          testID="signup-bottom-button"
-          title="Continue"
-          enabled={form.formState.isValid}
-          style={styles.bottomButton}
-          onPress={handleContinuePress}
-          nativeIDs={[
-            "email-textfield",
-            "first-name-textfield",
-            "last-name-textfield",
-            "mobile-number-textfield",
-            "birth-date-textfield"
-          ]}
-        />
       </View>
     </FormProvider>
   );
@@ -294,17 +313,11 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 16,
+    paddingBottom: 36,
     paddingTop: 8
   },
   checkboxContainer: {
     marginTop: 24,
     gap: 8
-  },
-  bottomButton: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0
   }
 });

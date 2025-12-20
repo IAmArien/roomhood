@@ -23,6 +23,9 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
     style,
     onPress,
     nativeIDs,
+    showDefaultButton = true,
+    showKeyboardButton = true,
+    onLayout,
     ...restProps
   } = props;
 
@@ -72,8 +75,8 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
   ]);
 
   return (
-    <View accessible={false}>
-      {Platform.OS === 'ios' && (
+    <View accessible={false} onLayout={onLayout}>
+      {(Platform.OS === 'ios' && showKeyboardButton) && (
         <>
           {nativeIDs?.map((value, index) => (
             <InputAccessoryView nativeID={value} key={index}>
@@ -82,7 +85,7 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
           ))}
         </>
       )}
-      {renderComponent()}
+      {showDefaultButton && renderComponent()}
     </View>
   );
 };

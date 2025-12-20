@@ -244,6 +244,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
     notes,
     value,
     isValid: localIsValid,
+    isFocused: isFocused,
     validations
   });
 
@@ -307,7 +308,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
         ...registerFormControl<string>(formControlObj, prevControls)
       ]);
     }
-  }, [value, name, state, localErrorMessage, notes, localIsValid]);
+  }, [value, name, state, localErrorMessage, notes, localIsValid, isFocused]);
 
   /**
    * This portion of useEffect code is being used to unregister the textfield (if registered)

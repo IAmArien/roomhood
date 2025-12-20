@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NoAuthStackNavigator } from "./types";
 import { ReactElement } from "react";
 import { ForgotPassword, Login, SignUp } from "@presentation/screens";
+import { rightToLeftInterpolator } from "./utils/stackInterpolator";
 
 const Stack = createNativeStackNavigator<NoAuthStackNavigator>();
 
@@ -14,7 +15,7 @@ export default function NoAuthStackNavigation(): ReactElement {
   return (
     <Stack.Navigator
       initialRouteName="Login"
-      screenOptions={{ headerShown: false }}>
+      screenOptions={{ headerShown: false, ...rightToLeftInterpolator }}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />

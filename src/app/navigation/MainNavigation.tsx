@@ -8,6 +8,7 @@ import { ReactElement } from 'react';
 import NoAuthStackNavigation from './NoAuthStackNavigation';
 import { MainStackNavigator } from './types';
 import AuthStackNavigation from './AuthStackNavigation';
+import { rightToLeftInterpolator } from './utils/stackInterpolator';
 
 const Stack = createNativeStackNavigator<MainStackNavigator>();
 
@@ -15,7 +16,7 @@ export default function MainNavigation(): ReactElement {
   return (
     <Stack.Navigator
       initialRouteName='NoAuthStack'
-      screenOptions={{ headerShown: false }}>
+      screenOptions={{ headerShown: false, ...rightToLeftInterpolator }}>
       <Stack.Screen name="NoAuthStack" component={NoAuthStackNavigation} />
       <Stack.Screen name="AuthStack" component={AuthStackNavigation} />
     </Stack.Navigator>

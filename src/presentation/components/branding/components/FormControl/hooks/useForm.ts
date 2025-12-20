@@ -12,6 +12,10 @@ export interface FormState {
    * @param isValid boolean value that tells if the form is in the state of being valid
    */
   isValid: boolean;
+  /**
+   * @param isFocused boolean value that tells if the form is in the state of change
+   */
+  isFocused: boolean;
 }
 
 export interface IFormData<T> {
@@ -106,13 +110,17 @@ export interface IForm<T1, T2> {
  */
 export const useForm = <T1, T2 extends IFormControl<T1>[]>(): IForm<T1, T2> => {
   const [formControls, setFormControls] = useState<T2>();
-  const [formState, setFormState] = useState<FormState>({ isValid: true });
+  const [formState, setFormState] = useState<FormState>({
+    isValid: true,
+    isFocused: false
+  });
 
   const formRef = useRef<FormProviderFields | null>(null);
 
   useEffect(() => {
     if (formControls !== undefined) {
       const controls = formControls as IFormControl<T1>[];
+      const hasSomeFocusableFields = controls.some(v => v.isFocused === true);
       const hasSomeErrors = controls.some(v => {
         /**
          * If the form control component has some `validations` config applied, we have
@@ -126,7 +134,7 @@ export const useForm = <T1, T2 extends IFormControl<T1>[]>(): IForm<T1, T2> => {
         }
         return v.isValid === false;
       });
-      setFormState({ isValid: !hasSomeErrors });
+      setFormState({ isValid: !hasSomeErrors, isFocused: hasSomeFocusableFields });
     }
   }, [formControls]);
 

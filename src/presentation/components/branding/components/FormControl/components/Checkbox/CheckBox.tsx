@@ -215,7 +215,8 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
               <Typography
                 variant="description"
                 size="sm"
-                color={colors.text.clearest}>
+                color={colors.text.clearest}
+                style={{ flex: 1 }}>
                 {label}
               </Typography>
             )}
