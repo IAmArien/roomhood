@@ -51,6 +51,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
   const { colors } = props.theme || defaultTheme;
   const {
     label,
+    customLabel,
     value,
     selected = false,
     disabled = false,
@@ -137,6 +138,8 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
 
   const hasLabel = () => label !== undefined && label !== '';
 
+  const hasCustomLabel = () => customLabel !== undefined;
+
   const isSelected = (): boolean => localSelected;
 
   const isDisabled = (): boolean => localDisabled;
@@ -204,13 +207,19 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
             </>
           )}
         </View>
-        {hasLabel() && (
-          <Typography
-            variant="description"
-            size="sm"
-            color={colors.text.clearest}>
-            {label}
-          </Typography>
+        {hasCustomLabel() ? (
+          <>{customLabel}</>
+        ) : (
+          <>
+            {hasLabel() && (
+              <Typography
+                variant="description"
+                size="sm"
+                color={colors.text.clearest}>
+                {label}
+              </Typography>
+            )}
+          </>
         )}
       </View>
     </TouchableWithoutFeedback>

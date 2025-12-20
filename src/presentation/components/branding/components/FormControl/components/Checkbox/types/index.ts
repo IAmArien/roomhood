@@ -27,6 +27,10 @@ export type CheckboxProps = {
    */
   label?: string;
   /**
+   * @param customLabel React.ReactNode for custom label instead of the string label
+   */
+  customLabel?: React.ReactNode;
+  /**
    * @param disabled boolean prop type to tell if the radio button will be in
    * disabled state
    */

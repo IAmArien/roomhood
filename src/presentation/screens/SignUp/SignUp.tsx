@@ -5,9 +5,9 @@
 
 import { useNavigator } from "@app/hooks";
 import { CalendarOutlinedIcon, EmailOutlinedIcon, PersonOutlinedIcon, PhoneOutlinedIcon } from "@assets/icons";
-import { Dropdown, DropdownOption, FormControl, FormProvider, Header, IFormControl, Option, TextField, Typography, useForm, useFormControl } from "@branding/components";
+import { Checkbox, Dropdown, DropdownOption, FormControl, FormProvider, Header, IFormControl, Option, TextField, Typography, useForm, useFormControl } from "@branding/components";
 import { useTheme } from "@branding/provider";
-import { toBirthDateTextField } from "@utils";
+import { isEmailAddressValid, isValidFormattedPHMobile, isValidMMDDYYYY, toBirthDateTextField, toPHMobileNumber } from "@utils";
 import { BottomNavigationButton } from "presentation/components";
 import { ReactElement, useRef } from "react";
 import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
@@ -24,26 +24,89 @@ export default function SignUp(): ReactElement {
 
   const form = useForm<FormType, IFormControl<FormType>[]>();
 
-  const emTextField = useFormControl<string>("email");
-  const fnTextField = useFormControl<string>("first-name");
-  const lnTextField = useFormControl<string>("last-name");
-  const noTextField = useFormControl<string>("mobile-number");
+  const emTextField = useFormControl<string>("email", {
+    validations: {
+      required: true,
+      customValidation(controlValue) {
+        return {
+          valid: isEmailAddressValid(controlValue ?? ''),
+          message: 'Invalid Email Address.'
+        }
+      }
+    }
+  });
+  const fnTextField = useFormControl<string>("first-name", {
+    validations: {
+      required: true
+    }
+  });
+  const lnTextField = useFormControl<string>("last-name", {
+    validations: {
+      required: true
+    }
+  });
+  const noTextField = useFormControl<string>("mobile-number", {
+    validations: {
+      required: true,
+      customValidation(controlValue) {
+        return {
+          valid: isValidFormattedPHMobile(controlValue ?? ''),
+          message: 'Invalid Mobile Number.'
+        }
+      },
+    },
+    overrideChangeText(controlValue) {
+      if (controlValue) {
+        return toPHMobileNumber(controlValue ?? '');
+      }
+      return "";
+    },
+  });
   const bdTextField = useFormControl<string>("birth-date", {
+    validations: {
+      required: true,
+      customValidation(controlValue) {
+        return {
+          valid: isValidMMDDYYYY(controlValue ?? ''),
+          message: 'Invalid Birth Date.'
+        };
+      },
+    },
     overrideChangeText(controlValue) {
       if (controlValue) {
         const numericInput = controlValue.replace(/\D/g, '');
         return toBirthDateTextField(numericInput);
       }
       return "";
-    },
+    }
   });
-  const genderSelection = useFormControl<DropdownOption>("gender");
+  const genderSelection = useFormControl<DropdownOption>("gender", {
+    validations: {
+      required: true
+    }
+  });
+  const termsSelection = useFormControl<string[]>("terms-updates", {
+    validations: {
+      required: true,
+      customValidation(controlValue) {
+        const hasAgreed = controlValue?.filter?.(value => value === 'agree-terms')
+        return {
+          valid: hasAgreed !== undefined && hasAgreed.length > 0,
+          message: "Please select a Gender."
+        };
+      }
+    }
+  });
 
   const keyboardBehavior = Platform.OS === 'ios' ? 'padding' : 'height';
 
   const handleFormSubmit = () => {};
 
   const handleHeaderLeftIconPress = () => navigator.goBack();
+
+  const handleTermsOfServicePress = () => {};
+
+  const handlePrivacyPolicyPress = () => {};
 
   const handleContinuePress = () => {};
 
@@ -95,6 +158,8 @@ export default function SignUp(): ReactElement {
                   textContentType="emailAddress"
                   keyboardType="email-address"
                   trailingIcon={<EmailOutlinedIcon fillColor={colors.text.clear} />}
+                  autoCorrect={false}
+                  spellCheck={false}
                   {...emTextField}
                 />
                 <TextField
@@ -105,6 +170,8 @@ export default function SignUp(): ReactElement {
                   autoCapitalize="words"
                   textContentType="givenName"
                   trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
+                  autoCorrect={false}
+                  spellCheck={false}
                   {...fnTextField}
                 />
                 <TextField
@@ -115,6 +182,8 @@ export default function SignUp(): ReactElement {
                   autoCapitalize="words"
                   textContentType="familyName"
                   trailingIcon={<PersonOutlinedIcon fillColor={colors.text.clear} />}
+                  autoCorrect={false}
+                  spellCheck={false}
                   {...lnTextField}
                 />
                 <TextField
@@ -126,6 +195,7 @@ export default function SignUp(): ReactElement {
                   autoCapitalize="none"
                   textContentType="telephoneNumber"
                   keyboardType="number-pad"
+                  maxLength={18}
                   trailingIcon={<PhoneOutlinedIcon fillColor={colors.text.clear} />}
                   {...noTextField}
                 />
@@ -151,6 +221,46 @@ export default function SignUp(): ReactElement {
                     <Option title="I prefer not to say" value="None" />
                   </Dropdown>
                 </FormControl>
+                <FormControl {...termsSelection}>
+                  <View accessible={false} style={styles.checkboxContainer}>
+                    <Checkbox
+                      customLabel={
+                        <Typography
+                          variant="description"
+                          size="sm"
+                          color={colors.text.clearest}>
+                          I agree to Room8.ph&nbsp;
+                          <Typography
+                            variant="description"
+                            size="sm"
+                            color={colors.ui.primary}
+                            onPress={handleTermsOfServicePress}
+                            style={{
+                              textDecorationLine: 'underline'
+                            }}>
+                            Terms of Service
+                          </Typography>
+                          &nbsp;and&nbsp;
+                          <Typography
+                            variant="description"
+                            size="sm"
+                            color={colors.ui.primary}
+                            onPress={handlePrivacyPolicyPress}
+                            style={{
+                              textDecorationLine: 'underline'
+                            }}>
+                            Privacy Policy
+                          </Typography>
+                        </Typography>
+                      }
+                      value="agree-terms"
+                    />
+                    <Checkbox
+                      label="I'd like to get useful tips, inspiration, and offers via email."
+                      value="agree-updates"
+                    />
+                  </View>
+                </FormControl>
               </View>
             </ScrollView>
           </TouchableWithoutFeedback>
@@ -158,6 +268,7 @@ export default function SignUp(): ReactElement {
         <BottomNavigationButton
           testID="signup-bottom-button"
           title="Continue"
+          enabled={form.formState.isValid}
           style={styles.bottomButton}
           onPress={handleContinuePress}
           nativeIDs={[
@@ -185,6 +296,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 16,
     paddingTop: 8
+  },
+  checkboxContainer: {
+    marginTop: 24,
+    gap: 8
   },
   bottomButton: {
     position: 'absolute',

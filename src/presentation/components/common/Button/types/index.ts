@@ -8,6 +8,7 @@ import { AccessibilityProps, StyleProp, ViewStyle } from "react-native";
 
 export type BottomButtonsProps = {
   testID?: string;
+  enabled?: boolean;
   title: string;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;

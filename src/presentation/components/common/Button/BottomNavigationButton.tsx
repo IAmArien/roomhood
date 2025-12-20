@@ -19,6 +19,7 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
     accessibilityLabel,
     accessible = false,
     title,
+    enabled = true,
     style,
     onPress,
     nativeIDs,
@@ -51,6 +52,7 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
             size="md"
             title={title}
             onPress={onPress}
+            disabled={!enabled}
             {...restProps}
           />
         </ButtonGroup>
@@ -64,6 +66,7 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
     accessibilityLabel,
     accessible,
     title,
+    enabled,
     onPress,
     restProps
   ]);
