@@ -3,8 +3,8 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
+import { JSX } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { RippleProps } from './types';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   measure,
@@ -13,8 +13,9 @@ import Animated, {
   useSharedValue,
   withTiming
 } from 'react-native-reanimated';
-import { JSX } from 'react';
 import { runOnJS } from 'react-native-worklets';
+
+import { RippleProps } from './types';
 
 export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
   const {

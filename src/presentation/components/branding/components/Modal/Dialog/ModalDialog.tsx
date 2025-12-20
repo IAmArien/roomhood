@@ -7,12 +7,13 @@
 import React, { JSX, PropsWithChildren } from 'react';
 import { Modal, StyleSheet, View, ViewStyle } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+import { ModalDialogProps } from './types';
 import { useTheme } from '../../../provider/ThemeProvider';
 import { Button } from '../../FormControl/components/Button/Button';
 import { ButtonGroup } from '../../FormControl/components/Button/ButtonGroup';
 import { ScrimOverlay } from '../../Scrims/ScrimOverlay';
 import { Typography } from '../../Typography/Typography';
-import { ModalDialogProps } from './types';
 
 /**
  * Internal component for identifying what type of overlay the modal dialog will use, it could

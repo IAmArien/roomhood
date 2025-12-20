@@ -5,18 +5,19 @@
 
 // @ts-ignore
 import React, { JSX, useEffect, useMemo } from 'react';
+import { View } from 'react-native';
+
 import {
   FormControlContext,
   useFormProvider
 } from './context/FormControlContext';
-import { FormControlProps } from './types';
-import { View } from 'react-native';
 import { IFormControl } from './hooks';
 import { registerFormControl, unregisterFormControl } from './hooks/useForm';
 import {
   useCreateFormControl,
   useDefaultFormControl
 } from './hooks/useFormControl';
+import { FormControlProps } from './types';
 
 /**
  * Functional component for FormControl component. Accepts props of the following:

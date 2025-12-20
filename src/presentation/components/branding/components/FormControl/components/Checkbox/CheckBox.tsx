@@ -7,6 +7,7 @@
 // @ts-ignore
 import React, { JSX, useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+
 import { CheckboxProps } from './types';
 import { CheckIcon } from '../../../../assets';
 import { useTheme } from '../../../../provider/ThemeProvider';

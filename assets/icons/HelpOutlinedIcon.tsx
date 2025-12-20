@@ -19,4 +19,4 @@ export function HelpOutlinedIcon(): ReactElement {
       />
     </Svg>
   );
-};
+}

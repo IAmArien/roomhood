@@ -3,10 +3,11 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement, useMemo, useState } from "react";
-import { AppContext, AppContextProviderProps, ErrorModalContent, IAppContext } from "./types";
-import { ModalDialog, ModalLoader } from "@branding/components";
 import { WarningIllustrationIcon } from "@assets/icons";
+import { ModalDialog, ModalLoader } from "@branding/components";
+import { ReactElement, useMemo, useState } from "react";
+
+import { AppContext, AppContextProviderProps, ErrorModalContent, IAppContext } from "./types";
 
 export default function AppContextProvider({
   children
@@ -54,4 +55,4 @@ export default function AppContextProvider({
       />
     </AppContext.Provider>
   );
-};
+}

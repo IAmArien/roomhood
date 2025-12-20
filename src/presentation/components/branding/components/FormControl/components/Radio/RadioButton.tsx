@@ -7,9 +7,10 @@
 // @ts-ignore
 import React, { JSX, useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+
+import { useRadioGroupConfig } from './context/RadioGroupContext';
 import { RadioButtonProps } from './types';
 import { useTheme } from '../../../../provider/ThemeProvider';
-import { useRadioGroupConfig } from './context/RadioGroupContext';
 import { Typography } from '../../../Typography/Typography';
 import { useFormControl } from '../../context/FormControlContext';
 

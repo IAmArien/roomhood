@@ -3,13 +3,13 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
+import { JSX, useCallback, useMemo } from 'react';
+import { StyleSheet, TextStyle, View, ViewStyle , StyleProp } from 'react-native';
+
+import { ButtonPropsWithType, ButtonType } from './types';
 import { useTheme } from '../../../../provider/ThemeProvider';
 import { Ripple } from '../../../Effects';
-import { ButtonPropsWithType, ButtonType } from './types';
 import { Typography } from '../../../Typography/Typography';
-import { JSX, useCallback, useMemo } from 'react';
-import { StyleProp } from 'react-native';
 
 const defaultStyle = {
   paddingHorizontal: {

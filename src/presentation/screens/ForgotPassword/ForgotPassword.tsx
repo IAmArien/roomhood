@@ -120,7 +120,7 @@ export default function ForgotPassword(): ReactElement {
       </View>
     </FormProvider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

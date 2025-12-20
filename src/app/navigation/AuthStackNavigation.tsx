@@ -3,10 +3,11 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AuthStackNavigator } from "./types";
-import { ReactElement } from "react";
 import { Dashboard, Profile, Search } from "@presentation/screens";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ReactElement } from "react";
+
+import { AuthStackNavigator } from "./types";
 import { rightToLeftInterpolator } from "./utils/stackInterpolator";
 
 const Stack = createNativeStackNavigator<AuthStackNavigator>();
@@ -21,4 +22,4 @@ export default function AuthStackNavigation(): ReactElement {
       <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
-};
+}

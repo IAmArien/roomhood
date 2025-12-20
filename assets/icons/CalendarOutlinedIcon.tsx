@@ -5,6 +5,7 @@
 
 import { ReactElement } from "react";
 import Svg, { Path } from "react-native-svg";
+
 import { IconProps } from "./types";
 
 export function CalendarOutlinedIcon({
@@ -24,4 +25,4 @@ export function CalendarOutlinedIcon({
       />
     </Svg>
   );
-};
+}

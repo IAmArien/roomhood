@@ -9,11 +9,11 @@ import {
   TextStyle,
   View,
   ViewStyle
-} from 'react-native';
-import { TypographyProps } from '../../../../Typography/types';
+, AccessibilityProps } from 'react-native';
+
 import { Theme } from '../../../../../types/Theme';
-import { AccessibilityProps } from 'react-native';
 import { RippleProps } from '../../../../Effects/Ripple/types';
+import { TypographyProps } from '../../../../Typography/types';
 
 /**
  * Type string for the common variant of the buttons, colud be `primary` or `outlined`

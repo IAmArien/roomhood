@@ -10,4 +10,4 @@ export default function Search(): ReactElement {
   return (
     <View />
   );
-};
+}

@@ -289,6 +289,7 @@ export default function SignUp(): ReactElement {
             enabled={form.formState.isValid}
             onPress={handleContinuePress}
             showDefaultButton={!form.formState.isFocused}
+            theme={theme}
             nativeIDs={[
               "email-textfield",
               "first-name-textfield",
@@ -301,7 +302,7 @@ export default function SignUp(): ReactElement {
       </View>
     </FormProvider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

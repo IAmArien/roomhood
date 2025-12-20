@@ -4,8 +4,9 @@
  */
 
 import { ReactElement } from "react";
-import { LoginSSOType } from "../types";
 import { Pressable, PressableProps } from "react-native";
+
+import { LoginSSOType } from "../types";
 
 export type SSOButtonProps = {
   type: LoginSSOType;

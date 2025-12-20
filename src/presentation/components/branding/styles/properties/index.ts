@@ -4,8 +4,9 @@
  */
 
 import { Platform } from 'react-native';
-import { Properties } from '../../types/Theme';
+
 import { ThemeProperties } from '../../provider/types';
+import { Properties } from '../../types/Theme';
 
 /**
  * The default properties (radius/shadows) of the branding sdk theme.

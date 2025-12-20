@@ -5,6 +5,7 @@
 
 import { ReactElement } from "react";
 import Svg, { ClipPath, Defs, G, Mask, Path } from "react-native-svg";
+
 import { IconProps } from "./types";
 
 export function LoginHeaderLogo(props: IconProps): ReactElement {
@@ -344,4 +345,4 @@ export function LoginHeaderLogo(props: IconProps): ReactElement {
       />
     </Svg>
   );
-};
+}

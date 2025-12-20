@@ -5,6 +5,7 @@
 
 // @ts-ignore
 import React, { JSX, useImperativeHandle } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FocusEvent,
   BlurEvent,
@@ -14,8 +15,14 @@ import {
   TextInput,
   TextStyle,
   View
-} from 'react-native';
-import { useTheme } from '../../../../provider/ThemeProvider';
+, GestureResponderEvent } from 'react-native';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring
+} from 'react-native-reanimated';
+import { SpringConfig } from 'react-native-reanimated/lib/typescript/animation/spring';
+
 import {
   StaticPlaceholderProps,
   TextFieldExtendedRef,
@@ -23,24 +30,18 @@ import {
   TextFieldProps,
   TextFieldState
 } from './types';
-import { useEffect, useRef, useState } from 'react';
-import { Typography } from '../../../Typography/Typography';
 import { CircleCheckIcon, WarningIcon } from '../../../../assets';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring
-} from 'react-native-reanimated';
-import { GestureResponderEvent } from 'react-native';
+import { useTheme } from '../../../../provider/ThemeProvider';
+import { Typography } from '../../../Typography/Typography';
 import { useFormProvider } from '../../context/FormControlContext';
 import { IFormControl } from '../../hooks';
+import { registerFormControl, unregisterFormControl } from '../../hooks/useForm';
 import {
   useCreateFormControl,
   useDefaultFormControl
 } from '../../hooks/useFormControl';
 import { useFormValidation } from '../../hooks/useFormValidation';
-import { registerFormControl, unregisterFormControl } from '../../hooks/useForm';
-import { SpringConfig } from 'react-native-reanimated/lib/typescript/animation/spring';
+
 
 export const DEFAULT_TEXT_FIELD_LABEL_ANIM_DURATION = 500;
 export const defaultLabelStyle: TextFieldLabelStyle = {

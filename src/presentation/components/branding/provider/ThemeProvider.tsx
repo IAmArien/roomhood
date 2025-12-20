@@ -13,7 +13,6 @@ import React, {
   useState
 } from 'react';
 
-import { Theme } from '../types/Theme';
 import {
   colors as defaultColors,
   fontFamily as defaultFontFamily,
@@ -21,8 +20,9 @@ import {
 } from '../styles';
 import { ThemeProps } from './types';
 import { colors } from '../styles/colors';
-import { typography } from '../styles/typography';
 import { properties } from '../styles/properties';
+import { typography } from '../styles/typography';
+import { Theme } from '../types/Theme';
 
 export const ThemeContext = createContext({
   theme: {} as Theme,

@@ -35,4 +35,4 @@ export function ForgotPasswordIcon(): ReactElement {
       </G>
     </Svg>
   );
-};
+}

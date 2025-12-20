@@ -7,6 +7,7 @@ import { Button, ButtonGroup } from "@branding/components";
 import { useTheme } from "@branding/provider";
 import React, { ReactElement, useCallback } from "react";
 import { InputAccessoryView, Platform, StyleSheet, View } from "react-native";
+
 import { BottomButtonsProps } from "./types";
 
 export function BottomNavigationButton(props: BottomButtonsProps): ReactElement {
@@ -88,7 +89,7 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
       {showDefaultButton && renderComponent()}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

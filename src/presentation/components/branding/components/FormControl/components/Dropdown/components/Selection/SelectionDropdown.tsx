@@ -3,7 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import React, { JSX, useEffect } from 'react';
+import React, { JSX, useEffect , useRef, useState } from 'react';
 import {
   Dimensions,
   GestureResponderEvent,
@@ -14,20 +14,20 @@ import {
   TextInput,
   View
 } from 'react-native';
-import { Option, SelectionDropdownProps } from '../../types';
-import { useRef, useState } from 'react';
-import { TextField } from '../../../TextField/TextField';
-import { useTheme } from '../../../../../../provider/ThemeProvider';
-import { useDropdownSelection } from '../../context/DropdownContext';
-import { useFormControl } from '../../../../context/FormControlContext';
-import { FormControlState } from '../../../../types';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from 'react-native-reanimated';
+
 import { CircleChevronDownIcon } from '../../../../../../assets';
+import { useTheme } from '../../../../../../provider/ThemeProvider';
+import { useFormControl } from '../../../../context/FormControlContext';
 import { useFormValidation } from '../../../../hooks/useFormValidation';
+import { FormControlState } from '../../../../types';
+import { TextField } from '../../../TextField/TextField';
+import { useDropdownSelection } from '../../context/DropdownContext';
+import { Option, SelectionDropdownProps } from '../../types';
 
 const DEFAULT_DROPDOWN_HEIGHT = 210;
 

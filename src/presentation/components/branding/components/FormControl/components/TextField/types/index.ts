@@ -10,8 +10,9 @@ import {
   TextStyle,
   ViewStyle
 } from 'react-native';
-import { TypographyProps } from '../../../../Typography/types';
+
 import { Theme } from '../../../../../types/Theme';
+import { TypographyProps } from '../../../../Typography/types';
 import { FormControlState, FormValidations } from '../../../types';
 
 export type TextFieldState = FormControlState;

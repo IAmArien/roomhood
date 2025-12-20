@@ -5,18 +5,18 @@
  */
 
 // @ts-ignore
+import AnimatedLottieView from 'lottie-react-native';
 import React, { JSX, useEffect, useRef, useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
-import AnimatedLottieView from 'lottie-react-native';
-
-import { ModalLoaderProps } from './types';
-import { ScrimOverlay } from '../../Scrims/ScrimOverlay';
-import { GENERIC_LOADER } from '../../../assets';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from 'react-native-reanimated';
+
+import { ModalLoaderProps } from './types';
+import { GENERIC_LOADER } from '../../../assets';
+import { ScrimOverlay } from '../../Scrims/ScrimOverlay';
 
 /**
  * Functional component for Modal Loader UI Element. Accepts props of the following:

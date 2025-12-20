@@ -5,6 +5,11 @@
 
 // @ts-ignore
 import React, { JSX, useEffect, useMemo, useState } from 'react';
+import { TouchableOpacity, StyleSheet , GestureResponderEvent } from 'react-native';
+
+import { AutoCompleteDropdown } from './components/Autocomplete/AutocompleteDropdown';
+import { ModalDropdown } from './components/Modal/ModalDropdown';
+import { SelectionDropdown } from './components/Selection/SelectionDropdown';
 import {
   DropdownContext,
   IDropdownSelection,
@@ -17,12 +22,7 @@ import {
   DropdownType
 } from './types';
 import { useTheme } from '../../../../provider/ThemeProvider';
-import { TouchableOpacity, StyleSheet } from 'react-native';
-import { GestureResponderEvent } from 'react-native';
 import { Typography } from '../../../Typography/Typography';
-import { ModalDropdown } from './components/Modal/ModalDropdown';
-import { SelectionDropdown } from './components/Selection/SelectionDropdown';
-import { AutoCompleteDropdown } from './components/Autocomplete/AutocompleteDropdown';
 import { useFormControl } from '../../context/FormControlContext';
 import { useFormValidation } from '../../hooks/useFormValidation';
 

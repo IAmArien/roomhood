@@ -4,7 +4,6 @@
  */
 
 import React, { JSX, useEffect, useRef, useState } from 'react';
-import { ModalDropdownProps, Option } from '../../types';
 import {
   Dimensions,
   GestureResponderEvent,
@@ -15,18 +14,20 @@ import {
   TextInput,
   View
 } from 'react-native';
-import { ModalDialog } from '../../../../../Modal/Dialog/ModalDialog';
-import { TextField } from '../../../TextField/TextField';
-import { useDropdownSelection } from '../../context/DropdownContext';
-import { useFormControl } from '../../../../context/FormControlContext';
-import { useTheme } from '../../../../../../provider/ThemeProvider';
-import { CircleChevronDownIcon } from '../../../../../../assets';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from 'react-native-reanimated';
+
+import { CircleChevronDownIcon } from '../../../../../../assets';
+import { useTheme } from '../../../../../../provider/ThemeProvider';
+import { ModalDialog } from '../../../../../Modal/Dialog/ModalDialog';
+import { useFormControl } from '../../../../context/FormControlContext';
 import { useFormValidation } from '../../../../hooks/useFormValidation';
+import { TextField } from '../../../TextField/TextField';
+import { useDropdownSelection } from '../../context/DropdownContext';
+import { ModalDropdownProps, Option } from '../../types';
 
 /**
  * Functional component for Modal Dropdown component. Accepts props of the following:

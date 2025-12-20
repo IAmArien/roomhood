@@ -3,15 +3,16 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
+import { ArrowLeftIcon, CloseIcon } from "@assets/icons";
+import { useTheme } from "@branding/provider";
 import React, { JSX, ReactElement, useMemo } from "react";
 import { StyleSheet, View } from "react-native";
-import { HeaderProps } from "./types";
-import { useTheme } from "@branding/provider";
 import Animated from "react-native-reanimated";
-import { HeaderIcon } from "./components/HeaderIcon";
-import { Typography } from "../Typography/Typography";
+
 import { Ripple } from "../Effects";
-import { ArrowLeftIcon, CloseIcon } from "@assets/icons";
+import { HeaderIcon } from "./components/HeaderIcon";
+import { HeaderProps } from "./types";
+import { Typography } from "../Typography/Typography";
 
 export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();

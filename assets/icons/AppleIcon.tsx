@@ -23,4 +23,4 @@ export function AppleIcon(): ReactElement {
       />
     </Svg>
   );
-};
+}

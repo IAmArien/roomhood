@@ -8,9 +8,10 @@ import { extendTheme, ThemeProvider } from "@branding/provider";
 import { NavigationContainer } from "@react-navigation/native";
 import { ReactElement } from "react";
 import { StatusBar, StyleSheet } from "react-native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { AppContextProvider } from "./context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+
+import { AppContextProvider } from "./context";
 
 export default function App(): ReactElement {
   const theme = extendTheme({
@@ -37,7 +38,7 @@ export default function App(): ReactElement {
       </AppContextProvider>
     </ThemeProvider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   gestureContainer: {

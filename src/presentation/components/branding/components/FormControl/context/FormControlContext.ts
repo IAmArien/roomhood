@@ -4,8 +4,9 @@
  */
 
 import React from 'react';
-import { FormControlState, FormValidations } from '../types';
+
 import { FormState } from '../hooks/useForm';
+import { FormControlState, FormValidations } from '../types';
 
 interface IFormControl<T> {
   name: string;

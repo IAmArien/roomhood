@@ -4,9 +4,10 @@
  */
 
 import { JSX, useImperativeHandle, useMemo } from 'react';
+
 import { FormProviderContext } from './context/FormControlContext';
-import { FormProviderFields, FormProviderProps } from './types';
 import { IFormControl } from './hooks';
+import { FormProviderFields, FormProviderProps } from './types';
 
 /**
  * Functional component for the FormProvider element. Accepts props of the following:

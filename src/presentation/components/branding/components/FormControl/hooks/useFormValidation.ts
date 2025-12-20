@@ -4,12 +4,13 @@
  */
 
 import { useState } from 'react';
+import { InputModeOptions } from 'react-native/Libraries/Components/TextInput/TextInput';
+
 import {
   FormControlState,
   FormValidationOption,
   FormValidations
 } from '../types';
-import { InputModeOptions } from 'react-native/Libraries/Components/TextInput/TextInput';
 
 export interface IFormValidation<T> {
   validate: (controlValue?: T, value?: string, isFocused?: boolean) => void;

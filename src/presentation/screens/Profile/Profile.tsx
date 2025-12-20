@@ -10,4 +10,4 @@ export default function Profile(): ReactElement {
   return (
     <View />
   );
-};
+}

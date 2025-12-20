@@ -4,8 +4,9 @@
  */
 
 import { Platform } from 'react-native';
-import { FontFamily, Typography } from '../../types/Theme';
+
 import { ThemeFontFamilyProps } from '../../provider/types';
+import { FontFamily, Typography } from '../../types/Theme';
 
 /**
  * The default font family / font weight of the Typography of the branding sdk theme.

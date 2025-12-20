@@ -4,9 +4,10 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { FormControlState, FormValidations } from '../types';
 import { TextInput } from 'react-native';
+
 import { TextFieldExtendedRef } from '../components/TextField/types';
+import { FormControlState, FormValidations } from '../types';
 
 export interface IFormControl<T> {
   /**

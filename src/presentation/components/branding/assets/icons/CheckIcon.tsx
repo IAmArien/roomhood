@@ -5,6 +5,7 @@
 
 import { ReactElement } from "react";
 import Svg, { Path } from "react-native-svg";
+
 import { IconProps } from "./types";
 
 export function CheckIcon({ testID, size = 24, color }: IconProps): ReactElement {
@@ -30,4 +31,4 @@ export function CheckIcon({ testID, size = 24, color }: IconProps): ReactElement
       />
     </Svg>
   );
-};
+}

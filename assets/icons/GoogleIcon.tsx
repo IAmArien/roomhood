@@ -31,4 +31,4 @@ export function GoogleIcon(): ReactElement {
       />
     </Svg>
   );
-};
+}

@@ -5,6 +5,7 @@
 
 import { ReactElement } from "react";
 import Svg, { Path } from "react-native-svg";
+
 import { IconProps } from "./types";
 
 export function CloseIcon({ fillColor = '#000' }: IconProps): ReactElement {
@@ -20,4 +21,4 @@ export function CloseIcon({ fillColor = '#000' }: IconProps): ReactElement {
       />
     </Svg>
   );
-};
+}

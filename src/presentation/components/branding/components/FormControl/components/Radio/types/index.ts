@@ -4,9 +4,10 @@
  * Created by the Product Engineering team/Digital Banking Division
  */
 
-import { AccessibilityProps, StyleProp, ViewStyle } from 'react-native';
-import { Theme } from '../../../../../types/Theme';
 import { PropsWithChildren } from 'react';
+import { AccessibilityProps, StyleProp, ViewStyle } from 'react-native';
+
+import { Theme } from '../../../../../types/Theme';
 import { TypographyProps } from '../../../../Typography/types';
 
 /**

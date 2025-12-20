@@ -12,6 +12,7 @@ import { isEmailAddressValid } from "@utils";
 import { ReactElement, useRef } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Animated from "react-native-reanimated";
+
 import { SSOButton } from "./components/SSOButton";
 import { useContentAnimation } from "./hooks/useContentAnimation";
 import { LoginSSOType } from "./types";
@@ -247,7 +248,7 @@ export default function Login(): ReactElement {
       {/** FOOTER CONTENT */}
     </FormProvider>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

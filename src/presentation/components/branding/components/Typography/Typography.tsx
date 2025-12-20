@@ -7,12 +7,12 @@
 import React from 'react';
 import { StyleProp, Text, TextStyle, Animated } from 'react-native';
 
-import { useTheme } from '../../provider/ThemeProvider';
 import {
   TypographyVariant,
   TypographyPropsWithVariant,
   AnimatedTypographyPropsWithVariant
 } from './types';
+import { useTheme } from '../../provider/ThemeProvider';
 
 /**
  * Functional component for Typography UI Element. Accepts the following props:

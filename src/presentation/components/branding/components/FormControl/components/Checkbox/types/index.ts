@@ -5,6 +5,7 @@
  */
 
 import { AccessibilityProps, StyleProp, ViewStyle } from 'react-native';
+
 import { Theme } from '../../../../../types/Theme';
 
 /**

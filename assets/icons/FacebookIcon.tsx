@@ -33,4 +33,4 @@ export function FacebookIcon(): ReactElement {
       </Defs>
     </Svg>
   );
-};
+}

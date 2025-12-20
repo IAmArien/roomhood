@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+
 import { Option } from '../types';
 
 export interface IDropdownSelection {

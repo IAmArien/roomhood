@@ -5,6 +5,7 @@
 
 import { JSX } from "react";
 import Animated from "react-native-reanimated";
+
 import { HeaderIconProps } from "../types";
 
 export const HeaderIcon: React.FC<HeaderIconProps> = (props): JSX.Element => {const {

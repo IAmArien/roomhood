@@ -4,13 +4,12 @@
  */
 
 // @ts-ignore
-import React, { JSX, useCallback } from 'react';
 import { BlurView } from '@react-native-community/blur';
+import React, { JSX, useCallback } from 'react';
+import { Modal, StyleSheet , StyleProp , ViewStyle , Platform } from 'react-native';
+
 import { ScrimOverlayModalProps, ScrimOverlayProps } from './types';
-import { Modal, StyleSheet } from 'react-native';
-import { StyleProp } from 'react-native';
-import { ViewStyle } from 'react-native';
-import { Platform } from 'react-native';
+
 
 /**
  * Functional component for Scrim Overlay UI Element. Accepts props of the following:
