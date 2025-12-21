@@ -36,13 +36,9 @@ interface IFormProvider<T> {
   setFormState: React.Dispatch<React.SetStateAction<FormState>>;
 }
 
-export const FormControlContext = React.createContext<
-  IFormControl<any> | undefined
->(undefined);
+export const FormControlContext = React.createContext<IFormControl<any> | undefined>(undefined);
 
-export const FormProviderContext = React.createContext<
-  IFormProvider<any> | undefined
->(undefined);
+export const FormProviderContext = React.createContext<IFormProvider<any> | undefined>(undefined);
 
 export const useFormControl = <T>(): IFormControl<T> => {
   return React.useContext(FormControlContext) as IFormControl<T>;

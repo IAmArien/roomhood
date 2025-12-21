@@ -8,8 +8,9 @@ import {
   StyleProp,
   TextStyle,
   View,
-  ViewStyle
-, AccessibilityProps } from 'react-native';
+  ViewStyle,
+  AccessibilityProps,
+} from 'react-native';
 
 import { Theme } from '../../../../../types/Theme';
 import { RippleProps } from '../../../../Effects/Ripple/types';
@@ -130,7 +131,4 @@ export type StandardButtonProps =
       variant: ButtonVariant;
     } & DefaultButtonProps);
 
-export type ButtonPropsWithType<T extends ButtonType> = Extract<
-  StandardButtonProps,
-  { type: T }
->;
+export type ButtonPropsWithType<T extends ButtonType> = Extract<StandardButtonProps, { type: T }>;

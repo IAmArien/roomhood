@@ -3,15 +3,12 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement } from "react";
-import Svg, { Defs, G, Image, Mask } from "react-native-svg";
+import { ReactElement } from 'react';
+import Svg, { Defs, G, Image, Mask } from 'react-native-svg';
 
 export function ForgotPasswordIcon(): ReactElement {
   return (
-    <Svg
-      width={250}
-      viewBox="0 0 375 374.999991"
-      height={250}>
+    <Svg width={250} viewBox="0 0 375 374.999991" height={250}>
       <Defs>
         <Mask id="c">
           <G filter="url(#a)">

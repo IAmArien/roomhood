@@ -212,7 +212,7 @@ export const useFormControl = <T extends any>(
     defaultValue,
     onValueChange,
     overrideChangeText,
-    validations
+    validations,
   } = params ?? {};
 
   const textFieldRef = useRef<TextInput | null>(null);
@@ -221,16 +221,12 @@ export const useFormControl = <T extends any>(
   const [controlValue, setControlValue] = useState<T | undefined>(defaultValue);
   const [formState, setFormState] = useState<FormControlState>('default');
 
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    defaultErrorMessage
-  );
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(defaultErrorMessage);
   const [notes, setNotes] = useState<string | undefined>(defaultNotes);
 
   const [value, setValue] = useState<T | undefined>(defaultValue);
 
-  const [selectedValue, setSelectedValue] = useState<T | undefined>(
-    defaultValue
-  );
+  const [selectedValue, setSelectedValue] = useState<T | undefined>(defaultValue);
 
   const [isValid, setIsValid] = useState<boolean | undefined>(undefined);
 
@@ -269,7 +265,7 @@ export const useFormControl = <T extends any>(
     max: validations?.max,
     minLength: validations?.minLength,
     maxLength: validations?.maxLength,
-    customValidation: validations?.customValidation
+    customValidation: validations?.customValidation,
   };
 
   const control: IFormControl<T> = {
@@ -297,7 +293,7 @@ export const useFormControl = <T extends any>(
     isValid,
     setIsValid,
     isFocused,
-    setIsFocused
+    setIsFocused,
   };
 
   return control;
@@ -335,7 +331,7 @@ export const useDefaultFormControl = <T extends any>(): IFormControl<T> => {
     isValid: false,
     setIsValid: () => {},
     isFocused: false,
-    setIsFocused: () => {}
+    setIsFocused: () => {},
   });
 };
 
@@ -354,9 +350,7 @@ export const useDefaultFormControl = <T extends any>(): IFormControl<T> => {
  * @param params IFormControl of generic type of `T`
  * @returns IFormControl of generic type of `T`
  */
-export const useCreateFormControl = <T extends any>(
-  params: IFormControl<T>
-): IFormControl<T> => {
+export const useCreateFormControl = <T extends any>(params: IFormControl<T>): IFormControl<T> => {
   const control: IFormControl<T> = {
     textFieldRef: params.textFieldRef,
     extendedRef: params.extendedRef,
@@ -381,7 +375,7 @@ export const useCreateFormControl = <T extends any>(
     isValid: params.isValid,
     setIsValid: params.setIsValid,
     isFocused: params.isFocused,
-    setIsFocused: params.setIsFocused
+    setIsFocused: params.setIsFocused,
   };
   return control;
 };

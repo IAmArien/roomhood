@@ -81,7 +81,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
     setErrorMessage,
     selectedValue,
     setSelectedValue,
-    validations
+    validations,
   } = useFormControl<string[]>() ?? {};
 
   const { validateCheckboxes, isValid } = useFormValidation<string[]>({
@@ -90,7 +90,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
     callback(state, message) {
       setErrorMessage(message);
       setState(state);
-    }
+    },
   });
 
   useEffect(() => {
@@ -149,7 +149,7 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
 
   const accessibilityState = {
     checked: isSelected(),
-    disabled: isDisabled()
+    disabled: isDisabled(),
   };
 
   return (
@@ -161,7 +161,8 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
       accessibilityRole={accessibilityRole}
       accessibilityState={accessibilityState}
       role={role}
-      disabled={isDisabled()}>
+      disabled={isDisabled()}
+    >
       <View style={[styles.container, style]}>
         <View
           testID="checkbox-view-outer-checkbox"
@@ -171,37 +172,31 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
             isDisabled()
               ? {
                   borderColor: colors.border.grey,
-                  backgroundColor: colors.surface['desaturated-blue-grey']
+                  backgroundColor: colors.surface['desaturated-blue-grey'],
                 }
               : isSelected()
-              ? {
-                  borderColor: colors.ui.quaternary
-                }
-              : {
-                  borderColor: colors.border.grey
-                }
-          ]}>
+                ? {
+                    borderColor: colors.ui.quaternary,
+                  }
+                : {
+                    borderColor: colors.border.grey,
+                  },
+          ]}
+        >
           {isSelected() && isNotDisabled() && (
             <>
-              {type === 'normal' && (
-                <CheckIcon size={24} color={colors.ui.primary} />
-              )}
+              {type === 'normal' && <CheckIcon size={24} color={colors.ui.primary} />}
               {type === 'indeterminate' && (
                 <View
                   testID="checkbox-view-inner-indeterminate-background"
                   accessibilityLabel="
                     checkbox-view-inner-indeterminate-background-accessibility-label"
-                  style={[
-                    styles.indeterminateBackground,
-                    { backgroundColor: colors.ui.primary }
-                  ]}>
+                  style={[styles.indeterminateBackground, { backgroundColor: colors.ui.primary }]}
+                >
                   <View
                     testID="checkbox-view-inner-indeterminate"
                     accessibilityLabel="checkbox-view-inner-indeterminate-accessibility-label"
-                    style={[
-                      styles.indeterminate,
-                      { backgroundColor: colors.ui['pure-white'] }
-                    ]}
+                    style={[styles.indeterminate, { backgroundColor: colors.ui['pure-white'] }]}
                   />
                 </View>
               )}
@@ -217,7 +212,8 @@ export const Checkbox: React.FC<CheckboxProps> = (props): JSX.Element => {
                 variant="description"
                 size="sm"
                 color={colors.text.clearest}
-                style={{ flex: 1 }}>
+                style={{ flex: 1 }}
+              >
                 {label}
               </Typography>
             )}
@@ -232,7 +228,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     gap: 10,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   default: {
     height: 24,
@@ -240,17 +236,17 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 8,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   indeterminateBackground: {
     height: 22,
     width: 22,
     borderRadius: 8,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   indeterminate: {
     width: 10,
-    height: 2
-  }
+    height: 2,
+  },
 });

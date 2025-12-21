@@ -3,32 +3,48 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { useNavigator } from "@app/hooks";
-import { ForgotPasswordIcon, HelpOutlinedIcon } from "@assets/icons";
-import { Button, FormProvider, Header, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
-import { useTheme } from "@branding/provider";
-import { isEmailAddressValid } from "@utils";
-import { ReactElement } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
+import { useNavigator } from '@app/hooks';
+import { ForgotPasswordIcon, HelpOutlinedIcon } from '@assets/icons';
+import {
+  Button,
+  FormProvider,
+  Header,
+  IFormControl,
+  TextField,
+  Typography,
+  useForm,
+  useFormControl,
+} from '@branding/components';
+import { useTheme } from '@branding/provider';
+import { isEmailAddressValid } from '@utils';
+import { ReactElement } from 'react';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
 
 export default function ForgotPassword(): ReactElement {
   const navigator = useNavigator();
   const theme = useTheme();
   const { colors } = theme;
-  
+
   const form = useForm<string, IFormControl<string>[]>();
 
-  const emailTextField = useFormControl<string>("email", {
+  const emailTextField = useFormControl<string>('email', {
     validations: {
       validationTrigger: 'onTextChange',
       required: true,
       customValidation(controlValue) {
         return {
           valid: isEmailAddressValid(controlValue ?? ''),
-          message: 'Invalid Email Address.'
-        }
-      }
-    }
+          message: 'Invalid Email Address.',
+        };
+      },
+    },
   });
 
   const handleSendResetLink = () => form.formRef.current?.submit?.();
@@ -41,7 +57,7 @@ export default function ForgotPassword(): ReactElement {
 
   const handleHeaderActionIconPress = () => {};
 
-  const keyboardBehavior = () => Platform.OS === 'ios' ? 'padding' : 'height';
+  const keyboardBehavior = () => (Platform.OS === 'ios' ? 'padding' : 'height');
 
   const disableSendResetLink = !form.formState.isValid;
 
@@ -54,9 +70,10 @@ export default function ForgotPassword(): ReactElement {
         style={[
           styles.container,
           {
-            backgroundColor: colors.ui["pure-white"]
-          }
-        ]}>
+            backgroundColor: colors.ui['pure-white'],
+          },
+        ]}
+      >
         <KeyboardAvoidingView style={{ flex: 1 }} behavior={keyboardBehavior()}>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={{ flex: 1 }}>
@@ -72,24 +89,22 @@ export default function ForgotPassword(): ReactElement {
                   {
                     testID: 'header-help-icon',
                     icon: <HelpOutlinedIcon />,
-                    onPress: handleHeaderActionIconPress
-                  }
+                    onPress: handleHeaderActionIconPress,
+                  },
                 ]}
               />
               <View
                 testID="forgot-password-content-container"
                 accessibilityLabel="forgot-password-content-container"
                 accessible={false}
-                style={styles.contentContainer}>
+                style={styles.contentContainer}
+              >
                 <View style={{ marginTop: 16 }}>
                   <View style={styles.lgContainer}>
                     <ForgotPasswordIcon />
                   </View>
                   <View style={{ marginTop: 24 }}>
-                    <Typography
-                      variant="description"
-                      size="md"
-                      color={colors.text.clearest}>
+                    <Typography variant="description" size="md" color={colors.text.clearest}>
                       Please enter your email address to send the password reset link.
                     </Typography>
                     <TextField
@@ -124,19 +139,19 @@ export default function ForgotPassword(): ReactElement {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   contentContainer: {
     paddingHorizontal: 16,
     gap: 8,
-    flex: 1
+    flex: 1,
   },
   lgContainer: {
     alignSelf: 'center',
-    marginTop: 24
+    marginTop: 24,
   },
   header: {
     paddingLeft: 8,
-    paddingRight: 8
-  }
+    paddingRight: 8,
+  },
 });

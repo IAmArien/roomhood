@@ -3,19 +3,27 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { useAppContext } from "@app/context";
-import { useNavigator } from "@app/hooks";
-import { AppleIcon, FacebookIcon, GoogleIcon, LoginHeaderLogo } from "@assets/icons";
-import { Button, FormProvider, IFormControl, TextField, Typography, useForm, useFormControl } from "@branding/components";
-import { useTheme } from "@branding/provider";
-import { isEmailAddressValid } from "@utils";
-import { ReactElement, useRef } from "react";
-import { Pressable, ScrollView, StyleSheet, View } from "react-native";
-import Animated from "react-native-reanimated";
+import { useAppContext } from '@app/context';
+import { useNavigator } from '@app/hooks';
+import { AppleIcon, FacebookIcon, GoogleIcon, LoginHeaderLogo } from '@assets/icons';
+import {
+  Button,
+  FormProvider,
+  IFormControl,
+  TextField,
+  Typography,
+  useForm,
+  useFormControl,
+} from '@branding/components';
+import { useTheme } from '@branding/provider';
+import { isEmailAddressValid } from '@utils';
+import { ReactElement, useRef } from 'react';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 
-import { SSOButton } from "./components/SSOButton";
-import { useContentAnimation } from "./hooks/useContentAnimation";
-import { LoginSSOType } from "./types";
+import { SSOButton } from './components/SSOButton';
+import { useContentAnimation } from './hooks/useContentAnimation';
+import { LoginSSOType } from './types';
 
 export default function Login(): ReactElement {
   const navigator = useNavigator();
@@ -28,23 +36,23 @@ export default function Login(): ReactElement {
 
   const form = useForm<string, IFormControl<string>[]>();
 
-  const emailTextField = useFormControl<string>("email", {
+  const emailTextField = useFormControl<string>('email', {
     validations: {
       validationTrigger: 'onTextChange',
       required: true,
       customValidation(controlValue) {
         return {
           valid: isEmailAddressValid(controlValue ?? ''),
-          message: 'Invalid Email Address.'
-        }
+          message: 'Invalid Email Address.',
+        };
       },
-    }
+    },
   });
-  const passwordTextField = useFormControl<string>("password", {
+  const passwordTextField = useFormControl<string>('password', {
     validations: {
       validationTrigger: 'onTextChange',
-      required: true
-    }
+      required: true,
+    },
   });
 
   const {
@@ -54,14 +62,15 @@ export default function Login(): ReactElement {
     ssoDividerAnimatedStyle,
     fbButtonAnimatedStyle,
     ggButtonAnimatedStyle,
-    apButtonAnimatedStyle
+    apButtonAnimatedStyle,
   } = useContentAnimation();
 
   const handleLoginPress = () => form.formRef.current?.submit?.();
 
-  const handleForgotPasswordPress = () => navigator.navigate('NoAuthStack', {
-    screen: 'ForgotPassword'
-  });
+  const handleForgotPasswordPress = () =>
+    navigator.navigate('NoAuthStack', {
+      screen: 'ForgotPassword',
+    });
 
   const handleSSOLogin = (type: LoginSSOType) => {
     setShowLoadingModal(true);
@@ -72,8 +81,8 @@ export default function Login(): ReactElement {
       navigator.navigate('NoAuthStack', {
         screen: 'SignUp',
         params: {
-          type
-        }
+          type,
+        },
       });
     }, 2300);
   };
@@ -85,10 +94,10 @@ export default function Login(): ReactElement {
     }, 2000);
     setTimeout(() => {
       setShowErrorModal({
-        title: "Something went wrong",
-        description: "Unable to proceed to the next action, tap on Next to continue.",
-        positiveButtonTitle: "Retry",
-        negativeButtonTitle: "Cancel"
+        title: 'Something went wrong',
+        description: 'Unable to proceed to the next action, tap on Next to continue.',
+        positiveButtonTitle: 'Retry',
+        negativeButtonTitle: 'Cancel',
       });
     }, 2300);
   };
@@ -107,13 +116,15 @@ export default function Login(): ReactElement {
         style={[
           styles.container,
           {
-            backgroundColor: colors.ui["pure-white"]
-          }
-        ]}>
+            backgroundColor: colors.ui['pure-white'],
+          },
+        ]}
+      >
         <Animated.View
           testID="login-content-container"
           accessible={false}
-          style={[containerAnimatedStyle, styles.contentContainer]}>
+          style={[containerAnimatedStyle, styles.contentContainer]}
+        >
           {/** LOGIN ILLUSTRATION */}
           <View style={styles.lgContainer}>
             <LoginHeaderLogo width={300} height={300} />
@@ -140,10 +151,7 @@ export default function Login(): ReactElement {
             />
             <View style={styles.fpContainer}>
               <Pressable accessible={false} onPress={handleForgotPasswordPress}>
-                <Typography
-                  variant="interactions"
-                  size="md"
-                  color={colors.ui.primary}>
+                <Typography variant="interactions" size="md" color={colors.ui.primary}>
                   Forgot Password?
                 </Typography>
               </Pressable>
@@ -173,8 +181,8 @@ export default function Login(): ReactElement {
                   ssoDividerAnimatedStyle,
                   styles.lwDivider,
                   {
-                    backgroundColor: colors.border.grey
-                  }
+                    backgroundColor: colors.border.grey,
+                  },
                 ]}
               />
               <Typography
@@ -182,9 +190,10 @@ export default function Login(): ReactElement {
                 size="sm"
                 color={colors.border.grey}
                 style={{
-                  backgroundColor: colors.ui["pure-white"],
-                  paddingHorizontal: 12
-                }}>
+                  backgroundColor: colors.ui['pure-white'],
+                  paddingHorizontal: 12,
+                }}
+              >
                 OR CONTINUE WITH
               </Typography>
             </View>
@@ -192,25 +201,13 @@ export default function Login(): ReactElement {
             <View style={styles.ssoContainer}>
               <View style={styles.ssoContentContainer}>
                 <Animated.View style={fbButtonAnimatedStyle}>
-                  <SSOButton
-                    type="FACEBOOK"
-                    onPress={handleSSOLogin}
-                    icon={<FacebookIcon />}
-                  />
+                  <SSOButton type="FACEBOOK" onPress={handleSSOLogin} icon={<FacebookIcon />} />
                 </Animated.View>
                 <Animated.View style={ggButtonAnimatedStyle}>
-                  <SSOButton
-                    type="GOOGLE"
-                    onPress={handleSSOLogin}
-                    icon={<GoogleIcon />}
-                  />
+                  <SSOButton type="GOOGLE" onPress={handleSSOLogin} icon={<GoogleIcon />} />
                 </Animated.View>
                 <Animated.View style={apButtonAnimatedStyle}>
-                  <SSOButton
-                    type="APPLE"
-                    onPress={handleSSOLogin}
-                    icon={<AppleIcon />}
-                  />
+                  <SSOButton type="APPLE" onPress={handleSSOLogin} icon={<AppleIcon />} />
                 </Animated.View>
               </View>
             </View>
@@ -227,20 +224,23 @@ export default function Login(): ReactElement {
         style={[
           styles.footerContainer,
           {
-            backgroundColor: colors.ui["pure-white"]
-          }
-        ]}>
+            backgroundColor: colors.ui['pure-white'],
+          },
+        ]}
+      >
         <Typography
           variant="description"
           size="sm"
           color={colors.text.clear}
-          style={{ fontSize: 12 }}>
+          style={{ fontSize: 12 }}
+        >
           Powered By&nbsp;
           <Typography
             variant="interactions"
             size="md"
             color={colors.text.clear}
-            style={{ fontSize: 12 }}>
+            style={{ fontSize: 12 }}
+          >
             Room8.ph
           </Typography>
         </Typography>
@@ -253,18 +253,18 @@ export default function Login(): ReactElement {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginBottom: 20
+    marginBottom: 20,
   },
   contentContainer: {
     paddingHorizontal: 16,
-    gap: 8
+    gap: 8,
   },
   lgContainer: {
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   fpContainer: {
     flexDirection: 'row',
-    marginTop: 12
+    marginTop: 12,
   },
   footerContainer: {
     position: 'absolute',
@@ -272,25 +272,25 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     paddingBottom: 4,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   lwContainer: {
-    marginTop: 24
+    marginTop: 24,
   },
   lwContentContainer: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   lwDivider: {
     position: 'absolute',
-    height: 1
+    height: 1,
   },
   ssoContainer: {
     alignItems: 'center',
-    marginTop: 16
+    marginTop: 16,
   },
   ssoContentContainer: {
     flexDirection: 'row',
-    gap: 12
-  }
+    gap: 12,
+  },
 });

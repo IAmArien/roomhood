@@ -3,16 +3,12 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement } from "react";
-import Svg, { Path } from "react-native-svg";
+import { ReactElement } from 'react';
+import Svg, { Path } from 'react-native-svg';
 
 export function AppleIcon(): ReactElement {
   return (
-    <Svg
-      width={32}
-      height={32}
-      viewBox="0 0 32 32"
-      fill="none">
+    <Svg width={32} height={32} viewBox="0 0 32 32" fill="none">
       <Path
         d="M30 16c0 7.728-6.265 14-14 14S2 23.728 2 16C2 8.265 8.265 2 16 2s14 6.265 14 14z"
         fill="#283544"

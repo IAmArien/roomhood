@@ -3,8 +3,8 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { useEffect } from "react";
-import { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
+import { useEffect } from 'react';
+import { useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 
 export interface IUseContentAnimation {
   containerAnimatedStyle: { opacity: number };
@@ -26,31 +26,31 @@ export const useContentAnimation = (): IUseContentAnimation => {
   const apButtonSharedValue = useSharedValue(0);
 
   const containerAnimatedStyle = useAnimatedStyle(() => ({
-    opacity: containerAlphaSharedValue.value
+    opacity: containerAlphaSharedValue.value,
   }));
 
   const textFieldAnimatedStyle = useAnimatedStyle(() => ({
-    top: textFieldSharedValue.value
+    top: textFieldSharedValue.value,
   }));
 
   const buttonAnimatedStyle = useAnimatedStyle(() => ({
-    top: buttonSharedValue.value
+    top: buttonSharedValue.value,
   }));
 
   const ssoDividerAnimatedStyle = useAnimatedStyle(() => ({
-    width: ssoDividerSharedValue.value
+    width: ssoDividerSharedValue.value,
   }));
 
   const fbButtonAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: fbButtonSharedValue.value }]
+    transform: [{ scale: fbButtonSharedValue.value }],
   }));
 
   const ggButtonAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: ggButtonSharedValue.value }]
+    transform: [{ scale: ggButtonSharedValue.value }],
   }));
 
   const apButtonAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: apButtonSharedValue.value }]
+    transform: [{ scale: apButtonSharedValue.value }],
   }));
 
   useEffect(() => {
@@ -58,9 +58,9 @@ export const useContentAnimation = (): IUseContentAnimation => {
     textFieldSharedValue.value = withSpring(-24);
     buttonSharedValue.value = withSpring(0);
     ssoDividerSharedValue.value = withSpring(230);
-    const fbTo = setTimeout(() => fbButtonSharedValue.value = withSpring(1), 0);
-    const ggTo = setTimeout(() => ggButtonSharedValue.value = withSpring(1), 150);
-    const apTo = setTimeout(() => apButtonSharedValue.value = withSpring(1), 300);
+    const fbTo = setTimeout(() => (fbButtonSharedValue.value = withSpring(1)), 0);
+    const ggTo = setTimeout(() => (ggButtonSharedValue.value = withSpring(1)), 150);
+    const apTo = setTimeout(() => (apButtonSharedValue.value = withSpring(1)), 300);
     return () => {
       clearTimeout(fbTo);
       clearTimeout(ggTo);
@@ -75,6 +75,6 @@ export const useContentAnimation = (): IUseContentAnimation => {
     ssoDividerAnimatedStyle,
     fbButtonAnimatedStyle,
     ggButtonAnimatedStyle,
-    apButtonAnimatedStyle
+    apButtonAnimatedStyle,
   };
 };

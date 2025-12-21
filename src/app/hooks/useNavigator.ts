@@ -3,8 +3,8 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { useNavigation } from "@react-navigation/native";
-import { AppNavigation } from "app/navigation/types";
+import { useNavigation } from '@react-navigation/native';
+import { AppNavigation } from 'app/navigation/types';
 
 /**
  * Official app react hook for using react native navigation when moving between

@@ -3,12 +3,12 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Button, ButtonGroup } from "@branding/components";
-import { useTheme } from "@branding/provider";
-import React, { ReactElement, useCallback } from "react";
-import { InputAccessoryView, Platform, StyleSheet, View } from "react-native";
+import { Button, ButtonGroup } from '@branding/components';
+import { useTheme } from '@branding/provider';
+import React, { ReactElement, useCallback } from 'react';
+import { InputAccessoryView, Platform, StyleSheet, View } from 'react-native';
 
-import { BottomButtonsProps } from "./types";
+import { BottomButtonsProps } from './types';
 
 export function BottomNavigationButton(props: BottomButtonsProps): ReactElement {
   const defaultTheme = useTheme();
@@ -40,12 +40,13 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
           styles.container,
           properties.shadows.softer,
           {
-            backgroundColor: colors.ui["pure-white"],
-            borderTopLeftRadius: properties.radius["less-round"],
-            borderTopRightRadius: properties.radius["less-round"]
+            backgroundColor: colors.ui['pure-white'],
+            borderTopLeftRadius: properties.radius['less-round'],
+            borderTopRightRadius: properties.radius['less-round'],
           },
-          style
-        ]}>
+          style,
+        ]}
+      >
         <ButtonGroup orientation="horizontal">
           <Button
             testID={testID}
@@ -72,12 +73,12 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
     title,
     enabled,
     onPress,
-    restProps
+    restProps,
   ]);
 
   return (
     <View accessible={false} onLayout={onLayout}>
-      {(Platform.OS === 'ios' && showKeyboardButton) && (
+      {Platform.OS === 'ios' && showKeyboardButton && (
         <>
           {nativeIDs?.map((value, index) => (
             <InputAccessoryView nativeID={value} key={index}>
@@ -93,6 +94,6 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12
-  }
+    padding: 12,
+  },
 });

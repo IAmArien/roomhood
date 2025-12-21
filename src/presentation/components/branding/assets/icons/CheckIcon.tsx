@@ -3,19 +3,14 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement } from "react";
-import Svg, { Path } from "react-native-svg";
+import { ReactElement } from 'react';
+import Svg, { Path } from 'react-native-svg';
 
-import { IconProps } from "./types";
+import { IconProps } from './types';
 
 export function CheckIcon({ testID, size = 24, color }: IconProps): ReactElement {
   return (
-    <Svg
-      testID={testID}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none">
+    <Svg testID={testID} width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Path
         d="M1 8a7 7 0 017-7h8a7 7 0 017 7v8a7 7 0 01-7 7H8a7 7 0 01-7-7V8z"
         fill={color}

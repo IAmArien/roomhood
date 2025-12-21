@@ -55,7 +55,7 @@ export const FormProvider = <T1, T2 extends IFormControl<T1>[]>(
     formState,
     setFormState,
     onSubmit,
-    children
+    children,
   } = props;
 
   const initialValue = useMemo(() => {
@@ -63,7 +63,7 @@ export const FormProvider = <T1, T2 extends IFormControl<T1>[]>(
       formControls,
       setFormControls,
       formState,
-      setFormState
+      setFormState,
     };
   }, [formState, formControls]);
 
@@ -71,14 +71,12 @@ export const FormProvider = <T1, T2 extends IFormControl<T1>[]>(
     const reference: FormProviderFields = {
       submit() {
         onSubmit?.(data);
-      }
+      },
     };
     return reference;
   });
 
   return (
-    <FormProviderContext.Provider value={initialValue}>
-      {children}
-    </FormProviderContext.Provider>
+    <FormProviderContext.Provider value={initialValue}>{children}</FormProviderContext.Provider>
   );
 };

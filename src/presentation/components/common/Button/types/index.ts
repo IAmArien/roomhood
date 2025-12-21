@@ -3,8 +3,8 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Theme } from "@branding/types";
-import { AccessibilityProps, StyleProp, ViewProps, ViewStyle } from "react-native";
+import { Theme } from '@branding/types';
+import { AccessibilityProps, StyleProp, ViewProps, ViewStyle } from 'react-native';
 
 export type BottomButtonsProps = {
   testID?: string;
@@ -16,4 +16,5 @@ export type BottomButtonsProps = {
   showDefaultButton?: boolean;
   showKeyboardButton?: boolean;
   theme?: Theme;
-} & AccessibilityProps & Pick<ViewProps, 'onLayout'>;
+} & AccessibilityProps &
+  Pick<ViewProps, 'onLayout'>;

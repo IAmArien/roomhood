@@ -4,10 +4,10 @@
  */
 
 interface UIColors {
-  'primary': string;
-  'secondary': string;
-  'tertiary': string;
-  'quaternary': string;
+  primary: string;
+  secondary: string;
+  tertiary: string;
+  quaternary: string;
   'steel-grey': string;
   'pure-white': string;
 }
@@ -54,9 +54,9 @@ interface FontSize {
 }
 
 export interface FontFamily {
-  'regular': string;
+  regular: string;
   'semi-bold': string;
-  'bold': string;
+  bold: string;
   'extra-bold': string;
 }
 
@@ -119,9 +119,9 @@ export interface Properties {
 
 export interface Radius {
   'less-round': number;
-  'round': number;
-  'rounder': number;
-  'roundest': number;
+  round: number;
+  rounder: number;
+  roundest: number;
 }
 
 export interface Shadows {

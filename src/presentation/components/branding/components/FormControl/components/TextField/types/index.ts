@@ -3,13 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import {
-  StyleProp,
-  TextInput,
-  TextInputProps,
-  TextStyle,
-  ViewStyle
-} from 'react-native';
+import { StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from 'react-native';
 
 import { Theme } from '../../../../../types/Theme';
 import { TypographyProps } from '../../../../Typography/types';

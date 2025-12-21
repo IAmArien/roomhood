@@ -3,15 +3,47 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { useAppContext } from "@app/context";
-import { useNavigator } from "@app/hooks";
-import { CalendarOutlinedIcon, EmailOutlinedIcon, PersonOutlinedIcon, PhoneOutlinedIcon } from "@assets/icons";
-import { Checkbox, Dropdown, DropdownOption, FormControl, FormProvider, Header, IFormControl, IFormData, Option, TextField, Typography, useForm, useFormControl } from "@branding/components";
-import { useTheme } from "@branding/provider";
-import { isEmailAddressValid, isValidFormattedPHMobile, isValidMMDDYYYY, toBirthDateTextField, toPHMobileNumber } from "@utils";
-import { BottomNavigationButton } from "presentation/components";
-import { ReactElement, useRef } from "react";
-import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
+import { useAppContext } from '@app/context';
+import { useNavigator } from '@app/hooks';
+import {
+  CalendarOutlinedIcon,
+  EmailOutlinedIcon,
+  PersonOutlinedIcon,
+  PhoneOutlinedIcon,
+} from '@assets/icons';
+import {
+  Checkbox,
+  Dropdown,
+  DropdownOption,
+  FormControl,
+  FormProvider,
+  Header,
+  IFormControl,
+  IFormData,
+  Option,
+  TextField,
+  Typography,
+  useForm,
+  useFormControl,
+} from '@branding/components';
+import { useTheme } from '@branding/provider';
+import {
+  isEmailAddressValid,
+  isValidFormattedPHMobile,
+  isValidMMDDYYYY,
+  toBirthDateTextField,
+  toPHMobileNumber,
+} from '@utils';
+import { BottomNavigationButton } from 'presentation/components';
+import { ReactElement, useRef } from 'react';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 type FormType = string | DropdownOption | string[];
 
@@ -27,51 +59,51 @@ export default function SignUp(): ReactElement {
 
   const form = useForm<FormType, IFormControl<FormType>[]>();
 
-  const emTextField = useFormControl<string>("email", {
+  const emTextField = useFormControl<string>('email', {
     validations: {
       required: true,
       customValidation(controlValue) {
         return {
           valid: isEmailAddressValid(controlValue ?? ''),
-          message: 'Invalid Email Address.'
-        }
-      }
-    }
+          message: 'Invalid Email Address.',
+        };
+      },
+    },
   });
-  const fnTextField = useFormControl<string>("first-name", {
+  const fnTextField = useFormControl<string>('first-name', {
     validations: {
-      required: true
-    }
+      required: true,
+    },
   });
-  const lnTextField = useFormControl<string>("last-name", {
+  const lnTextField = useFormControl<string>('last-name', {
     validations: {
-      required: true
-    }
+      required: true,
+    },
   });
-  const noTextField = useFormControl<string>("mobile-number", {
+  const noTextField = useFormControl<string>('mobile-number', {
     validations: {
       required: true,
       customValidation(controlValue) {
         return {
           valid: isValidFormattedPHMobile(controlValue ?? ''),
-          message: 'Invalid Mobile Number.'
-        }
+          message: 'Invalid Mobile Number.',
+        };
       },
     },
     overrideChangeText(controlValue) {
       if (controlValue) {
         return toPHMobileNumber(controlValue ?? '');
       }
-      return "";
+      return '';
     },
   });
-  const bdTextField = useFormControl<string>("birth-date", {
+  const bdTextField = useFormControl<string>('birth-date', {
     validations: {
       required: true,
       customValidation(controlValue) {
         return {
           valid: isValidMMDDYYYY(controlValue ?? ''),
-          message: 'Invalid Birth Date.'
+          message: 'Invalid Birth Date.',
         };
       },
     },
@@ -80,25 +112,25 @@ export default function SignUp(): ReactElement {
         const numericInput = controlValue.replace(/\D/g, '');
         return toBirthDateTextField(numericInput);
       }
-      return "";
-    }
+      return '';
+    },
   });
-  const genderSelection = useFormControl<DropdownOption>("gender", {
+  const genderSelection = useFormControl<DropdownOption>('gender', {
     validations: {
-      required: true
-    }
+      required: true,
+    },
   });
-  const termsSelection = useFormControl<string[]>("terms-updates", {
+  const termsSelection = useFormControl<string[]>('terms-updates', {
     validations: {
       required: true,
       customValidation(controlValue) {
-        const hasAgreed = controlValue?.filter?.(value => value === 'agree-terms')
+        const hasAgreed = controlValue?.filter?.(value => value === 'agree-terms');
         return {
           valid: hasAgreed !== undefined && hasAgreed.length > 0,
-          message: "Please select a Gender."
+          message: 'Please select a Gender.',
         };
-      }
-    }
+      },
+    },
   });
 
   const { extendedRef: fnRef } = fnTextField;
@@ -118,11 +150,11 @@ export default function SignUp(): ReactElement {
       navigator.navigate('AuthStack', {
         screen: 'OtpScreen',
         params: {
-          title: "Verify Email OTP",
-          type: "email",
+          title: 'Verify Email OTP',
+          type: 'email',
           emailAddress: emailAddress[0]?.controlValue as string,
-          timerInMillis: 300
-        }
+          timerInMillis: 300,
+        },
       });
     }, 2300);
   };
@@ -135,7 +167,7 @@ export default function SignUp(): ReactElement {
 
   const handleContinuePress = () => {
     Keyboard.dismiss();
-    form.formRef.current?.submit?.()
+    form.formRef.current?.submit?.();
   };
 
   return (
@@ -147,9 +179,10 @@ export default function SignUp(): ReactElement {
         style={[
           styles.container,
           {
-            backgroundColor: colors.ui["pure-white"]
-          }
-        ]}>
+            backgroundColor: colors.ui['pure-white'],
+          },
+        ]}
+      >
         <Header
           testID="signup-header"
           title="Create an account"
@@ -162,7 +195,8 @@ export default function SignUp(): ReactElement {
         <KeyboardAvoidingView
           keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
           style={{ flex: 1 }}
-          behavior={keyboardBehavior}>
+          behavior={keyboardBehavior}
+        >
           <ScrollView
             ref={scrollViewRef}
             testID="signup-scroll-container"
@@ -171,13 +205,12 @@ export default function SignUp(): ReactElement {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
-            style={{ flex: 1 }}>
+            style={{ flex: 1 }}
+          >
             <View style={styles.contentContainer}>
-              <Typography
-                variant="description"
-                size="md"
-                color={colors.text.clearer}>
-                Find roommates and manage life together — from bills and chores to shared moments at home.
+              <Typography variant="description" size="md" color={colors.text.clearer}>
+                Find roommates and manage life together — from bills and chores to shared moments at
+                home.
               </Typography>
               <TextField
                 testID="email-textfield"
@@ -271,7 +304,8 @@ export default function SignUp(): ReactElement {
                         variant="description"
                         size="sm"
                         color={colors.text.clearest}
-                        style={{ flex: 1 }}>
+                        style={{ flex: 1 }}
+                      >
                         I agree to Room8.ph&nbsp;
                         <Typography
                           variant="description"
@@ -279,8 +313,9 @@ export default function SignUp(): ReactElement {
                           color={colors.ui.primary}
                           onPress={handleTermsOfServicePress}
                           style={{
-                            textDecorationLine: 'underline'
-                          }}>
+                            textDecorationLine: 'underline',
+                          }}
+                        >
                           Terms of Service
                         </Typography>
                         &nbsp;and&nbsp;
@@ -290,8 +325,9 @@ export default function SignUp(): ReactElement {
                           color={colors.ui.primary}
                           onPress={handlePrivacyPolicyPress}
                           style={{
-                            textDecorationLine: 'underline'
-                          }}>
+                            textDecorationLine: 'underline',
+                          }}
+                        >
                           Privacy Policy
                         </Typography>
                       </Typography>
@@ -314,11 +350,11 @@ export default function SignUp(): ReactElement {
             showDefaultButton={!form.formState.isFocused}
             theme={theme}
             nativeIDs={[
-              "email-textfield",
-              "first-name-textfield",
-              "last-name-textfield",
-              "mobile-number-textfield",
-              "birth-date-textfield"
+              'email-textfield',
+              'first-name-textfield',
+              'last-name-textfield',
+              'mobile-number-textfield',
+              'birth-date-textfield',
             ]}
           />
         </KeyboardAvoidingView>
@@ -329,19 +365,19 @@ export default function SignUp(): ReactElement {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   header: {
     paddingLeft: 8,
-    paddingRight: 8
+    paddingRight: 8,
   },
   contentContainer: {
     paddingHorizontal: 16,
     paddingBottom: 36,
-    paddingTop: 8
+    paddingTop: 8,
   },
   checkboxContainer: {
     marginTop: 24,
-    gap: 8
-  }
+    gap: 8,
+  },
 });

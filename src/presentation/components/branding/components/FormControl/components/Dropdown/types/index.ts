@@ -283,7 +283,4 @@ export type SelectionDropdownProps = {
   Pick<TextFieldProps, 'placeholderVisibility'> &
   Pick<TextFieldProps, 'notesVisibility'>;
 
-export type DropdownPropsWithType<T extends DropdownType> = Extract<
-  DropdownProps,
-  { type: T }
->;
+export type DropdownPropsWithType<T extends DropdownType> = Extract<DropdownProps, { type: T }>;

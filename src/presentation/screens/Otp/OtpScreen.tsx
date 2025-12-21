@@ -3,13 +3,13 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { useNavigator } from "@app/hooks";
-import { OtpScreenRouteProp } from "@app/navigation";
-import { Header } from "@branding/components";
-import { useTheme } from "@branding/provider";
-import { useRoute } from "@react-navigation/native";
-import { ReactElement } from "react";
-import { StyleSheet, View } from "react-native";
+import { useNavigator } from '@app/hooks';
+import { OtpScreenRouteProp } from '@app/navigation';
+import { Header } from '@branding/components';
+import { useTheme } from '@branding/provider';
+import { useRoute } from '@react-navigation/native';
+import { ReactElement } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 export default function OtpScreen(): ReactElement {
   const navigator = useNavigator();
@@ -18,13 +18,7 @@ export default function OtpScreen(): ReactElement {
   const params = useRoute<OtpScreenRouteProp>().params;
 
   const { colors } = theme;
-  const {
-    title,
-    type = "email",
-    emailAddress,
-    mobileNumber,
-    timerInMillis = 300
-  } = params;
+  const { title, type = 'email', emailAddress, mobileNumber, timerInMillis = 300 } = params;
 
   const handleHeaderLeftIconPress = () => {
     navigator.goBack();
@@ -38,9 +32,10 @@ export default function OtpScreen(): ReactElement {
       style={[
         styles.container,
         {
-          backgroundColor: colors.ui["pure-white"]
-        }
-      ]}>
+          backgroundColor: colors.ui['pure-white'],
+        },
+      ]}
+    >
       <Header
         testID="otp-screen-header"
         title={title}
@@ -52,14 +47,14 @@ export default function OtpScreen(): ReactElement {
       />
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   header: {
     paddingLeft: 8,
-    paddingRight: 8
-  }
+    paddingRight: 8,
+  },
 });

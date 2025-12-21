@@ -4,9 +4,6 @@
  */
 
 export { useFormControl } from './useFormControl';
-export type {
-  IFormControl,
-  IFormControlParams
-} from './useFormControl';
+export type { IFormControl, IFormControlParams } from './useFormControl';
 export { useForm } from './useForm';
 export type { IFormData } from './useForm';

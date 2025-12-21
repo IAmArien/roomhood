@@ -12,15 +12,10 @@ import { IconProps } from './types';
 export function WarningIcon({
   testID = 'assets-warning-icon',
   color = '#F58928',
-  size = 24
+  size = 24,
 }: Readonly<IconProps>): JSX.Element {
   return (
-    <Svg
-      testID={testID}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none">
+    <Svg testID={testID} width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Path
         d="M9.31638 4.6595C10.4218 2.44772 13.578 2.44773 14.6834 4.65953L20.6803 16.6588C21.6771 18.6535 20.2266 20.9999 17.9967 20.9999H6.0029C3.77298 20.9999 2.32248 18.6534 3.31937 16.6588L9.31638 4.6595Z"
         fill={color}

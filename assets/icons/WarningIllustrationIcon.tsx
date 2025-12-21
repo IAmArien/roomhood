@@ -3,15 +3,12 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement } from "react";
-import Svg, { ClipPath, Defs, G, Path } from "react-native-svg";
+import { ReactElement } from 'react';
+import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
 export function WarningIllustrationIcon(): ReactElement {
   return (
-    <Svg
-      width={70}
-      viewBox="0 0 375 374.999991"
-      height={70}>
+    <Svg width={70} viewBox="0 0 375 374.999991" height={70}>
       <Defs>
         <ClipPath id="a">
           <Path d="M45 63h285v254.25H45zm0 0" />

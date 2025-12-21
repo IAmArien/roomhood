@@ -16,8 +16,9 @@ const Stack = createNativeStackNavigator<MainStackNavigator>();
 export default function MainNavigation(): ReactElement {
   return (
     <Stack.Navigator
-      initialRouteName='NoAuthStack'
-      screenOptions={{ headerShown: false, ...rightToLeftInterpolator }}>
+      initialRouteName="NoAuthStack"
+      screenOptions={{ headerShown: false, ...rightToLeftInterpolator }}
+    >
       <Stack.Screen name="NoAuthStack" component={NoAuthStackNavigation} />
       <Stack.Screen name="AuthStack" component={AuthStackNavigation} />
     </Stack.Navigator>

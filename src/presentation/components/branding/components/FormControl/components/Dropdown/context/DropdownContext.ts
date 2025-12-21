@@ -22,7 +22,7 @@ const DropdownSelectionConfig: IDropdownSelection = {
   selected: undefined,
   setSelected: {} as React.Dispatch<React.SetStateAction<Option | undefined>>,
   toggleMenu: false,
-  setToggleMenu: {} as React.Dispatch<React.SetStateAction<boolean>>
+  setToggleMenu: {} as React.Dispatch<React.SetStateAction<boolean>>,
 };
 
 export const DropdownContext = React.createContext(DropdownSelectionConfig);

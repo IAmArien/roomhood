@@ -11,7 +11,7 @@ import Animated, {
   useAnimatedRef,
   useAnimatedStyle,
   useSharedValue,
-  withTiming
+  withTiming,
 } from 'react-native-reanimated';
 import { runOnJS } from 'react-native-worklets';
 
@@ -30,7 +30,7 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
     children,
     accessibilityLabel = 'ripple-effect',
     accessibilityState = {
-      disabled: disabled
+      disabled: disabled,
     },
     ...restProps
   } = props;
@@ -69,7 +69,7 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
         scale.value = withTiming(1, { duration: 700 });
       }
     })
-    .onEnd((e) => {
+    .onEnd(e => {
       'worklet';
       rippleOpacity.value = withTiming(0);
       if (onPress) {
@@ -91,7 +91,7 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
       opacity: rippleOpacity.value,
       width: circleRadius * 2,
       height: circleRadius * 2,
-      transform: [{ translateX }, { translateY }, { scale: scale.value }]
+      transform: [{ translateX }, { translateY }, { scale: scale.value }],
     };
   });
 
@@ -102,7 +102,8 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
       accessibilityState={accessibilityState}
       ref={viewRef}
       style={containerStyle}
-      {...restProps}>
+      {...restProps}
+    >
       <GestureDetector gesture={tapGesture}>
         <Animated.View ref={rippleRef} style={[style, styles.container]}>
           {children}
@@ -115,6 +116,6 @@ export const Ripple: React.FC<RippleProps> = (props): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    overflow: 'hidden'
-  }
+    overflow: 'hidden',
+  },
 });

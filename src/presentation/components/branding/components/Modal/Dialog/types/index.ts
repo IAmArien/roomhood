@@ -4,12 +4,7 @@
  */
 
 import { ReactElement } from 'react';
-import {
-  AccessibilityProps,
-  StyleProp,
-  TextStyle,
-  ViewStyle
-} from 'react-native';
+import { AccessibilityProps, StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 import { Theme } from '../../../../types/Theme';
 import { ButtonPropsWithType } from '../../../FormControl/components/Button/types';

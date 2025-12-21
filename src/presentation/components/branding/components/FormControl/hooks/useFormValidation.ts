@@ -6,11 +6,7 @@
 import { useState } from 'react';
 import { InputModeOptions } from 'react-native/Libraries/Components/TextInput/TextInput';
 
-import {
-  FormControlState,
-  FormValidationOption,
-  FormValidations
-} from '../types';
+import { FormControlState, FormValidationOption, FormValidations } from '../types';
 
 export interface IFormValidation<T> {
   validate: (controlValue?: T, value?: string, isFocused?: boolean) => void;
@@ -56,11 +52,9 @@ export const useFormValidation = <T extends any>({
   defaultErrorMessage,
   inputMode,
   validations,
-  callback
+  callback,
 }: IFormValidationParams<T>): IFormValidation<T> => {
-  const [validationState, setValidationState] = useState<boolean | undefined>(
-    undefined
-  );
+  const [validationState, setValidationState] = useState<boolean | undefined>(undefined);
 
   const internalCallback = (state: FormControlState, message?: string) => {
     setValidationState(state !== 'error');
@@ -72,7 +66,7 @@ export const useFormValidation = <T extends any>({
     const validation: ValidMinOrMaxValueState = {
       errType: undefined,
       message: undefined,
-      valid: true
+      valid: true,
     };
     let errMessage = '';
     if (minLength !== undefined) {
@@ -111,7 +105,7 @@ export const useFormValidation = <T extends any>({
     const validation: ValidMinOrMaxLengthState = {
       errType: undefined,
       message: undefined,
-      valid: true
+      valid: true,
     };
     const controlValueLength = controlValue.length;
     let errMessage = '';
@@ -150,17 +144,13 @@ export const useFormValidation = <T extends any>({
     return validation;
   };
 
-  const validateNumericInputMode = (
-    value: string,
-    formControlValue?: T,
-    isFocused?: boolean
-  ) => {
+  const validateNumericInputMode = (value: string, formControlValue?: T, isFocused?: boolean) => {
     const {
       required,
       validationTrigger,
       min: minimum,
       max: maximum,
-      customValidation
+      customValidation,
     } = validations ?? {};
     if (value.length >= 1) {
       const controlValue = Number(value);
@@ -168,7 +158,7 @@ export const useFormValidation = <T extends any>({
         controlValue,
         minLength: minimum,
         maxLength: maximum,
-        defaultErrorMessage
+        defaultErrorMessage,
       });
       if (validation.valid) {
         if (customValidation !== undefined) {
@@ -267,23 +257,19 @@ export const useFormValidation = <T extends any>({
     }
   };
 
-  const validateOtherInputMode = (
-    value: string,
-    formControlValue?: T,
-    isFocused?: boolean
-  ) => {
+  const validateOtherInputMode = (value: string, formControlValue?: T, isFocused?: boolean) => {
     const {
       required,
       validationTrigger,
       minLength: minimumLength,
       maxLength: maximumLength,
-      customValidation
+      customValidation,
     } = validations ?? {};
     const validation = isValidMinOrMaxLength({
       controlValue: value,
       minLength: minimumLength,
       maxLength: maximumLength,
-      defaultErrorMessage
+      defaultErrorMessage,
     });
     if (validation.valid) {
       if (required === true) {
@@ -384,12 +370,7 @@ export const useFormValidation = <T extends any>({
   };
 
   const validateCheckboxValues = (value: string[], controlValue?: T) => {
-    const {
-      required,
-      min: minimum,
-      max: maximum,
-      customValidation
-    } = validations ?? {};
+    const { required, min: minimum, max: maximum, customValidation } = validations ?? {};
     if (minimum !== undefined) {
       if (value.length < minimum.validation) {
         internalCallback?.('error', minimum?.message ?? defaultErrorMessage);

@@ -4,7 +4,7 @@
  */
 
 import { JSX, useCallback, useMemo } from 'react';
-import { StyleSheet, TextStyle, View, ViewStyle , StyleProp } from 'react-native';
+import { StyleSheet, TextStyle, View, ViewStyle, StyleProp } from 'react-native';
 
 import { ButtonPropsWithType, ButtonType } from './types';
 import { useTheme } from '../../../../provider/ThemeProvider';
@@ -14,25 +14,23 @@ import { Typography } from '../../../Typography/Typography';
 const defaultStyle = {
   paddingHorizontal: {
     standard: 16,
-    pill: 20
+    pill: 20,
   },
   paddingVertical: {
     standard: {
       sm: 8,
       md: 14,
-      lg: 22
+      lg: 22,
     },
     pill: {
       sm: 8,
       md: 14,
-      lg: 20
-    }
-  }
+      lg: 20,
+    },
+  },
 };
 
-export const Button = <T extends ButtonType>(
-  props: ButtonPropsWithType<T>
-): JSX.Element => {
+export const Button = <T extends ButtonType>(props: ButtonPropsWithType<T>): JSX.Element => {
   const {
     buttonRef,
     type,
@@ -70,13 +68,13 @@ export const Button = <T extends ButtonType>(
       standard: {
         sm: properties.radius.round,
         md: properties.radius.round,
-        lg: properties.radius.round
+        lg: properties.radius.round,
       },
       pill: {
         sm: properties.radius.roundest,
         md: properties.radius.roundest,
-        lg: 60
-      }
+        lg: 60,
+      },
     }),
     []
   );
@@ -84,29 +82,29 @@ export const Button = <T extends ButtonType>(
   const getTextStyle = useCallback((): TextStyle => {
     if (disabled) {
       return {
-        color: colors.text.ghost
+        color: colors.text.ghost,
       };
     }
     switch (variant) {
       case 'primary':
         return {
-          color: colors.text.white
+          color: colors.text.white,
         };
       case 'outlined':
         return {
-          color: colors.ui.primary
+          color: colors.ui.primary,
         };
       case 'secondary':
         return {
-          color: colors.text.clearest
+          color: colors.text.clearest,
         };
       case 'whisper':
         return {
-          color: colors.ui.primary
+          color: colors.ui.primary,
         };
       default:
         return {
-          color: colors.text.white
+          color: colors.text.white,
         };
     }
   }, [disabled, variant]);
@@ -141,7 +139,7 @@ export const Button = <T extends ButtonType>(
         borderWidth: 0,
         borderColor: colors.functional.disabled,
         paddingHorizontal: defaultStyle.paddingHorizontal[type],
-        paddingVertical: defaultStyle.paddingVertical[type][size]
+        paddingVertical: defaultStyle.paddingVertical[type][size],
       };
     }
     switch (variant) {
@@ -152,7 +150,7 @@ export const Button = <T extends ButtonType>(
           borderWidth: 0,
           borderColor: colors.ui.primary,
           paddingHorizontal: defaultStyle.paddingHorizontal[type],
-          paddingVertical: defaultStyle.paddingVertical[type][size]
+          paddingVertical: defaultStyle.paddingVertical[type][size],
         };
       case 'outlined':
         return {
@@ -161,7 +159,7 @@ export const Button = <T extends ButtonType>(
           borderWidth: 2,
           borderColor: colors.ui.primary,
           paddingHorizontal: defaultStyle.paddingHorizontal[type],
-          paddingVertical: defaultStyle.paddingVertical[type][size]
+          paddingVertical: defaultStyle.paddingVertical[type][size],
         };
       case 'secondary':
         return {
@@ -170,7 +168,7 @@ export const Button = <T extends ButtonType>(
           borderWidth: 0,
           borderColor: colors.ui['steel-grey'],
           paddingHorizontal: defaultStyle.paddingHorizontal[type],
-          paddingVertical: defaultStyle.paddingVertical[type][size]
+          paddingVertical: defaultStyle.paddingVertical[type][size],
         };
       case 'whisper':
         return {
@@ -179,13 +177,13 @@ export const Button = <T extends ButtonType>(
           borderWidth: 0,
           borderColor: 'transparent',
           paddingHorizontal: defaultStyle.paddingHorizontal[type],
-          paddingVertical: defaultStyle.paddingVertical[type][size]
+          paddingVertical: defaultStyle.paddingVertical[type][size],
         };
       default:
         return {
           borderRadius: radius[type][size],
           paddingHorizontal: defaultStyle.paddingHorizontal[type],
-          paddingVertical: defaultStyle.paddingVertical[type][size]
+          paddingVertical: defaultStyle.paddingVertical[type][size],
         };
     }
   }, [disabled, variant, type, size]);
@@ -198,16 +196,12 @@ export const Button = <T extends ButtonType>(
         alignItems: 'center' as const,
         justifyContent: 'center' as const,
         minWidth: 19,
-        minHeight: 20
-      }
+        minHeight: 20,
+      },
     ];
     return (
       <View style={badgeStyle}>
-        <Typography
-          variant="interactions"
-          size="sm"
-          style={{ fontSize: 9 }}
-          color={'#FFFFFF'}>
+        <Typography variant="interactions" size="sm" style={{ fontSize: 9 }} color={'#FFFFFF'}>
           {badgeNumber}
         </Typography>
       </View>
@@ -229,11 +223,10 @@ export const Button = <T extends ButtonType>(
       containerStyle={rippleContainerStyle}
       onPress={onPress}
       style={[getButtonStyle(), styles.button, style]}
-      {...restProps}>
+      {...restProps}
+    >
       {iconPlacement === 'left' && <>{icon}</>}
-      {badgePlacement === 'left' && badgeNumber !== undefined && (
-        <>{renderBadge()}</>
-      )}
+      {badgePlacement === 'left' && badgeNumber !== undefined && <>{renderBadge()}</>}
       <Typography
         testID={`${testID}-typography`}
         theme={theme}
@@ -243,13 +236,12 @@ export const Button = <T extends ButtonType>(
         variant="interactions"
         size="lg"
         color={getTextStyle().color as string}
-        {...textProps}>
+        {...textProps}
+      >
         {title}
       </Typography>
       {iconPlacement === 'right' && <>{icon}</>}
-      {badgePlacement === 'right' && badgeNumber !== undefined && (
-        <>{renderBadge()}</>
-      )}
+      {badgePlacement === 'right' && badgeNumber !== undefined && <>{renderBadge()}</>}
     </Ripple>
   );
 };
@@ -259,6 +251,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 10
-  }
+    gap: 10,
+  },
 });

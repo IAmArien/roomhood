@@ -3,10 +3,10 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { NavigatorScreenParams, RouteProp } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { OtpScreenProps } from "presentation/screens/Otp/types";
-import { SignUpProps } from "presentation/screens/SignUp/types";
+import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { OtpScreenProps } from 'presentation/screens/Otp/types';
+import { SignUpProps } from 'presentation/screens/SignUp/types';
 
 export type MainStackNavigator = {
   NoAuthStack: NavigatorScreenParams<NoAuthStackNavigator>;

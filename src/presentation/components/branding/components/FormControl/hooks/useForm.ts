@@ -113,7 +113,7 @@ export const useForm = <T1, T2 extends IFormControl<T1>[]>(): IForm<T1, T2> => {
   const [formControls, setFormControls] = useState<T2>();
   const [formState, setFormState] = useState<FormState>({
     isValid: true,
-    isFocused: false
+    isFocused: false,
   });
 
   const formRef = useRef<FormProviderFields | null>(null);
@@ -149,7 +149,7 @@ export const useForm = <T1, T2 extends IFormControl<T1>[]>(): IForm<T1, T2> => {
           state: v.state,
           value: v.value,
           selectedValue: v.selectedValue,
-          isValid: v.isValid
+          isValid: v.isValid,
         };
       }) ?? []
     );
@@ -161,7 +161,7 @@ export const useForm = <T1, T2 extends IFormControl<T1>[]>(): IForm<T1, T2> => {
     formControls,
     setFormControls,
     formState,
-    setFormState
+    setFormState,
   };
 };
 
