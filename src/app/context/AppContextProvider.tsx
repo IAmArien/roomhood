@@ -3,23 +3,25 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement, useMemo, useState } from "react";
-import { AppContext, AppContextProviderProps, ErrorModalContent, IAppContext } from "./types";
-import { ModalDialog, ModalLoader } from "@branding/components";
-import { WarningIllustrationIcon } from "@assets/icons";
+import { WarningIllustrationIcon } from '@assets/icons';
+import { ModalDialog, ModalLoader } from '@branding/components';
+import { ReactElement, useMemo, useState } from 'react';
 
-export default function AppContextProvider({
-  children
-}: AppContextProviderProps): ReactElement {
+import { AppContext, AppContextProviderProps, ErrorModalContent, IAppContext } from './types';
+
+export default function AppContextProvider({ children }: AppContextProviderProps): ReactElement {
   const [showLoadingModal, setShowLoadingModal] = useState<boolean>(false);
   const [showErrorModal, setShowErrorModal] = useState<ErrorModalContent | null>(null);
 
-  const initialValue = useMemo((): IAppContext => ({
-    showLoadingModal,
-    setShowLoadingModal,
-    showErrorModal,
-    setShowErrorModal
-  }), [showLoadingModal, showErrorModal]);
+  const initialValue = useMemo(
+    (): IAppContext => ({
+      showLoadingModal,
+      setShowLoadingModal,
+      showErrorModal,
+      setShowErrorModal,
+    }),
+    [showLoadingModal, showErrorModal]
+  );
 
   return (
     <AppContext.Provider value={initialValue}>
@@ -32,26 +34,26 @@ export default function AppContextProvider({
         onRequestClose={() => setShowErrorModal(null)}
         onOverlayClick={() => setShowErrorModal(null)}
         overlayType="blur"
-        scrimOverlayProps={{ type: "dark" }}
+        scrimOverlayProps={{ type: 'dark' }}
         illustration={() => <WarningIllustrationIcon />}
         illustrationStyle={{
           alignItems: 'center',
-          marginBottom: 0
+          marginBottom: 0,
         }}
         position="bottom"
         positiveButton={{
           title: showErrorModal?.positiveButtonTitle ?? 'Okay',
           onPress() {
             setShowErrorModal(null);
-          }
+          },
         }}
         negativeButton={{
-          title: showErrorModal?.negativeButtonTitle ?? "Cancel",
+          title: showErrorModal?.negativeButtonTitle ?? 'Cancel',
           onPress() {
             setShowErrorModal(null);
-          }
+          },
         }}
       />
     </AppContext.Provider>
   );
-};
+}

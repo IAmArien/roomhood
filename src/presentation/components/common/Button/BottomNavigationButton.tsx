@@ -3,11 +3,12 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Button, ButtonGroup } from "@branding/components";
-import { useTheme } from "@branding/provider";
-import React, { ReactElement, useCallback } from "react";
-import { InputAccessoryView, Platform, StyleSheet, View } from "react-native";
-import { BottomButtonsProps } from "./types";
+import { Button, ButtonGroup } from '@branding/components';
+import { useTheme } from '@branding/provider';
+import React, { ReactElement, useCallback } from 'react';
+import { InputAccessoryView, Platform, StyleSheet, View } from 'react-native';
+
+import { BottomButtonsProps } from './types';
 
 export function BottomNavigationButton(props: BottomButtonsProps): ReactElement {
   const defaultTheme = useTheme();
@@ -19,9 +20,13 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
     accessibilityLabel,
     accessible = false,
     title,
+    enabled = true,
     style,
     onPress,
     nativeIDs,
+    showDefaultButton = true,
+    showKeyboardButton = true,
+    onLayout,
     ...restProps
   } = props;
 
@@ -35,12 +40,13 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
           styles.container,
           properties.shadows.softer,
           {
-            backgroundColor: colors.ui["pure-white"],
-            borderTopLeftRadius: properties.radius["less-round"],
-            borderTopRightRadius: properties.radius["less-round"]
+            backgroundColor: colors.ui['pure-white'],
+            borderTopLeftRadius: properties.radius['less-round'],
+            borderTopRightRadius: properties.radius['less-round'],
           },
-          style
-        ]}>
+          style,
+        ]}
+      >
         <ButtonGroup orientation="horizontal">
           <Button
             testID={testID}
@@ -51,6 +57,7 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
             size="md"
             title={title}
             onPress={onPress}
+            disabled={!enabled}
             {...restProps}
           />
         </ButtonGroup>
@@ -64,13 +71,14 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
     accessibilityLabel,
     accessible,
     title,
+    enabled,
     onPress,
-    restProps
+    restProps,
   ]);
 
   return (
-    <View accessible={false}>
-      {Platform.OS === 'ios' && (
+    <View accessible={false} onLayout={onLayout}>
+      {Platform.OS === 'ios' && showKeyboardButton && (
         <>
           {nativeIDs?.map((value, index) => (
             <InputAccessoryView nativeID={value} key={index}>
@@ -79,13 +87,13 @@ export function BottomNavigationButton(props: BottomButtonsProps): ReactElement 
           ))}
         </>
       )}
-      {renderComponent()}
+      {showDefaultButton && renderComponent()}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12
-  }
+    padding: 12,
+  },
 });

@@ -7,13 +7,7 @@
 // @ts-ignore
 import React from 'react';
 import { Children, PropsWithChildren } from 'react';
-import {
-  View,
-  StyleSheet,
-  ViewStyle,
-  AccessibilityProps,
-  StyleProp
-} from 'react-native';
+import { View, StyleSheet, ViewStyle, AccessibilityProps, StyleProp } from 'react-native';
 
 /**
  * Type object for button group props
@@ -58,13 +52,12 @@ export const ButtonGroup = ({
       accessibilityRole="none"
       role="none"
       {...restProps}
-      style={[orientation === 'vertical' ? styles.column : styles.row, style]}>
+      style={[orientation === 'vertical' ? styles.column : styles.row, style]}
+    >
       {Children.map(children, (child, index) => {
         if (child) {
           return (
-            <View
-              key={index}
-              style={[orientation === 'horizontal' && styles.container]}>
+            <View key={index} style={[orientation === 'horizontal' && styles.container]}>
               {child}
             </View>
           );
@@ -77,12 +70,12 @@ export const ButtonGroup = ({
 
 const styles = StyleSheet.create({
   row: {
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   column: {
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

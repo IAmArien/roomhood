@@ -3,11 +3,9 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement } from "react";
-import { View } from "react-native";
+import { ReactElement } from 'react';
+import { View } from 'react-native';
 
 export default function Search(): ReactElement {
-  return (
-    <View />
-  );
-};
+  return <View />;
+}

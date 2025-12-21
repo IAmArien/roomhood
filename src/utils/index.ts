@@ -6,3 +6,4 @@
 export * from './constants';
 export * from './dateFormat';
 export * from './emailValidator';
+export * from './phoneValidator';

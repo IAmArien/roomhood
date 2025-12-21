@@ -3,9 +3,9 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Theme } from "presentation/components/branding/types/Theme";
-import { ReactElement } from "react";
-import { AccessibilityProps, StyleProp, ViewProps, ViewStyle } from "react-native";
+import { Theme } from 'presentation/components/branding/types/Theme';
+import { ReactElement } from 'react';
+import { AccessibilityProps, StyleProp, ViewProps, ViewStyle } from 'react-native';
 
 export type HeaderIconType = 'back' | 'close';
 
@@ -26,7 +26,8 @@ export type HeaderProps = {
 export type HeaderIconProps = {
   testID?: string;
   icon?: ReactElement;
-} & AccessibilityProps & Pick<ViewProps, 'onLayout'>;
+} & AccessibilityProps &
+  Pick<ViewProps, 'onLayout'>;
 
 export type HeaderActionsProps = {
   testID?: string;

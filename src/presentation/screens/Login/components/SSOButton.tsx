@@ -3,9 +3,10 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement } from "react";
-import { LoginSSOType } from "../types";
-import { Pressable, PressableProps } from "react-native";
+import { ReactElement } from 'react';
+import { Pressable, PressableProps } from 'react-native';
+
+import { LoginSSOType } from '../types';
 
 export type SSOButtonProps = {
   type: LoginSSOType;
@@ -20,10 +21,7 @@ export const SSOButton: React.FC<SSOButtonProps> = ({
   ...restProps
 }): ReactElement => {
   return (
-    <Pressable
-      testID="sso-button"
-      onPress={() => onPress?.(type)}
-      {...restProps}>
+    <Pressable testID="sso-button" onPress={() => onPress?.(type)} {...restProps}>
       {icon}
     </Pressable>
   );

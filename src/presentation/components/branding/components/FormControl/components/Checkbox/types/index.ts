@@ -5,6 +5,7 @@
  */
 
 import { AccessibilityProps, StyleProp, ViewStyle } from 'react-native';
+
 import { Theme } from '../../../../../types/Theme';
 
 /**
@@ -26,6 +27,10 @@ export type CheckboxProps = {
    * @param label string value for radio button label
    */
   label?: string;
+  /**
+   * @param customLabel React.ReactNode for custom label instead of the string label
+   */
+  customLabel?: React.ReactNode;
   /**
    * @param disabled boolean prop type to tell if the radio button will be in
    * disabled state

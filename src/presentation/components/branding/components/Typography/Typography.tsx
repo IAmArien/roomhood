@@ -7,12 +7,12 @@
 import React from 'react';
 import { StyleProp, Text, TextStyle, Animated } from 'react-native';
 
-import { useTheme } from '../../provider/ThemeProvider';
 import {
   TypographyVariant,
   TypographyPropsWithVariant,
-  AnimatedTypographyPropsWithVariant
+  AnimatedTypographyPropsWithVariant,
 } from './types';
+import { useTheme } from '../../provider/ThemeProvider';
 
 /**
  * Functional component for Typography UI Element. Accepts the following props:
@@ -22,9 +22,7 @@ import {
  * @see TypographyVariant
  * @returns JSX Element of the Typography UI Element
  */
-export const Typography = <T extends TypographyVariant>(
-  props: TypographyPropsWithVariant<T>
-) => {
+export const Typography = <T extends TypographyVariant>(props: TypographyPropsWithVariant<T>) => {
   const {
     testID,
     children,
@@ -47,25 +45,25 @@ export const Typography = <T extends TypographyVariant>(
   const getFontFamilyWeight = () => {
     let styles = {
       fontFamily: typography?.[variant]?.[size]?.fontFamily,
-      fontWeight: typography?.[variant]?.[size]?.fontWeight
+      fontWeight: typography?.[variant]?.[size]?.fontWeight,
     };
     switch (fontWeight) {
       case '600':
         styles = {
           fontFamily: typography.headline.lg.fontFamily,
-          fontWeight: typography.headline.lg.fontWeight
+          fontWeight: typography.headline.lg.fontWeight,
         };
         break;
       case '700':
         styles = {
           fontFamily: typography.headline.sm.fontFamily,
-          fontWeight: typography.headline.sm.fontWeight
+          fontWeight: typography.headline.sm.fontWeight,
         };
         break;
       case '800':
         styles = {
           fontFamily: typography.numbers.xs.fontFamily,
-          fontWeight: typography.numbers.xs.fontWeight
+          fontWeight: typography.numbers.xs.fontWeight,
         };
         break;
       default:
@@ -79,7 +77,7 @@ export const Typography = <T extends TypographyVariant>(
     ...typography?.[variant]?.[size],
     ...getFontFamilyWeight(),
     color: color,
-    textAlign: textAlign
+    textAlign: textAlign,
   } as StyleProp<TextStyle>;
 
   return (
@@ -88,7 +86,8 @@ export const Typography = <T extends TypographyVariant>(
       testID={testID}
       accessible={accessible}
       accessibilityRole={accessibilityRole}
-      style={customStyle ?? [defaultStyle, style]}>
+      style={customStyle ?? [defaultStyle, style]}
+    >
       {children}
     </Text>
   );

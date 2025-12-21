@@ -5,24 +5,24 @@
 
 // @ts-ignore
 import React, { JSX, useEffect, useMemo, useState } from 'react';
+import { TouchableOpacity, StyleSheet, GestureResponderEvent } from 'react-native';
+
+import { AutoCompleteDropdown } from './components/Autocomplete/AutocompleteDropdown';
+import { ModalDropdown } from './components/Modal/ModalDropdown';
+import { SelectionDropdown } from './components/Selection/SelectionDropdown';
 import {
   DropdownContext,
   IDropdownSelection,
-  useDropdownSelection
+  useDropdownSelection,
 } from './context/DropdownContext';
 import {
   Option as DropdownOption,
   OptionProps,
   DropdownPropsWithType,
-  DropdownType
+  DropdownType,
 } from './types';
 import { useTheme } from '../../../../provider/ThemeProvider';
-import { TouchableOpacity, StyleSheet } from 'react-native';
-import { GestureResponderEvent } from 'react-native';
 import { Typography } from '../../../Typography/Typography';
-import { ModalDropdown } from './components/Modal/ModalDropdown';
-import { SelectionDropdown } from './components/Selection/SelectionDropdown';
-import { AutoCompleteDropdown } from './components/Autocomplete/AutocompleteDropdown';
 import { useFormControl } from '../../context/FormControlContext';
 import { useFormValidation } from '../../hooks/useFormValidation';
 
@@ -70,9 +70,7 @@ import { useFormValidation } from '../../hooks/useFormValidation';
  * @see DropdownType
  * @returns JSX Element of Dropdown Component
  */
-export const Dropdown = <T extends DropdownType>(
-  props: DropdownPropsWithType<T>
-): JSX.Element => {
+export const Dropdown = <T extends DropdownType>(props: DropdownPropsWithType<T>): JSX.Element => {
   const { type = 'modal', children } = props;
 
   const {
@@ -82,15 +80,11 @@ export const Dropdown = <T extends DropdownType>(
     defaultErrorMessage,
     defaultValue,
     controlValue,
-    validations
+    validations,
   } = useFormControl<DropdownOption | undefined>();
 
-  const [selectedOption, setSelectedOption] = useState<
-    DropdownOption | undefined
-  >(undefined);
-  const [dropdownValue, setDropdownValue] = useState<
-    DropdownOption | undefined
-  >(undefined);
+  const [selectedOption, setSelectedOption] = useState<DropdownOption | undefined>(undefined);
+  const [dropdownValue, setDropdownValue] = useState<DropdownOption | undefined>(undefined);
 
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -100,7 +94,7 @@ export const Dropdown = <T extends DropdownType>(
     callback(state, message) {
       setErrorMessage(message);
       setState(state);
-    }
+    },
   });
 
   const initialValue = useMemo(() => {
@@ -110,7 +104,7 @@ export const Dropdown = <T extends DropdownType>(
       selected: selectedOption,
       setSelected: setSelectedOption,
       toggleMenu,
-      setToggleMenu
+      setToggleMenu,
     };
     return selection;
   }, [selectedOption, dropdownValue, toggleMenu]);
@@ -138,9 +132,7 @@ export const Dropdown = <T extends DropdownType>(
         <AutoCompleteDropdown {...props}>{children}</AutoCompleteDropdown>
       )}
       {type === 'modal' && <ModalDropdown {...props}>{children}</ModalDropdown>}
-      {type === 'selection' && (
-        <SelectionDropdown {...props}>{children}</SelectionDropdown>
-      )}
+      {type === 'selection' && <SelectionDropdown {...props}>{children}</SelectionDropdown>}
     </DropdownContext.Provider>
   );
 };
@@ -190,7 +182,7 @@ export const Option = <T extends any>(props: OptionProps<T>): JSX.Element => {
 
   const accessibilityState = {
     selected: selected?.value === value,
-    disabled: disabled
+    disabled: disabled,
   };
 
   const hasCustomTitle = (): boolean => customTitle !== undefined;
@@ -204,7 +196,7 @@ export const Option = <T extends any>(props: OptionProps<T>): JSX.Element => {
       value,
       title,
       optionKey,
-      customValue
+      customValue,
     };
     e.preventDefault();
     if (type === 'modal') {
@@ -229,13 +221,14 @@ export const Option = <T extends any>(props: OptionProps<T>): JSX.Element => {
       style={[
         styles.optionContainer,
         isSelected() && {
-          backgroundColor: colors.surface['lightest-periwinkle']
+          backgroundColor: colors.surface['lightest-periwinkle'],
         },
         disabled && {
-          opacity: 0.5
+          opacity: 0.5,
         },
-        style
-      ]}>
+        style,
+      ]}
+    >
       {hasCustomTitle() ? (
         <>{customTitle?.()}</>
       ) : (
@@ -244,7 +237,8 @@ export const Option = <T extends any>(props: OptionProps<T>): JSX.Element => {
           variant="description"
           size="lg"
           color={colors.text.clearest}
-          {...textProps}>
+          {...textProps}
+        >
           {title}
         </Typography>
       )}
@@ -255,6 +249,6 @@ export const Option = <T extends any>(props: OptionProps<T>): JSX.Element => {
 const styles = StyleSheet.create({
   optionContainer: {
     paddingHorizontal: 16,
-    paddingVertical: 8
-  }
+    paddingVertical: 8,
+  },
 });

@@ -5,6 +5,7 @@
  */
 
 import { AccessibilityProps, StyleProp, ViewStyle } from 'react-native';
+
 import { ScrimOverlayProps } from '../../../Scrims/types';
 
 export type ModalLoaderType = 'modal' | 'absoluteView';

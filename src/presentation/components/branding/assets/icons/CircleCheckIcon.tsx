@@ -6,20 +6,16 @@
 // @ts-ignore
 import React from 'react';
 import { Svg, Path } from 'react-native-svg';
+
 import { IconProps } from './types';
 
 export function CircleCheckIcon({
   testID = 'assets-circle-check-icon',
   size = 24,
-  color = '#47BA6E'
+  color = '#47BA6E',
 }: Readonly<IconProps>) {
   return (
-    <Svg
-      testID={testID}
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none">
+    <Svg testID={testID} width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Path
         fillRule="evenodd"
         clipRule="evenodd"

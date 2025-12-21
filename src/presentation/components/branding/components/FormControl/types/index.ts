@@ -5,8 +5,9 @@
 
 import { PropsWithChildren } from 'react';
 import { StyleProp, ViewStyle } from 'react-native';
-import { FormState, IFormData } from '../hooks/useForm';
+
 import { IFormControl } from '../hooks';
+import { FormState, IFormData } from '../hooks/useForm';
 
 export type FormControlState = 'disabled' | 'default' | 'error' | 'success';
 export type FormValidationOption<T> = {

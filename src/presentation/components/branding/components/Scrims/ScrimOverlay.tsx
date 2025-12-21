@@ -4,13 +4,11 @@
  */
 
 // @ts-ignore
-import React, { JSX, useCallback } from 'react';
 import { BlurView } from '@react-native-community/blur';
+import React, { JSX, useCallback } from 'react';
+import { Modal, StyleSheet, StyleProp, ViewStyle, Platform } from 'react-native';
+
 import { ScrimOverlayModalProps, ScrimOverlayProps } from './types';
-import { Modal, StyleSheet } from 'react-native';
-import { StyleProp } from 'react-native';
-import { ViewStyle } from 'react-native';
-import { Platform } from 'react-native';
 
 /**
  * Functional component for Scrim Overlay UI Element. Accepts props of the following:
@@ -19,9 +17,7 @@ import { Platform } from 'react-native';
  * @see ScrimOverlayProps
  * @returns JSX Element for Scrim Overlay
  */
-export const ScrimOverlay: React.FC<ScrimOverlayProps> = (
-  props
-): JSX.Element => {
+export const ScrimOverlay: React.FC<ScrimOverlayProps> = (props): JSX.Element => {
   const {
     testID,
     type,
@@ -52,7 +48,7 @@ export const ScrimOverlay: React.FC<ScrimOverlayProps> = (
       if (Platform.OS === 'ios') {
         if (type === 'dark') {
           return {
-            backgroundColor: '#0E2C4366'
+            backgroundColor: '#0E2C4366',
           };
         }
       }
@@ -101,9 +97,7 @@ export const ScrimOverlay: React.FC<ScrimOverlayProps> = (
  * @see ScrimOverlayModalProps
  * @returns JSX Element of scrim overlay but in modal
  */
-export const ScrimOverlayModal: React.FC<ScrimOverlayModalProps> = (
-  props
-): JSX.Element => {
+export const ScrimOverlayModal: React.FC<ScrimOverlayModalProps> = (props): JSX.Element => {
   const {
     isVisible,
     onRequestClose,
@@ -132,7 +126,8 @@ export const ScrimOverlayModal: React.FC<ScrimOverlayModalProps> = (
       visible={isVisible}
       transparent
       animationType="fade"
-      onRequestClose={onRequestClose}>
+      onRequestClose={onRequestClose}
+    >
       <ScrimOverlay
         {...restProps}
         testID={testID}
@@ -140,7 +135,8 @@ export const ScrimOverlayModal: React.FC<ScrimOverlayModalProps> = (
         scrimPlacement={scrimPlacement}
         style={style}
         blurAmount={blurAmount}
-        transparencyFallbackColor={transparencyFallbackColor}>
+        transparencyFallbackColor={transparencyFallbackColor}
+      >
         {children}
       </ScrimOverlay>
     </Modal>
@@ -153,6 +149,6 @@ const styles = StyleSheet.create({
     top: 0,
     right: 0,
     bottom: 0,
-    left: 0
-  }
+    left: 0,
+  },
 });

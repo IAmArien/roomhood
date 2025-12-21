@@ -22,7 +22,7 @@ export type {
   ModalDropdownProps,
   OptionProps,
   Option as DropdownOption,
-  SelectionDropdownProps
+  SelectionDropdownProps,
 } from './FormControl/components/Dropdown/types';
 export * from './FormControl/components/Radio/RadioButton';
 export * from './FormControl/components/Radio/RadioGroup';

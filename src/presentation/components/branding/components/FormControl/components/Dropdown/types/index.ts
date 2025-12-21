@@ -4,12 +4,13 @@
  */
 
 import { PropsWithChildren } from 'react';
-import { Theme } from '../../../../../types/Theme';
-import { TypographyProps } from '../../../../Typography/types';
 import { AccessibilityProps, StyleProp, ViewStyle } from 'react-native';
-import { TextFieldProps } from '../../TextField/types';
+
+import { Theme } from '../../../../../types/Theme';
 import { ModalDialogProps } from '../../../../Modal/Dialog/types';
+import { TypographyProps } from '../../../../Typography/types';
 import { ButtonPropsWithType } from '../../Button/types';
+import { TextFieldProps } from '../../TextField/types';
 
 export type DropdownType = 'autocomplete' | 'modal' | 'selection';
 
@@ -282,7 +283,4 @@ export type SelectionDropdownProps = {
   Pick<TextFieldProps, 'placeholderVisibility'> &
   Pick<TextFieldProps, 'notesVisibility'>;
 
-export type DropdownPropsWithType<T extends DropdownType> = Extract<
-  DropdownProps,
-  { type: T }
->;
+export type DropdownPropsWithType<T extends DropdownType> = Extract<DropdownProps, { type: T }>;

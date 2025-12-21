@@ -8,12 +8,13 @@ import {
   StyleProp,
   TextStyle,
   View,
-  ViewStyle
+  ViewStyle,
+  AccessibilityProps,
 } from 'react-native';
-import { TypographyProps } from '../../../../Typography/types';
+
 import { Theme } from '../../../../../types/Theme';
-import { AccessibilityProps } from 'react-native';
 import { RippleProps } from '../../../../Effects/Ripple/types';
+import { TypographyProps } from '../../../../Typography/types';
 
 /**
  * Type string for the common variant of the buttons, colud be `primary` or `outlined`
@@ -130,7 +131,4 @@ export type StandardButtonProps =
       variant: ButtonVariant;
     } & DefaultButtonProps);
 
-export type ButtonPropsWithType<T extends ButtonType> = Extract<
-  StandardButtonProps,
-  { type: T }
->;
+export type ButtonPropsWithType<T extends ButtonType> = Extract<StandardButtonProps, { type: T }>;

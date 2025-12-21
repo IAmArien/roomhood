@@ -5,7 +5,10 @@
 
 import { PropsWithChildren } from 'react';
 import { AccessibilityProps, StyleProp, View, ViewStyle } from 'react-native';
-import { GestureStateChangeEvent, TapGestureHandlerEventPayload } from 'react-native-gesture-handler';
+import {
+  GestureStateChangeEvent,
+  TapGestureHandlerEventPayload,
+} from 'react-native-gesture-handler';
 
 export type RipplePosition = 'center' | 'on-tap';
 

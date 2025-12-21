@@ -15,7 +15,7 @@ interface IRadioGroupConfig {
 const radioGroupConfig: IRadioGroupConfig = {
   isRadioGroup: false,
   selectedValue: '',
-  setSelectedValue: {} as Dispatch<SetStateAction<string | undefined>>
+  setSelectedValue: {} as Dispatch<SetStateAction<string | undefined>>,
 };
 
 export const RadioGroupContext = React.createContext(radioGroupConfig);

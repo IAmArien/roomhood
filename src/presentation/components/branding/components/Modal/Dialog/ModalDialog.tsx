@@ -7,12 +7,13 @@
 import React, { JSX, PropsWithChildren } from 'react';
 import { Modal, StyleSheet, View, ViewStyle } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+import { ModalDialogProps } from './types';
 import { useTheme } from '../../../provider/ThemeProvider';
 import { Button } from '../../FormControl/components/Button/Button';
 import { ButtonGroup } from '../../FormControl/components/Button/ButtonGroup';
 import { ScrimOverlay } from '../../Scrims/ScrimOverlay';
 import { Typography } from '../../Typography/Typography';
-import { ModalDialogProps } from './types';
 
 /**
  * Internal component for identifying what type of overlay the modal dialog will use, it could
@@ -21,9 +22,7 @@ import { ModalDialogProps } from './types';
  * @see ModalDialogProps
  * @returns JSX Element of modal dialog overlay element
  */
-const ModalDialogOverlay: React.FC<ModalDialogProps & PropsWithChildren> = (
-  props
-): JSX.Element => {
+const ModalDialogOverlay: React.FC<ModalDialogProps & PropsWithChildren> = (props): JSX.Element => {
   const { scrimOverlayProps, overlayType = 'dim', children } = props;
 
   if (overlayType === 'blur') {
@@ -71,22 +70,18 @@ const ModalDialogContent: React.FC<ModalDialogProps> = (props): JSX.Element => {
     illustration,
     illustrationStyle,
     customContent,
-    buttonGroupStyle
+    buttonGroupStyle,
   } = props;
 
-  const hasButtons = (): boolean =>
-    positiveButton !== undefined ||
-    negativeButton !== undefined;
+  const hasButtons = (): boolean => positiveButton !== undefined || negativeButton !== undefined;
 
   const hasCustomContent = (): boolean => customContent !== undefined;
 
   const hasTitle = (): boolean => title !== undefined && title !== '';
 
-  const hasTitleIcon = (): boolean =>
-    titleIcon !== undefined && titleIconVisible;
+  const hasTitleIcon = (): boolean => titleIcon !== undefined && titleIconVisible;
 
-  const hasDescription = (): boolean =>
-    description !== undefined && description !== '';
+  const hasDescription = (): boolean => description !== undefined && description !== '';
 
   const getShadowType = (): ViewStyle | undefined => {
     if (overlayType === 'blur') {
@@ -102,11 +97,9 @@ const ModalDialogContent: React.FC<ModalDialogProps> = (props): JSX.Element => {
           accessible={false}
           testID={overlayTestID}
           accessibilityLabel="modal-dialog-overlay-accessibility-label"
-          style={[
-            styles.overlay,
-            overlayType === 'blur' && { backgroundColor: undefined }
-          ]}
-          onTouchEnd={() => onOverlayClick?.()}>
+          style={[styles.overlay, overlayType === 'blur' && { backgroundColor: undefined }]}
+          onTouchEnd={() => onOverlayClick?.()}
+        >
           <View
             accessible={false}
             onTouchEnd={e => {
@@ -118,20 +111,15 @@ const ModalDialogContent: React.FC<ModalDialogProps> = (props): JSX.Element => {
                 backgroundColor: colors.surface['white-surface'],
                 borderRadius: properties.radius.rounder,
                 alignSelf:
-                  position === 'top'
-                    ? 'flex-start'
-                    : position === 'center'
-                    ? 'center'
-                    : 'flex-end'
+                  position === 'top' ? 'flex-start' : position === 'center' ? 'center' : 'flex-end',
               },
               getShadowType(),
-              style
-            ]}>
+              style,
+            ]}
+          >
             <View accessible={false} style={styles.dialogContent}>
               {illustration && (
-                <View
-                  accessible={false}
-                  style={[styles.illustration, illustrationStyle]}>
+                <View accessible={false} style={[styles.illustration, illustrationStyle]}>
                   {illustration?.()}
                 </View>
               )}
@@ -144,21 +132,20 @@ const ModalDialogContent: React.FC<ModalDialogProps> = (props): JSX.Element => {
                   style={[
                     styles.dialogContentTitle,
                     titleIconAlignment === 'top' && {
-                      alignItems: 'flex-start'
+                      alignItems: 'flex-start',
                     },
                     titleIconAlignment === 'middle' && { alignItems: 'center' },
                     titleIconAlignment === 'bottom' && {
-                      alignItems: 'flex-end'
-                    }
-                  ]}>
+                      alignItems: 'flex-end',
+                    },
+                  ]}
+                >
                   {titleIcon && titleIconVisible && (
                     <View
                       testID="modal-dialog-view-icon"
                       accessibilityLabel="modal-dialog-view-icon-accessibility-label"
-                      style={[
-                        titleIconAlignment === 'top' && { paddingTop: 3 },
-                        titleIconStyle
-                      ]}>
+                      style={[titleIconAlignment === 'top' && { paddingTop: 3 }, titleIconStyle]}
+                    >
                       {titleIcon}
                     </View>
                   )}
@@ -168,13 +155,12 @@ const ModalDialogContent: React.FC<ModalDialogProps> = (props): JSX.Element => {
                         testID={titleTestID}
                         variant="title"
                         size="semi-bold-sm"
-                        color={
-                          titleStyle?.color?.toString() ?? colors.text.clearest
-                        }
+                        color={titleStyle?.color?.toString() ?? colors.text.clearest}
                         style={titleStyle}
                         textAlign={titleStyle?.textAlign}
                         theme={theme}
-                        {...titleStyleProps}>
+                        {...titleStyleProps}
+                      >
                         {title}
                       </Typography>
                     </View>
@@ -193,14 +179,12 @@ const ModalDialogContent: React.FC<ModalDialogProps> = (props): JSX.Element => {
                       testID={descriptionTestID}
                       variant="description"
                       size="md"
-                      color={
-                        descriptionStyle?.color?.toString() ??
-                        colors.text.clearest
-                      }
+                      color={descriptionStyle?.color?.toString() ?? colors.text.clearest}
                       style={descriptionStyle}
                       textAlign={descriptionStyle?.textAlign}
                       theme={theme}
-                      {...descriptionStyleProps}>
+                      {...descriptionStyleProps}
+                    >
                       {description}
                     </Typography>
                   )}
@@ -216,8 +200,9 @@ const ModalDialogContent: React.FC<ModalDialogProps> = (props): JSX.Element => {
                   style={[
                     { gap: vertical ? 10 : 15 },
                     vertical && { flexDirection: 'column-reverse' },
-                    buttonGroupStyle
-                  ]}>
+                    buttonGroupStyle,
+                  ]}
+                >
                   {negativeButton && (
                     <Button
                       disabled={negativeButton.disabled}
@@ -325,7 +310,8 @@ export const ModalDialog: React.FC<ModalDialogProps> = (props): JSX.Element => {
       transparent
       animationType="fade"
       visible={isVisible}
-      onRequestClose={onRequestClose}>
+      onRequestClose={onRequestClose}
+    >
       <ModalDialogContent {...props} theme={theme} />
     </Modal>
   );
@@ -335,7 +321,7 @@ const styles = StyleSheet.create({
   overlay: {
     backgroundColor: 'rgba(51, 51, 51, 0.7)',
     flexDirection: 'row',
-    flex: 1
+    flex: 1,
   },
   dialog: {
     flex: 1,
@@ -343,25 +329,25 @@ const styles = StyleSheet.create({
     padding: 18,
     alignSelf: 'flex-end',
     marginHorizontal: 16,
-    marginVertical: 20
+    marginVertical: 20,
   },
   illustration: {
-    marginBottom: 10
+    marginBottom: 10,
   },
   dialogContent: {
     display: 'flex',
     flexDirection: 'column',
-    gap: 12
+    gap: 12,
   },
   dialogContentTitle: {
     flexDirection: 'row',
-    gap: 10
+    gap: 10,
   },
   dialogContainer: {
     position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0
-  }
+    right: 0,
+  },
 });

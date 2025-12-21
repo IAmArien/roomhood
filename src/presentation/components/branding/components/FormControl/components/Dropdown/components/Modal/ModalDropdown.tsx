@@ -4,7 +4,6 @@
  */
 
 import React, { JSX, useEffect, useRef, useState } from 'react';
-import { ModalDropdownProps, Option } from '../../types';
 import {
   Dimensions,
   GestureResponderEvent,
@@ -13,20 +12,18 @@ import {
   Pressable,
   ScrollView,
   TextInput,
-  View
+  View,
 } from 'react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+
+import { CircleChevronDownIcon } from '../../../../../../assets';
+import { useTheme } from '../../../../../../provider/ThemeProvider';
 import { ModalDialog } from '../../../../../Modal/Dialog/ModalDialog';
+import { useFormControl } from '../../../../context/FormControlContext';
+import { useFormValidation } from '../../../../hooks/useFormValidation';
 import { TextField } from '../../../TextField/TextField';
 import { useDropdownSelection } from '../../context/DropdownContext';
-import { useFormControl } from '../../../../context/FormControlContext';
-import { useTheme } from '../../../../../../provider/ThemeProvider';
-import { CircleChevronDownIcon } from '../../../../../../assets';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming
-} from 'react-native-reanimated';
-import { useFormValidation } from '../../../../hooks/useFormValidation';
+import { ModalDropdownProps, Option } from '../../types';
 
 /**
  * Functional component for Modal Dropdown component. Accepts props of the following:
@@ -35,9 +32,7 @@ import { useFormValidation } from '../../../../hooks/useFormValidation';
  * @see ModalDropdownProps
  * @returns JSX Element of ModalDropdown component
  */
-export const ModalDropdown: React.FC<ModalDropdownProps> = (
-  props
-): JSX.Element => {
+export const ModalDropdown: React.FC<ModalDropdownProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();
   const theme = props.theme || defaultTheme;
   const {
@@ -61,7 +56,7 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
     placeholderVisibility,
     notesVisibility,
     scrimOverlayProps = {
-      type: 'dark'
+      type: 'dark',
     },
     overlayType = 'blur',
     fixedLabel = false,
@@ -70,7 +65,7 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
     accessibilityRole = 'combobox',
     role = 'combobox',
     style,
-    children
+    children,
   } = props;
 
   const {
@@ -82,7 +77,7 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
     setErrorMessage,
     setControlValue,
     notes,
-    validations
+    validations,
   } = useFormControl<Option | undefined>();
 
   const { validate, isValid } = useFormValidation({
@@ -91,7 +86,7 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
     callback(state, message) {
       setErrorMessage(message);
       setState(state);
-    }
+    },
   });
 
   const {
@@ -99,19 +94,17 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
     selected,
     setSelected,
     toggleMenu,
-    setToggleMenu
+    setToggleMenu,
   } = useDropdownSelection();
 
   const accessibilityState = {
     disabled: state === 'disabled',
-    expanded: toggleMenu
+    expanded: toggleMenu,
   };
 
   const [textFieldValue, setTextFieldValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
-  const [labelPosiiton, setLabelPosition] = useState<
-    'top' | 'center' | undefined
-  >(undefined);
+  const [labelPosiiton, setLabelPosition] = useState<'top' | 'center' | undefined>(undefined);
 
   const textFieldRef = useRef<TextInput>(null);
 
@@ -162,7 +155,8 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
         testID={dropdownTestID}
         bounces={false}
         showsVerticalScrollIndicator
-        scrollEnabled>
+        scrollEnabled
+      >
         {options.map(child => child)}
       </ScrollView>
     );
@@ -212,9 +206,9 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
     return {
       transform: [
         {
-          rotate: rotateAnimation.value
-        }
-      ]
+          rotate: rotateAnimation.value,
+        },
+      ],
     };
   });
 
@@ -239,10 +233,11 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
         onPress={onTextFieldPress}
         style={[
           state === 'disabled' && {
-            opacity: 0.5
+            opacity: 0.5,
           },
-          style
-        ]}>
+          style,
+        ]}
+      >
         <View pointerEvents="none">
           <TextField
             testID={textFieldTestID}
@@ -294,8 +289,8 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
               variant: 'primary',
               size: 'lg',
               title: dropdownModalPositiveButtonTitle,
-              onPress: onChoose
-            }
+              onPress: onChoose,
+            },
           }}
           negativeButton={{
             title: dropdownModalNegativeButtonTitle,
@@ -307,8 +302,8 @@ export const ModalDropdown: React.FC<ModalDropdownProps> = (
               variant: 'whisper',
               size: 'lg',
               title: dropdownModalNegativeButtonTitle,
-              onPress: onCloseModal
-            }
+              onPress: onCloseModal,
+            },
           }}
           theme={theme}
         />

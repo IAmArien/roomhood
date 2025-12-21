@@ -10,23 +10,23 @@ import React, {
   createContext,
   useContext,
   useMemo,
-  useState
+  useState,
 } from 'react';
 
-import { Theme } from '../types/Theme';
 import {
   colors as defaultColors,
   fontFamily as defaultFontFamily,
-  properties as defaultProperties
+  properties as defaultProperties,
 } from '../styles';
 import { ThemeProps } from './types';
 import { colors } from '../styles/colors';
-import { typography } from '../styles/typography';
 import { properties } from '../styles/properties';
+import { typography } from '../styles/typography';
+import { Theme } from '../types/Theme';
 
 export const ThemeContext = createContext({
   theme: {} as Theme,
-  setTheme: {} as Dispatch<SetStateAction<Theme>>
+  setTheme: {} as Dispatch<SetStateAction<Theme>>,
 });
 
 /**
@@ -58,7 +58,7 @@ export const useTheme = (): Theme => {
 const defaultTheme: Theme = {
   colors: colors(defaultColors),
   typography: typography(defaultFontFamily),
-  properties: properties(defaultProperties)
+  properties: properties(defaultProperties),
 };
 
 /**
@@ -125,23 +125,17 @@ interface ThemeProviderProps {
  */
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   theme,
-  children
+  children,
 }: ThemeProviderProps) => {
-  const [brandingTheme, setBrandingTheme] = useState<Theme>(
-    theme ?? defaultTheme
-  );
+  const [brandingTheme, setBrandingTheme] = useState<Theme>(theme ?? defaultTheme);
 
   const initialContext = useMemo(
     () => ({
       theme: brandingTheme,
-      setTheme: setBrandingTheme
+      setTheme: setBrandingTheme,
     }),
     [brandingTheme, setBrandingTheme]
   );
 
-  return (
-    <ThemeContext.Provider value={initialContext}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={initialContext}>{children}</ThemeContext.Provider>;
 };

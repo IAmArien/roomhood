@@ -10,10 +10,10 @@
  */
 export type ThemeColorProps = {
   ui?: {
-    'primary'?: string;
-    'secondary'?: string;
-    'tertiary'?: string;
-    'quaternary'?: string;
+    primary?: string;
+    secondary?: string;
+    tertiary?: string;
+    quaternary?: string;
     'steel-grey'?: string;
     'pure-white'?: string;
   };
@@ -51,9 +51,9 @@ export type ThemeColorProps = {
  * weights of font families: `regular`, `semi-bold`, `bold`, and `extra-bold`.
  */
 export type ThemeFontFamilyProps = {
-  'regular': string;
+  regular: string;
   'semi-bold': string;
-  'bold': string;
+  bold: string;
   'extra-bold': string;
 };
 
@@ -63,9 +63,9 @@ export type ThemeFontFamilyProps = {
  */
 export type ThemeRadiusProps = {
   'less-round'?: number;
-  'round'?: number;
-  'rounder'?: number;
-  'roundest'?: number;
+  round?: number;
+  rounder?: number;
+  roundest?: number;
 };
 
 /**

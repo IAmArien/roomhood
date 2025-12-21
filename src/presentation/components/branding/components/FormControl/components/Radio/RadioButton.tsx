@@ -7,9 +7,10 @@
 // @ts-ignore
 import React, { JSX, useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+
+import { useRadioGroupConfig } from './context/RadioGroupContext';
 import { RadioButtonProps } from './types';
 import { useTheme } from '../../../../provider/ThemeProvider';
-import { useRadioGroupConfig } from './context/RadioGroupContext';
 import { Typography } from '../../../Typography/Typography';
 import { useFormControl } from '../../context/FormControlContext';
 
@@ -28,8 +29,7 @@ import { useFormControl } from '../../context/FormControlContext';
 export const RadioButton: React.FC<RadioButtonProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();
   const { colors } = props.theme || defaultTheme;
-  const { selectedValue, setSelectedValue, isRadioGroup } =
-    useRadioGroupConfig();
+  const { selectedValue, setSelectedValue, isRadioGroup } = useRadioGroupConfig();
   const {
     value,
     label,
@@ -89,7 +89,7 @@ export const RadioButton: React.FC<RadioButtonProps> = (props): JSX.Element => {
 
   const accessibilityState = {
     checked: localSelected,
-    disabled: isDisabled()
+    disabled: isDisabled(),
   };
 
   return (
@@ -101,7 +101,8 @@ export const RadioButton: React.FC<RadioButtonProps> = (props): JSX.Element => {
       accessibilityLabel={accessibilityLabel}
       accessibilityRole={accessibilityRole}
       accessibilityState={accessibilityState}
-      role={role}>
+      role={role}
+    >
       <View style={[styles.container, style]}>
         <View
           testID="radio-view-outer-circle"
@@ -111,41 +112,33 @@ export const RadioButton: React.FC<RadioButtonProps> = (props): JSX.Element => {
             isDisabled()
               ? {
                   borderColor: colors.border.grey,
-                  backgroundColor: colors.surface['desaturated-blue-grey']
+                  backgroundColor: colors.surface['desaturated-blue-grey'],
                 }
               : isSelected()
-              ? {
-                  borderColor: colors.ui.quaternary
-                }
-              : {
-                  borderColor: colors.border.grey
-                }
-          ]}>
+                ? {
+                    borderColor: colors.ui.quaternary,
+                  }
+                : {
+                    borderColor: colors.border.grey,
+                  },
+          ]}
+        >
           {isSelected() && isNotDisabled() && (
             <View
               testID="radio-view-inner-selected-circle"
               accessibilityLabel="radio-view-inner-selected-circle-accessibility-label"
-              style={[
-                styles.innerSelectedCircle,
-                { backgroundColor: colors.ui.primary }
-              ]}>
+              style={[styles.innerSelectedCircle, { backgroundColor: colors.ui.primary }]}
+            >
               <View
                 testID="radio-view-inner-circle"
                 accessibilityLabel="radio-view-inner-circle-accessibility-label"
-                style={[
-                  styles.innerCircle,
-                  { backgroundColor: colors.ui['pure-white'] }
-                ]}
+                style={[styles.innerCircle, { backgroundColor: colors.ui['pure-white'] }]}
               />
             </View>
           )}
         </View>
         {hasLabel() && (
-          <Typography
-            variant="description"
-            size="sm"
-            color={colors.text.clearest}
-            {...textProps}>
+          <Typography variant="description" size="sm" color={colors.text.clearest} {...textProps}>
             {label}
           </Typography>
         )}
@@ -158,7 +151,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     gap: 10,
-    alignItems: 'center'
+    alignItems: 'center',
   },
   default: {
     height: 24,
@@ -166,18 +159,18 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   innerSelectedCircle: {
     width: 22,
     height: 22,
     borderRadius: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   innerCircle: {
     height: 12,
     width: 12,
-    borderRadius: 50
-  }
+    borderRadius: 50,
+  },
 });

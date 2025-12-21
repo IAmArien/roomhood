@@ -3,7 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import React, { JSX, useEffect } from 'react';
+import React, { JSX, useEffect, useRef, useState } from 'react';
 import {
   Dimensions,
   GestureResponderEvent,
@@ -12,22 +12,18 @@ import {
   ScrollView,
   StyleSheet,
   TextInput,
-  View
+  View,
 } from 'react-native';
-import { Option, SelectionDropdownProps } from '../../types';
-import { useRef, useState } from 'react';
-import { TextField } from '../../../TextField/TextField';
-import { useTheme } from '../../../../../../provider/ThemeProvider';
-import { useDropdownSelection } from '../../context/DropdownContext';
-import { useFormControl } from '../../../../context/FormControlContext';
-import { FormControlState } from '../../../../types';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming
-} from 'react-native-reanimated';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
+
 import { CircleChevronDownIcon } from '../../../../../../assets';
+import { useTheme } from '../../../../../../provider/ThemeProvider';
+import { useFormControl } from '../../../../context/FormControlContext';
 import { useFormValidation } from '../../../../hooks/useFormValidation';
+import { FormControlState } from '../../../../types';
+import { TextField } from '../../../TextField/TextField';
+import { useDropdownSelection } from '../../context/DropdownContext';
+import { Option, SelectionDropdownProps } from '../../types';
 
 const DEFAULT_DROPDOWN_HEIGHT = 210;
 
@@ -58,9 +54,7 @@ type TDropdownContentProps = SelectionDropdownProps & {
  * @see TDropdownContentProps
  * @returns JSX Element of Dropdown Content
  */
-const DropdownContent: React.FC<TDropdownContentProps> = (
-  props
-): JSX.Element => {
+const DropdownContent: React.FC<TDropdownContentProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();
   const theme = props.theme || defaultTheme;
   const {
@@ -81,18 +75,12 @@ const DropdownContent: React.FC<TDropdownContentProps> = (
     labelPosition,
     alphaAnimatedStyle,
     animatedTrailingIconStyle,
-    children
+    children,
   } = props;
 
   const { properties } = theme;
 
-  const {
-    x = 0,
-    y = 0,
-    width = 0,
-    height = 0,
-    position
-  } = fieldPosition.current ?? {};
+  const { x = 0, y = 0, width = 0, height = 0, position } = fieldPosition.current ?? {};
 
   const getYPosition = (): number => {
     if (position === 'top') {
@@ -112,7 +100,8 @@ const DropdownContent: React.FC<TDropdownContentProps> = (
         testID={dropdownTestID}
         bounces={false}
         showsVerticalScrollIndicator
-        scrollEnabled>
+        scrollEnabled
+      >
         {options.map(child => child)}
       </ScrollView>
     );
@@ -135,8 +124,9 @@ const DropdownContent: React.FC<TDropdownContentProps> = (
           top: y,
           left: x,
           width,
-          height
-        }}>
+          height,
+        }}
+      >
         <TextField
           testID={dropdownTextFieldTestID}
           textFieldRef={textFieldRef}
@@ -169,12 +159,13 @@ const DropdownContent: React.FC<TDropdownContentProps> = (
             borderRadius: properties.radius['less-round'],
             top: getYPosition(),
             left: x,
-            width
+            width,
           },
           position === 'bottom' && {
-            marginTop: 5
-          }
-        ]}>
+            marginTop: 5,
+          },
+        ]}
+      >
         {customContent()}
       </Animated.View>
     </>
@@ -188,9 +179,7 @@ const DropdownContent: React.FC<TDropdownContentProps> = (
  * @see SelectionDropdownProps
  * @returns JSX Element of Selection Dropdown
  */
-export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
-  props
-): JSX.Element => {
+export const SelectionDropdown: React.FC<SelectionDropdownProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();
   const theme = props.theme || defaultTheme;
   const {
@@ -208,7 +197,7 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
     accessibilityLabel = 'dropdown-field-label',
     accessibilityRole = 'combobox',
     role = 'combobox',
-    style
+    style,
   } = props;
 
   const {
@@ -219,7 +208,7 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
     errorMessage,
     setErrorMessage,
     notes,
-    validations
+    validations,
   } = useFormControl<Option | undefined>();
 
   const { validate, isValid } = useFormValidation({
@@ -228,24 +217,18 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
     callback(state, message) {
       setErrorMessage(message);
       setState(state);
-    }
+    },
   });
 
-  const {
-    value: dropdownValue,
-    toggleMenu,
-    setToggleMenu
-  } = useDropdownSelection();
+  const { value: dropdownValue, toggleMenu, setToggleMenu } = useDropdownSelection();
 
   const accessibilityState = {
     disabled: state === 'disabled',
-    expanded: toggleMenu
+    expanded: toggleMenu,
   };
 
   const [textFieldValue, setTextFieldValue] = useState('');
-  const [labelPosition, setLabelPosition] = useState<
-    'top' | 'center' | undefined
-  >(undefined);
+  const [labelPosition, setLabelPosition] = useState<'top' | 'center' | undefined>(undefined);
 
   const textFieldRef = useRef<TextInput>(null);
   const fieldElement = useRef<View>(null);
@@ -290,7 +273,7 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
         y,
         width,
         height,
-        position: 'bottom'
+        position: 'bottom',
       };
       const exactFieldPositionInY = position.y + height / 2;
       const halfOfScreen = screenHeight / 2;
@@ -334,7 +317,7 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
 
   const alphaAnimatedStyle = useAnimatedStyle(() => {
     return {
-      opacity: dropdownContentAlpha.value
+      opacity: dropdownContentAlpha.value,
     };
   });
 
@@ -342,9 +325,9 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
     return {
       transform: [
         {
-          rotate: rotateAnimation.value
-        }
-      ]
+          rotate: rotateAnimation.value,
+        },
+      ],
     };
   });
 
@@ -370,10 +353,11 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
         onPress={onTextFieldPress}
         style={[
           state === 'disabled' && {
-            opacity: 0.5
+            opacity: 0.5,
           },
-          style
-        ]}>
+          style,
+        ]}
+      >
         <View pointerEvents="none">
           <TextField
             testID={textFieldTestID}
@@ -401,12 +385,9 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
         animationType="fade"
         visible={toggleMenu}
         transparent
-        onRequestClose={onCloseModal}>
-        <Pressable
-          testID={dropdownOverlayTestID}
-          style={styles.overlay}
-          onPress={onCloseModal}
-        />
+        onRequestClose={onCloseModal}
+      >
+        <Pressable testID={dropdownOverlayTestID} style={styles.overlay} onPress={onCloseModal} />
         <DropdownContent
           fieldPosition={fieldPosition}
           textFieldRef={textFieldRef}
@@ -427,6 +408,6 @@ export const SelectionDropdown: React.FC<SelectionDropdownProps> = (
 
 const styles = StyleSheet.create({
   overlay: {
-    flex: 1
-  }
+    flex: 1,
+  },
 });

@@ -4,8 +4,9 @@
  */
 
 import React from 'react';
-import { FormControlState, FormValidations } from '../types';
+
 import { FormState } from '../hooks/useForm';
+import { FormControlState, FormValidations } from '../types';
 
 interface IFormControl<T> {
   name: string;
@@ -35,13 +36,9 @@ interface IFormProvider<T> {
   setFormState: React.Dispatch<React.SetStateAction<FormState>>;
 }
 
-export const FormControlContext = React.createContext<
-  IFormControl<any> | undefined
->(undefined);
+export const FormControlContext = React.createContext<IFormControl<any> | undefined>(undefined);
 
-export const FormProviderContext = React.createContext<
-  IFormProvider<any> | undefined
->(undefined);
+export const FormProviderContext = React.createContext<IFormProvider<any> | undefined>(undefined);
 
 export const useFormControl = <T>(): IFormControl<T> => {
   return React.useContext(FormControlContext) as IFormControl<T>;

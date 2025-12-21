@@ -3,14 +3,16 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { JSX } from "react";
-import Animated from "react-native-reanimated";
-import { HeaderIconProps } from "../types";
+import { JSX } from 'react';
+import Animated from 'react-native-reanimated';
 
-export const HeaderIcon: React.FC<HeaderIconProps> = (props): JSX.Element => {const {
+import { HeaderIconProps } from '../types';
+
+export const HeaderIcon: React.FC<HeaderIconProps> = (props): JSX.Element => {
+  const {
     testID,
     accessible = false,
-    accessibilityLabel = "header-icon-accessibility-label",
+    accessibilityLabel = 'header-icon-accessibility-label',
     accessibilityRole = 'button',
     role = 'button',
     icon,
@@ -26,7 +28,8 @@ export const HeaderIcon: React.FC<HeaderIconProps> = (props): JSX.Element => {co
       accessibilityRole={accessibilityRole}
       role={role}
       onLayout={onLayout}
-      {...restProps}>
+      {...restProps}
+    >
       {icon}
     </Animated.View>
   );

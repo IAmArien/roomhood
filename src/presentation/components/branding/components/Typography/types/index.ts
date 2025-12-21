@@ -3,11 +3,8 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import {
-  StyleProp,
-  TextProps,
-  TextStyle
-} from 'react-native';
+import { StyleProp, TextProps, TextStyle } from 'react-native';
+
 import { Theme } from '../../../types/Theme';
 
 export type FontWeight = '400' | '600' | '700' | '800';

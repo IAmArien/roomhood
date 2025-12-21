@@ -3,15 +3,10 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import {
-  StyleProp,
-  TextInput,
-  TextInputProps,
-  TextStyle,
-  ViewStyle
-} from 'react-native';
-import { TypographyProps } from '../../../../Typography/types';
+import { StyleProp, TextInput, TextInputProps, TextStyle, ViewStyle } from 'react-native';
+
 import { Theme } from '../../../../../types/Theme';
+import { TypographyProps } from '../../../../Typography/types';
 import { FormControlState, FormValidations } from '../../../types';
 
 export type TextFieldState = FormControlState;
@@ -107,7 +102,7 @@ export type TextFieldProps = TextInputProps & {
   /**
    * @param extendedRef React RefObject of TextInput to be used as ref
    */
-  extendedRef?: React.RefObject<TextFieldExtendedRef>;
+  extendedRef?: React.RefObject<TextFieldExtendedRef | null>;
   /**
    * @param label string value for the label of the text field
    */

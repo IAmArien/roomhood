@@ -4,10 +4,9 @@
  */
 
 import { JSX } from 'react';
+
 import { AutoCompleteDropdownProps } from '../../types';
 
-export const AutoCompleteDropdown: React.FC<
-  AutoCompleteDropdownProps
-> = (): JSX.Element => {
+export const AutoCompleteDropdown: React.FC<AutoCompleteDropdownProps> = (): JSX.Element => {
   return <></>;
 };

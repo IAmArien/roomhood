@@ -5,18 +5,14 @@
  */
 
 // @ts-ignore
+import AnimatedLottieView from 'lottie-react-native';
 import React, { JSX, useEffect, useRef, useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
-import AnimatedLottieView from 'lottie-react-native';
+import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
 import { ModalLoaderProps } from './types';
-import { ScrimOverlay } from '../../Scrims/ScrimOverlay';
 import { GENERIC_LOADER } from '../../../assets';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming
-} from 'react-native-reanimated';
+import { ScrimOverlay } from '../../Scrims/ScrimOverlay';
 
 /**
  * Functional component for Modal Loader UI Element. Accepts props of the following:
@@ -51,7 +47,7 @@ export const ModalLoader: React.FC<ModalLoaderProps> = (props): JSX.Element => {
   const animatedLoaderContainer = useSharedValue(0);
   const animatedLoaderContainerStyle = useAnimatedStyle(() => {
     return {
-      opacity: animatedLoaderContainer.value
+      opacity: animatedLoaderContainer.value,
     };
   });
 
@@ -85,17 +81,17 @@ export const ModalLoader: React.FC<ModalLoaderProps> = (props): JSX.Element => {
           style={[
             styles.absoluteContainerDefaultLoader,
             animatedLoaderContainerStyle,
-            absoluteContainerStyle
-          ]}>
+            absoluteContainerStyle,
+          ]}
+        >
           <ScrimOverlay
             testID={testID}
             type={scrimOverlayProps?.type ?? 'light'}
             scrimPlacement={scrimOverlayProps?.scrimPlacement ?? 'behind'}
             style={scrimOverlayProps?.style}
             blurAmount={scrimOverlayProps?.blurAmount ?? 10}
-            transparencyFallbackColor={
-              scrimOverlayProps?.transparencyFallbackColor ?? 'white'
-            }>
+            transparencyFallbackColor={scrimOverlayProps?.transparencyFallbackColor ?? 'white'}
+          >
             {component?.() ?? (
               <View
                 accessible
@@ -105,8 +101,9 @@ export const ModalLoader: React.FC<ModalLoaderProps> = (props): JSX.Element => {
                 style={[
                   styles.loaderContainer,
                   styles.absoluteDefaultLoader,
-                  contentContainerStyle
-                ]}>
+                  contentContainerStyle,
+                ]}
+              >
                 <AnimatedLottieView
                   ref={animatedLottieRef}
                   testID={customLoaderComponent?.testID}
@@ -116,7 +113,7 @@ export const ModalLoader: React.FC<ModalLoaderProps> = (props): JSX.Element => {
                   source={GENERIC_LOADER}
                   style={{
                     height: 180,
-                    width: 180
+                    width: 180,
                   }}
                 />
               </View>
@@ -140,23 +137,24 @@ export const ModalLoader: React.FC<ModalLoaderProps> = (props): JSX.Element => {
       visible={isVisible}
       transparent
       animationType="fade"
-      onRequestClose={onRequestClose}>
+      onRequestClose={onRequestClose}
+    >
       <ScrimOverlay
         testID={testID}
         type={scrimOverlayProps?.type ?? 'light'}
         scrimPlacement={scrimOverlayProps?.scrimPlacement ?? 'behind'}
         style={scrimOverlayProps?.style}
         blurAmount={scrimOverlayProps?.blurAmount ?? 10}
-        transparencyFallbackColor={
-          scrimOverlayProps?.transparencyFallbackColor ?? 'white'
-        }>
+        transparencyFallbackColor={scrimOverlayProps?.transparencyFallbackColor ?? 'white'}
+      >
         {component?.() ?? (
           <View
             accessible
             accessibilityLabel="modal-loader-animated-lottie-accessibility-label"
             accessibilityRole="none"
             role="none"
-            style={[styles.loaderContainer, contentContainerStyle]}>
+            style={[styles.loaderContainer, contentContainerStyle]}
+          >
             <AnimatedLottieView
               testID={customLoaderComponent?.testID}
               autoPlay
@@ -164,7 +162,7 @@ export const ModalLoader: React.FC<ModalLoaderProps> = (props): JSX.Element => {
               source={GENERIC_LOADER}
               style={{
                 height: 180,
-                width: 180
+                width: 180,
               }}
             />
           </View>
@@ -178,20 +176,20 @@ const styles = StyleSheet.create({
   loaderContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1
+    flex: 1,
   },
   absoluteContainerDefaultLoader: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
+    bottom: 0,
   },
   absoluteDefaultLoader: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
-    bottom: 0
-  }
+    bottom: 0,
+  },
 });

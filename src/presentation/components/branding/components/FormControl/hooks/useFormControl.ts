@@ -3,10 +3,21 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { TextInput } from 'react-native';
+
+import { TextFieldExtendedRef } from '../components/TextField/types';
 import { FormControlState, FormValidations } from '../types';
 
 export interface IFormControl<T> {
+  /**
+   * @param textFieldRef React RefObject of TextInput to be used as ref
+   */
+  textFieldRef?: React.RefObject<TextInput | null>;
+  /**
+   * @param extendedRef React RefObject of TextInput to be used as ref
+   */
+  extendedRef?: React.RefObject<TextFieldExtendedRef | null>;
   /**
    * @param name string value for the custom name of the form control component
    */
@@ -100,6 +111,14 @@ export interface IFormControl<T> {
    * @param setIsValid state action that updates the value of the `isValid` prop
    */
   setIsValid: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+  /**
+   * @param isFocused boolean value that tells if the form control component is in focus state
+   */
+  isFocused?: boolean;
+  /**
+   * @param setIsFocused state action that updates the value of the `isFocused` prop
+   */
+  setIsFocused: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }
 
 export interface IFormControlParams<T> {
@@ -193,24 +212,25 @@ export const useFormControl = <T extends any>(
     defaultValue,
     onValueChange,
     overrideChangeText,
-    validations
+    validations,
   } = params ?? {};
+
+  const textFieldRef = useRef<TextInput | null>(null);
+  const extendedRef = useRef<TextFieldExtendedRef | null>(null);
 
   const [controlValue, setControlValue] = useState<T | undefined>(defaultValue);
   const [formState, setFormState] = useState<FormControlState>('default');
 
-  const [errorMessage, setErrorMessage] = useState<string | undefined>(
-    defaultErrorMessage
-  );
+  const [errorMessage, setErrorMessage] = useState<string | undefined>(defaultErrorMessage);
   const [notes, setNotes] = useState<string | undefined>(defaultNotes);
 
   const [value, setValue] = useState<T | undefined>(defaultValue);
 
-  const [selectedValue, setSelectedValue] = useState<T | undefined>(
-    defaultValue
-  );
+  const [selectedValue, setSelectedValue] = useState<T | undefined>(defaultValue);
 
   const [isValid, setIsValid] = useState<boolean | undefined>(undefined);
+
+  const [isFocused, setIsFocused] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     onValueChange?.(controlValue);
@@ -245,10 +265,12 @@ export const useFormControl = <T extends any>(
     max: validations?.max,
     minLength: validations?.minLength,
     maxLength: validations?.maxLength,
-    customValidation: validations?.customValidation
+    customValidation: validations?.customValidation,
   };
 
   const control: IFormControl<T> = {
+    textFieldRef,
+    extendedRef,
     name,
     defaultNotes,
     defaultErrorMessage,
@@ -269,7 +291,9 @@ export const useFormControl = <T extends any>(
     resetValue,
     validations: validations ? defaultValidations : undefined,
     isValid,
-    setIsValid
+    setIsValid,
+    isFocused,
+    setIsFocused,
   };
 
   return control;
@@ -284,6 +308,8 @@ export const useFormControl = <T extends any>(
  */
 export const useDefaultFormControl = <T extends any>(): IFormControl<T> => {
   return useCreateFormControl<T>({
+    textFieldRef: undefined,
+    extendedRef: undefined,
     name: '',
     defaultNotes: undefined,
     defaultValue: undefined,
@@ -303,7 +329,9 @@ export const useDefaultFormControl = <T extends any>(): IFormControl<T> => {
     resetValue: () => {},
     validations: {},
     isValid: false,
-    setIsValid: () => {}
+    setIsValid: () => {},
+    isFocused: false,
+    setIsFocused: () => {},
   });
 };
 
@@ -322,10 +350,10 @@ export const useDefaultFormControl = <T extends any>(): IFormControl<T> => {
  * @param params IFormControl of generic type of `T`
  * @returns IFormControl of generic type of `T`
  */
-export const useCreateFormControl = <T extends any>(
-  params: IFormControl<T>
-): IFormControl<T> => {
+export const useCreateFormControl = <T extends any>(params: IFormControl<T>): IFormControl<T> => {
   const control: IFormControl<T> = {
+    textFieldRef: params.textFieldRef,
+    extendedRef: params.extendedRef,
     name: params.name,
     defaultNotes: params.defaultNotes,
     defaultValue: params.defaultValue,
@@ -345,7 +373,9 @@ export const useCreateFormControl = <T extends any>(
     resetValue: params.resetValue,
     validations: params.validations,
     isValid: params.isValid,
-    setIsValid: params.setIsValid
+    setIsValid: params.setIsValid,
+    isFocused: params.isFocused,
+    setIsFocused: params.setIsFocused,
   };
   return control;
 };

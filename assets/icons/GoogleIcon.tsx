@@ -3,16 +3,12 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { ReactElement } from "react";
-import Svg, { Path } from "react-native-svg";
+import { ReactElement } from 'react';
+import Svg, { Path } from 'react-native-svg';
 
 export function GoogleIcon(): ReactElement {
   return (
-    <Svg
-      width={32}
-      height={32}
-      viewBox="0 0 32 32"
-      fill="none">
+    <Svg width={32} height={32} viewBox="0 0 32 32" fill="none">
       <Path
         d="M30.001 16.31c0-1.15-.095-1.99-.301-2.861H16.287v5.195h7.873c-.159 1.291-1.016 3.236-2.92 4.542l-.027.174 4.24 3.22.294.029c2.699-2.443 4.254-6.036 4.254-10.298z"
         fill="#4285F4"
@@ -31,4 +27,4 @@ export function GoogleIcon(): ReactElement {
       />
     </Svg>
   );
-};
+}

@@ -5,6 +5,7 @@
  */
 
 import React, { JSX, useEffect, useMemo } from 'react';
+
 import { RadioGroupContext } from './context/RadioGroupContext';
 import { RadioGroupProps } from './types';
 import { useFormControl } from '../../context/FormControlContext';
@@ -40,7 +41,7 @@ export const RadioGroup: React.FC<RadioGroupProps> = (props): JSX.Element => {
     setErrorMessage,
     selectedValue,
     setSelectedValue,
-    validations
+    validations,
   } = useFormControl<string | undefined>();
 
   const { validateRadioGroup, isValid } = useFormValidation({
@@ -49,14 +50,14 @@ export const RadioGroup: React.FC<RadioGroupProps> = (props): JSX.Element => {
     callback(state, message) {
       setErrorMessage(message);
       setState(state);
-    }
+    },
   });
 
   const initialValue = useMemo(() => {
     return {
       isRadioGroup: true,
       selectedValue,
-      setSelectedValue
+      setSelectedValue,
     };
   }, [selectedValue]);
 
@@ -68,9 +69,5 @@ export const RadioGroup: React.FC<RadioGroupProps> = (props): JSX.Element => {
     setIsValid(isValid());
   }, [isValid()]);
 
-  return (
-    <RadioGroupContext.Provider value={initialValue}>
-      {children}
-    </RadioGroupContext.Provider>
-  );
+  return <RadioGroupContext.Provider value={initialValue}>{children}</RadioGroupContext.Provider>;
 };

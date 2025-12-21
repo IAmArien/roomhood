@@ -3,7 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import React, { createContext, PropsWithChildren, SetStateAction, useContext } from "react";
+import React, { createContext, PropsWithChildren, SetStateAction, useContext } from 'react';
 
 export type ErrorModalContent = {
   title?: string;

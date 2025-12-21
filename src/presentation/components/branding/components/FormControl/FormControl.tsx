@@ -5,18 +5,13 @@
 
 // @ts-ignore
 import React, { JSX, useEffect, useMemo } from 'react';
-import {
-  FormControlContext,
-  useFormProvider
-} from './context/FormControlContext';
-import { FormControlProps } from './types';
 import { View } from 'react-native';
+
+import { FormControlContext, useFormProvider } from './context/FormControlContext';
 import { IFormControl } from './hooks';
 import { registerFormControl, unregisterFormControl } from './hooks/useForm';
-import {
-  useCreateFormControl,
-  useDefaultFormControl
-} from './hooks/useFormControl';
+import { useCreateFormControl, useDefaultFormControl } from './hooks/useFormControl';
+import { FormControlProps } from './types';
 
 /**
  * Functional component for FormControl component. Accepts props of the following:
@@ -53,9 +48,7 @@ import {
  * @see FormControlProps
  * @returns JSX Element of FormControl component
  */
-export const FormControl = <T extends any>(
-  props: FormControlProps<T>
-): JSX.Element => {
+export const FormControl = <T extends any>(props: FormControlProps<T>): JSX.Element => {
   const {
     name,
     defaultNotes,
@@ -78,7 +71,7 @@ export const FormControl = <T extends any>(
     validations,
     isValid,
     setIsValid,
-    children
+    children,
   } = props;
 
   const { setFormControls } = useFormProvider<IFormControl<T>[]>() ?? {};
@@ -102,18 +95,9 @@ export const FormControl = <T extends any>(
       setSelectedValue,
       validations,
       isValid,
-      setIsValid
+      setIsValid,
     };
-  }, [
-    name,
-    controlValue,
-    state,
-    errorMessage,
-    notes,
-    value,
-    selectedValue,
-    isValid
-  ]);
+  }, [name, controlValue, state, errorMessage, notes, value, selectedValue, isValid]);
 
   const defaultFormControl = useDefaultFormControl<T>();
   const formControlObj = useCreateFormControl<T>({
@@ -135,14 +119,12 @@ export const FormControl = <T extends any>(
     setSelectedValue,
     onChangeText,
     isValid,
-    validations
+    validations,
   });
 
   useEffect(() => {
     if (name && name.length > 0) {
-      setFormControls?.(prevControls => [
-        ...registerFormControl<T>(formControlObj, prevControls)
-      ]);
+      setFormControls?.(prevControls => [...registerFormControl<T>(formControlObj, prevControls)]);
     }
   }, [controlValue, name, state, errorMessage, notes, isValid]);
 
@@ -150,7 +132,7 @@ export const FormControl = <T extends any>(
     return () => {
       if (name && name.length > 0) {
         setFormControls?.(prevControls => [
-          ...unregisterFormControl<T>(formControlObj, prevControls)
+          ...unregisterFormControl<T>(formControlObj, prevControls),
         ]);
       }
     };

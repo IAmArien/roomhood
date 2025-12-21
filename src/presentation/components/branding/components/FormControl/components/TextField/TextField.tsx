@@ -5,6 +5,7 @@
 
 // @ts-ignore
 import React, { JSX, useImperativeHandle } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   FocusEvent,
   BlurEvent,
@@ -13,45 +14,38 @@ import {
   StyleSheet,
   TextInput,
   TextStyle,
-  View
+  View,
+  GestureResponderEvent,
 } from 'react-native';
-import { useTheme } from '../../../../provider/ThemeProvider';
+import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
+import { SpringConfig } from 'react-native-reanimated/lib/typescript/animation/spring';
+
 import {
   StaticPlaceholderProps,
   TextFieldExtendedRef,
   TextFieldLabelStyle,
   TextFieldProps,
-  TextFieldState
+  TextFieldState,
 } from './types';
-import { useEffect, useRef, useState } from 'react';
-import { Typography } from '../../../Typography/Typography';
 import { CircleCheckIcon, WarningIcon } from '../../../../assets';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring
-} from 'react-native-reanimated';
-import { GestureResponderEvent } from 'react-native';
+import { useTheme } from '../../../../provider/ThemeProvider';
+import { Typography } from '../../../Typography/Typography';
 import { useFormProvider } from '../../context/FormControlContext';
 import { IFormControl } from '../../hooks';
-import {
-  useCreateFormControl,
-  useDefaultFormControl
-} from '../../hooks/useFormControl';
-import { useFormValidation } from '../../hooks/useFormValidation';
 import { registerFormControl, unregisterFormControl } from '../../hooks/useForm';
-import { SpringConfig } from 'react-native-reanimated/lib/typescript/animation/spring';
+import { useCreateFormControl, useDefaultFormControl } from '../../hooks/useFormControl';
+import { useFormValidation } from '../../hooks/useFormValidation';
 
 export const DEFAULT_TEXT_FIELD_LABEL_ANIM_DURATION = 500;
 export const defaultLabelStyle: TextFieldLabelStyle = {
   lineHeight: 32,
   fontSize: 16,
-  paddingHorizontal: 0
+  paddingHorizontal: 0,
 };
 export const topLabelStyle: TextFieldLabelStyle = {
   lineHeight: 28,
   fontSize: 14,
-  paddingHorizontal: 2
+  paddingHorizontal: 2,
 };
 const defaultContainerPosition = 24.5;
 const topContainerPosition = 2;
@@ -62,9 +56,7 @@ const topContainerPosition = 2;
  * @see StaticPlaceholderProps
  * @returns JSX Element of Static Placeholder UI Element
  */
-const StaticPlaceholder: React.FC<StaticPlaceholderProps> = (
-  props
-): JSX.Element => {
+const StaticPlaceholder: React.FC<StaticPlaceholderProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();
   const theme = props.theme || defaultTheme;
   const { colors } = theme;
@@ -72,8 +64,7 @@ const StaticPlaceholder: React.FC<StaticPlaceholderProps> = (
 
   const remainingPlaceholder: string = placeholder?.slice(value.length) ?? '';
 
-  const hasPlaceholder = (): boolean =>
-    placeholder !== undefined && placeholder !== '';
+  const hasPlaceholder = (): boolean => placeholder !== undefined && placeholder !== '';
 
   return (
     <>
@@ -87,19 +78,22 @@ const StaticPlaceholder: React.FC<StaticPlaceholderProps> = (
             right: 0,
             flexDirection: 'column',
             justifyContent: 'center',
-            height
-          }}>
+            height,
+          }}
+        >
           <Typography
             testID={testID}
             variant="description"
             size="md"
             color={colors.text.ghost}
-            {...textProps}>
+            {...textProps}
+          >
             <Typography
               variant="description"
               size="md"
               style={{ color: 'transparent' }}
-              {...textProps}>
+              {...textProps}
+            >
               {value}
             </Typography>
             {remainingPlaceholder}
@@ -185,13 +179,9 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
 
   const { setFormControls } = useFormProvider<IFormControl<any>[]>() ?? {};
 
-  const [localErrorMessage, setLocalErrorMessage] = useState<
-    string | undefined
-  >(undefined);
+  const [localErrorMessage, setLocalErrorMessage] = useState<string | undefined>(undefined);
   const [localState, setLocalState] = useState<TextFieldState>('default');
-  const [localIsValid, setLocalIsValid] = useState<boolean | undefined>(
-    undefined
-  );
+  const [localIsValid, setLocalIsValid] = useState<boolean | undefined>(undefined);
 
   const [isFocused, setIsFocused] = useState<boolean | undefined>(undefined);
   const [textFieldHeight, setTextFieldHeight] = useState(0);
@@ -199,26 +189,22 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
   const defaultTextFieldRef = useRef<TextInput>(null);
 
   const containerPosition = useSharedValue(
-    defaultLabelPosition === 'top'
-      ? defaultTopLabelPosition
-      : defaultCenterLabelPosition
+    defaultLabelPosition === 'top' ? defaultTopLabelPosition : defaultCenterLabelPosition
   );
   const labelStyle = useSharedValue(
-    defaultLabelPosition === 'top'
-      ? defaultTopLabelStyle
-      : defaultCenterLabelStyle
+    defaultLabelPosition === 'top' ? defaultTopLabelStyle : defaultCenterLabelStyle
   );
 
   const defaultTextStyle: TextStyle = {
     fontFamily: typography.description.md.fontFamily,
     fontWeight: typography.description.md.fontWeight as TextStyle['fontWeight'],
     fontSize: typography.description.md.fontSize,
-    opacity: localState === 'disabled' ? 0.5 : undefined
+    opacity: localState === 'disabled' ? 0.5 : undefined,
   };
 
   const springConfig: SpringConfig = {
     duration: animationDuration,
-    dampingRatio: 1
+    dampingRatio: 1,
   };
 
   const accessibilityState = { disabled: localState === 'disabled' };
@@ -230,7 +216,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
     callback(state, message) {
       setLocalErrorMessage(message);
       setLocalState(state);
-    }
+    },
   });
 
   const defaultFormControl = useDefaultFormControl<string>();
@@ -244,7 +230,8 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
     notes,
     value,
     isValid: localIsValid,
-    validations
+    isFocused: isFocused,
+    validations,
   });
 
   const requestFocusInternal = (requestFocus: boolean) => {
@@ -275,18 +262,12 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
       }
       switch (position) {
         case 'top': {
-          containerPosition.value = withSpring(
-            defaultTopLabelPosition,
-            springConfig
-          );
+          containerPosition.value = withSpring(defaultTopLabelPosition, springConfig);
           labelStyle.value = defaultTopLabelStyle;
           break;
         }
         case 'center': {
-          containerPosition.value = withSpring(
-            defaultCenterLabelPosition,
-            springConfig
-          );
+          containerPosition.value = withSpring(defaultCenterLabelPosition, springConfig);
           labelStyle.value = defaultCenterLabelStyle;
           break;
         }
@@ -304,10 +285,10 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
   useEffect(() => {
     if (name && name.length > 0) {
       setFormControls?.(prevControls => [
-        ...registerFormControl<string>(formControlObj, prevControls)
+        ...registerFormControl<string>(formControlObj, prevControls),
       ]);
     }
-  }, [value, name, state, localErrorMessage, notes, localIsValid]);
+  }, [value, name, state, localErrorMessage, notes, localIsValid, isFocused]);
 
   /**
    * This portion of useEffect code is being used to unregister the textfield (if registered)
@@ -317,7 +298,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
     return () => {
       if (name && name.length > 0) {
         setFormControls?.(prevControls => [
-          ...unregisterFormControl<string>(formControlObj, prevControls)
+          ...unregisterFormControl<string>(formControlObj, prevControls),
         ]);
       }
     };
@@ -357,7 +338,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
     const reference: TextFieldExtendedRef = {
       requestLabelPosition: position => requestLabelPositionInternal(position),
       requestFocus: focus => requestFocusInternal(focus),
-      setState: state => setLocalState(state)
+      setState: state => setLocalState(state),
     };
     return reference;
   });
@@ -397,26 +378,17 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
    */
   useEffect(() => {
     if (fixedLabel) {
-      containerPosition.value = withSpring(
-        defaultTopLabelPosition,
-        springConfig
-      );
+      containerPosition.value = withSpring(defaultTopLabelPosition, springConfig);
       labelStyle.value = defaultTopLabelStyle;
       return;
     }
     if (value !== undefined) {
       if (value.length >= 1) {
-        containerPosition.value = withSpring(
-          defaultTopLabelPosition,
-          springConfig
-        );
+        containerPosition.value = withSpring(defaultTopLabelPosition, springConfig);
         labelStyle.value = defaultTopLabelStyle;
       }
     } else {
-      containerPosition.value = withSpring(
-        defaultCenterLabelPosition,
-        springConfig
-      );
+      containerPosition.value = withSpring(defaultCenterLabelPosition, springConfig);
       labelStyle.value = defaultCenterLabelStyle;
     }
   }, [value]);
@@ -444,21 +416,15 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
     labelStyle.value = defaultTopLabelStyle;
     setIsFocused(true);
     validate(value, value, true);
-    onFocus?.(e)
+    onFocus?.(e);
   };
 
   const handleOnBlur = (e: BlurEvent) => {
     if (fixedLabel) {
-      containerPosition.value = withSpring(
-        defaultTopLabelPosition,
-        springConfig
-      );
+      containerPosition.value = withSpring(defaultTopLabelPosition, springConfig);
       labelStyle.value = defaultTopLabelStyle;
     } else if (value === undefined || value?.length === 0) {
-      containerPosition.value = withSpring(
-        defaultCenterLabelPosition,
-        springConfig
-      );
+      containerPosition.value = withSpring(defaultCenterLabelPosition, springConfig);
       labelStyle.value = defaultCenterLabelStyle;
     }
     setIsFocused(false);
@@ -524,7 +490,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
   const getDefaultTextStyle = (): TextStyle => {
     return {
       ...defaultTextStyle,
-      color: colors.text.clearest
+      color: colors.text.clearest,
     };
   };
 
@@ -534,7 +500,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
       defaultStyle = {
         ...defaultStyle,
         borderColor: colors.functional.negative,
-        borderWidth: 1
+        borderWidth: 1,
       };
     }
     if (isFocused) {
@@ -542,20 +508,20 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
         defaultStyle = {
           ...defaultStyle,
           borderColor: colors.functional.negative,
-          borderWidth: 1
+          borderWidth: 1,
         };
       } else {
         defaultStyle = {
           ...defaultStyle,
           borderWidth: 2,
-          borderColor: colors.ui.primary
+          borderColor: colors.ui.primary,
         };
       }
     }
     if (hasTrailingStateIcon()) {
       defaultStyle = {
         ...defaultStyle,
-        paddingRight: 40
+        paddingRight: 40,
       };
     }
     return defaultStyle;
@@ -566,7 +532,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
       position: 'absolute',
       left: 12,
       top: containerPosition.value,
-      flexDirection: 'row'
+      flexDirection: 'row',
     };
   });
 
@@ -577,7 +543,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
       backgroundColor,
       lineHeight: labelStyle.value.lineHeight,
       fontSize: labelStyle.value.fontSize,
-      paddingHorizontal: labelStyle.value.paddingHorizontal
+      paddingHorizontal: labelStyle.value.paddingHorizontal,
     };
   });
 
@@ -588,9 +554,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
       if (customSuccessIcon !== undefined) {
         return (
           <View style={[styles.trailingIcon, customSuccessIconStyle]}>
-            <View testID={`input-success-icon-${testID}`}>
-              {customSuccessIcon}
-            </View>
+            <View testID={`input-success-icon-${testID}`}>{customSuccessIcon}</View>
           </View>
         );
       }
@@ -627,7 +591,8 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
       return (
         <View
           testID={`input--trailing-icon-${testID}`}
-          style={[styles.trailingIcon, trailingIconStyle]}>
+          style={[styles.trailingIcon, trailingIconStyle]}
+        >
           {trailingIcon}
         </View>
       );
@@ -660,11 +625,11 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
             {
               backgroundColor,
               borderColor: colors.border.grey,
-              borderRadius: properties.radius.round
+              borderRadius: properties.radius.round,
             },
             getStateTextStyle(),
             customStyle,
-            style
+            style,
           ]}
           {...restProps}
         />
@@ -686,12 +651,14 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
             testID={`input-pressable-field-name-${testID}`}
             accessible={false}
             disabled={localState === 'disabled' || editable === false}
-            onPress={handleOnPressLabel}>
+            onPress={handleOnPressLabel}
+          >
             <Animated.Text
               testID={`input-field-name-${testID}`}
               style={animatedLabelStyle}
               numberOfLines={1}
-              ellipsizeMode="tail">
+              ellipsizeMode="tail"
+            >
               {label}
             </Animated.Text>
           </Pressable>
@@ -707,8 +674,9 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
               color={colors.functional.negative}
               style={{
                 marginTop: 3,
-                marginHorizontal: 1
-              }}>
+                marginHorizontal: 1,
+              }}
+            >
               {localErrorMessage}
             </Typography>
           )}
@@ -723,8 +691,9 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
               color={colors.text.clearer}
               style={{
                 marginTop: 3,
-                marginHorizontal: 1
-              }}>
+                marginHorizontal: 1,
+              }}
+            >
               {notes}
             </Typography>
           )}
@@ -736,12 +705,12 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 17
+    paddingTop: 17,
   },
   textField: {
     height: 48,
     borderWidth: 1,
-    padding: 8
+    padding: 8,
   },
   trailingIcon: {
     position: 'absolute',
@@ -749,6 +718,6 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });

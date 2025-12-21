@@ -16,12 +16,12 @@ module.exports = {
           '@branding/provider': './src/presentation/components/branding/provider',
           '@branding/styles': './src/presentation/components/branding/styles',
           '@branding/types': './src/presentation/components/branding/types/Theme.ts',
-          "@presentation/screens": './src/presentation/screens',
+          '@presentation/screens': './src/presentation/screens',
           '@presentation/components/common': './src/presentation/components/common',
-          "@utils": './src/utils'
-        }
-      }
+          '@utils': './src/utils',
+        },
+      },
     ],
-    'react-native-reanimated/plugin'
-  ]
+    'react-native-reanimated/plugin',
+  ],
 };
