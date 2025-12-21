@@ -3,7 +3,7 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Dashboard, Profile, Search } from "@presentation/screens";
+import { Dashboard, OtpScreen, Profile, Search } from "@presentation/screens";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ReactElement } from "react";
 
@@ -20,6 +20,7 @@ export default function AuthStackNavigation(): ReactElement {
       <Stack.Screen name="Dashboard" component={Dashboard} />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="OtpScreen" component={OtpScreen} />
     </Stack.Navigator>
   );
 }

@@ -3,9 +3,10 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
+import { useAppContext } from "@app/context";
 import { useNavigator } from "@app/hooks";
 import { CalendarOutlinedIcon, EmailOutlinedIcon, PersonOutlinedIcon, PhoneOutlinedIcon } from "@assets/icons";
-import { Checkbox, Dropdown, DropdownOption, FormControl, FormProvider, Header, IFormControl, Option, TextField, Typography, useForm, useFormControl } from "@branding/components";
+import { Checkbox, Dropdown, DropdownOption, FormControl, FormProvider, Header, IFormControl, IFormData, Option, TextField, Typography, useForm, useFormControl } from "@branding/components";
 import { useTheme } from "@branding/provider";
 import { isEmailAddressValid, isValidFormattedPHMobile, isValidMMDDYYYY, toBirthDateTextField, toPHMobileNumber } from "@utils";
 import { BottomNavigationButton } from "presentation/components";
@@ -19,6 +20,8 @@ export default function SignUp(): ReactElement {
   const theme = useTheme();
 
   const { colors } = theme;
+
+  const { setShowLoadingModal } = useAppContext();
 
   const scrollViewRef = useRef<ScrollView | null>(null);
 
@@ -105,7 +108,24 @@ export default function SignUp(): ReactElement {
 
   const keyboardBehavior = Platform.OS === 'ios' ? 'padding' : 'height';
 
-  const handleFormSubmit = () => {};
+  const handleFormSubmit = (data: IFormData<FormType>[]) => {
+    const emailAddress = data.filter(v => v.name === 'email') ?? [];
+    setShowLoadingModal(true);
+    setTimeout(() => {
+      setShowLoadingModal(false);
+    }, 2000);
+    setTimeout(() => {
+      navigator.navigate('AuthStack', {
+        screen: 'OtpScreen',
+        params: {
+          title: "Verify Email OTP",
+          type: "email",
+          emailAddress: emailAddress[0]?.controlValue as string,
+          timerInMillis: 300
+        }
+      });
+    }, 2300);
+  };
 
   const handleHeaderLeftIconPress = () => navigator.goBack();
 
@@ -113,7 +133,10 @@ export default function SignUp(): ReactElement {
 
   const handlePrivacyPolicyPress = () => {};
 
-  const handleContinuePress = () => {};
+  const handleContinuePress = () => {
+    Keyboard.dismiss();
+    form.formRef.current?.submit?.()
+  };
 
   return (
     <FormProvider {...form} onSubmit={handleFormSubmit}>
