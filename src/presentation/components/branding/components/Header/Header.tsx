@@ -18,7 +18,7 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
   const defaultTheme = useTheme();
   const theme = props.theme || defaultTheme;
 
-  const { colors } = theme;
+  const { colors, properties } = theme;
 
   const {
     testID,
@@ -60,7 +60,18 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
       role={role}
       style={styles.container}
     >
-      <View accessible={false} style={[styles.contentContainer, style]} {...restProps}>
+      <View
+        accessible={false}
+        style={[
+          styles.contentContainer,
+          {
+            backgroundColor: colors.ui['pure-white'],
+          },
+          properties.shadows.softest,
+          style,
+        ]}
+        {...restProps}
+      >
         {/** HEADER LEFT ICON */}
         <Ripple
           testID={headerLeftIconTestID}

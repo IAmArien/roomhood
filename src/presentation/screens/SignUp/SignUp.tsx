@@ -27,6 +27,7 @@ import {
   useFormControl,
 } from '@branding/components';
 import { useTheme } from '@branding/provider';
+import { BottomNavigationButton } from '@presentation/components';
 import {
   isEmailAddressValid,
   isValidFormattedPHMobile,
@@ -34,7 +35,6 @@ import {
   toBirthDateTextField,
   toPHMobileNumber,
 } from '@utils';
-import { BottomNavigationButton } from 'presentation/components';
 import { ReactElement, useRef } from 'react';
 import {
   Keyboard,
@@ -191,6 +191,7 @@ export default function SignUp(): ReactElement {
           headerLeftIconTestID="signup-header-left-icon"
           onHeaderLeftIconPress={handleHeaderLeftIconPress}
           style={styles.header}
+          theme={theme}
         />
         <KeyboardAvoidingView
           keyboardVerticalOffset={Platform.OS === 'ios' ? 12 : 0}
@@ -374,7 +375,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: 16,
     paddingBottom: 36,
-    paddingTop: 8,
+    paddingTop: 16,
   },
   checkboxContainer: {
     marginTop: 24,
