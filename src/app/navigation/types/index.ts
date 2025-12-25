@@ -20,10 +20,18 @@ export type NoAuthStackNavigator = {
 };
 
 export type AuthStackNavigator = {
-  Dashboard: undefined;
+  Dashboard: NavigatorScreenParams<DashboardBottomNavigator>;
   Search: undefined;
   Profile: undefined;
   OtpScreen: OtpScreenPropsWithType<OtpType>;
+};
+
+export type DashboardBottomNavigator = {
+  Home: undefined;
+  Search: undefined;
+  Manage: undefined;
+  Chats: undefined;
+  Profile: undefined;
 };
 
 export type AppNavigation = NativeStackScreenProps<MainStackNavigator>['navigation'];

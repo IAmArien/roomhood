@@ -57,6 +57,14 @@ export default function OtpScreen(): ReactElement {
       setShowLoadingModal(false);
       setOtpState('success');
     }, 2000);
+    setTimeout(() => {
+      navigator.navigate('AuthStack', {
+        screen: 'Dashboard',
+        params: {
+          screen: 'Home',
+        },
+      });
+    }, 2300);
   };
 
   return (
