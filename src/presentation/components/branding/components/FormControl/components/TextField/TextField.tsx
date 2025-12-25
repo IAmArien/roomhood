@@ -539,6 +539,7 @@ export const TextField: React.FC<TextFieldProps> = (props): JSX.Element => {
   const animatedLabelStyle = useAnimatedStyle(() => {
     return {
       ...defaultTextStyle,
+      opacity: 1,
       color: colors.text.clear,
       backgroundColor,
       lineHeight: labelStyle.value.lineHeight,

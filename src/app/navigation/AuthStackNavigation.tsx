@@ -3,10 +3,11 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-import { Dashboard, OtpScreen, Profile, Search } from '@presentation/screens';
+import { OtpScreen, Profile, Search } from '@presentation/screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ReactElement } from 'react';
 
+import DashboardBottomNavigation from './DashboardBottomNavigation';
 import { AuthStackNavigator } from './types';
 import { rightToLeftInterpolator } from './utils/stackInterpolator';
 
@@ -18,7 +19,7 @@ export default function AuthStackNavigation(): ReactElement {
       initialRouteName="Dashboard"
       screenOptions={{ headerShown: false, ...rightToLeftInterpolator }}
     >
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Dashboard" component={DashboardBottomNavigation} />
       <Stack.Screen name="Search" component={Search} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="OtpScreen" component={OtpScreen} />

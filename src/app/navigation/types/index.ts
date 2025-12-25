@@ -5,7 +5,7 @@
 
 import { NavigatorScreenParams, RouteProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { OtpScreenProps } from 'presentation/screens/Otp/types';
+import { OtpScreenPropsWithType, OtpType } from 'presentation/screens/Otp/types';
 import { SignUpProps } from 'presentation/screens/SignUp/types';
 
 export type MainStackNavigator = {
@@ -20,10 +20,18 @@ export type NoAuthStackNavigator = {
 };
 
 export type AuthStackNavigator = {
-  Dashboard: undefined;
+  Dashboard: NavigatorScreenParams<DashboardBottomNavigator>;
   Search: undefined;
   Profile: undefined;
-  OtpScreen: OtpScreenProps;
+  OtpScreen: OtpScreenPropsWithType<OtpType>;
+};
+
+export type DashboardBottomNavigator = {
+  Home: undefined;
+  Search: undefined;
+  Manage: undefined;
+  Chats: undefined;
+  Profile: undefined;
 };
 
 export type AppNavigation = NativeStackScreenProps<MainStackNavigator>['navigation'];

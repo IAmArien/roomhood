@@ -28,3 +28,21 @@ export const isValidFormattedPHMobile = (value: string): boolean => {
   const regex = /^\(\+63\) 9\d{2} \d{3} \d{4}$/;
   return regex.test(value);
 };
+
+export const maskPHPhoneNumber = (phone: string): string => {
+  if (!phone) return phone;
+
+  const digits = phone.replace(/\D/g, '');
+
+  let normalized = '';
+
+  if (digits.startsWith('09') && digits.length === 11) {
+    normalized = digits.slice(1);
+  } else if (digits.startsWith('639') && digits.length === 12) {
+    normalized = digits.slice(2);
+  } else {
+    return phone;
+  }
+
+  return `(+63) ${normalized[0]}** *** **${normalized.slice(-2)}`;
+};
