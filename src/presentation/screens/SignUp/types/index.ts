@@ -5,6 +5,12 @@
 
 import { LoginSSOType } from 'presentation/screens/Login/types';
 
-export type SignUpProps = {
+export type SignUpProps = SignUpPrefilledInfo & {
   type: LoginSSOType;
+};
+
+export type SignUpPrefilledInfo = {
+  emailAddress?: string;
+  firstName?: string;
+  lastName?: string;
 };

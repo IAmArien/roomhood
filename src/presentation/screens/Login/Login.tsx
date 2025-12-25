@@ -82,6 +82,9 @@ export default function Login(): ReactElement {
         screen: 'SignUp',
         params: {
           type,
+          emailAddress: 'palisocnorman@gmail.com',
+          firstName: 'Norman',
+          lastName: 'Palisoc',
         },
       });
     }, 2300);

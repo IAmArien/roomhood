@@ -5,6 +5,7 @@
 
 import { Typography } from '@branding/components';
 import { useTheme } from '@branding/provider';
+import { useCountdown } from '@presentation/hooks';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import { Keyboard, Pressable, StyleSheet, TextInput, View } from 'react-native';
 
@@ -49,15 +50,23 @@ export const OtpInputTextField: React.FC<OtpInputTextFieldProps> = (props): Reac
   const theme = props.theme || defaultTheme;
 
   const { colors } = theme;
-  const { onVerifyOTP } = props;
+  const { timerInMillis = 300, onVerifyOTP, otpState, onUpdateOTPState } = props;
 
   const otpTextInputRef = useRef<TextInput | null>(null);
 
   const [otp, setOtp] = useState<OtpInputValue[]>(DEFAULT_OTP_VALUES);
-  const [otpState, setOtpState] = useState<OtpState>('default');
 
   const [otpValue, setOtpValue] = useState<string>('');
   const [isFocused, setIsFocused] = useState<boolean>(false);
+
+  const { seconds, reset, isFinished } = useCountdown(timerInMillis);
+
+  const formatTime = (totalSeconds: number) => {
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    const paddedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return `${minutes}:${paddedSeconds}`;
+  };
 
   const getOtpTextBoxState = (value: string, isFocused: boolean): OtpState => {
     if (otpState === 'success') {
@@ -102,6 +111,10 @@ export const OtpInputTextField: React.FC<OtpInputTextFieldProps> = (props): Reac
 
   const handleTextInputOnBlur = () => setIsFocused(false);
 
+  const handleResetOTP = () => {
+    reset();
+  };
+
   useEffect(() => {
     const delayTimeout = setTimeout(() => otpTextInputRef.current?.focus(), 1000);
     return () => {
@@ -114,14 +127,14 @@ export const OtpInputTextField: React.FC<OtpInputTextFieldProps> = (props): Reac
   useEffect(() => {
     setOtp(prevOtp => stringToOTPValue(otpValue, prevOtp));
     if (otpValue.length === 6) {
-      setOtpState('loading');
+      onUpdateOTPState('loading');
       setTimeout(() => {
         Keyboard.dismiss();
         onVerifyOTP?.(otpValue);
       }, 300);
       return;
     }
-    setOtpState('default');
+    onUpdateOTPState('default');
   }, [otpValue]);
 
   return (
@@ -141,18 +154,34 @@ export const OtpInputTextField: React.FC<OtpInputTextFieldProps> = (props): Reac
         })}
       </View>
       <View accessible={false} style={styles.otpResendContainer}>
-        <Typography variant="description" size="md" color={colors.text.clearest}>
-          Didn't get the code?&nbsp;
-          <Typography
-            variant="interactions"
-            size="md"
-            color={colors.ui.primary}
-            style={{ fontSize: 16 }}
-          >
-            Resend it
+        {isFinished ? (
+          <Typography variant="description" size="md" color={colors.text.clearest}>
+            Didn't get the code?&nbsp;
+            <Typography
+              variant="interactions"
+              size="md"
+              color={colors.ui.primary}
+              style={{ fontSize: 16 }}
+              onPress={handleResetOTP}
+            >
+              Resend it
+            </Typography>
+            .
           </Typography>
-          .
-        </Typography>
+        ) : (
+          <Typography variant="description" size="md" color={colors.text.clearest}>
+            Resend the code in&nbsp;
+            <Typography
+              variant="interactions"
+              size="md"
+              color={colors.ui.primary}
+              style={{ fontSize: 16 }}
+            >
+              {formatTime(seconds)}
+            </Typography>
+            .
+          </Typography>
+        )}
       </View>
       <TextInput
         ref={otpTextInputRef}

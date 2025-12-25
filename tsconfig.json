@@ -16,6 +16,7 @@
       "@branding/types": ["presentation/components/branding/types/Theme.ts"],
       "@presentation/screens": ["presentation/screens"],
       "@presentation/components": ["presentation/components"],
+      "@presentation/hooks": ["presentation/hooks"],
       "@utils": ["utils"]
     },
     "types": [

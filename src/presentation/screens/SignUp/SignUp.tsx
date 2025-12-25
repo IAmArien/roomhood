@@ -5,6 +5,7 @@
 
 import { useAppContext } from '@app/context';
 import { useNavigator } from '@app/hooks';
+import { SignUpRouteProp } from '@app/navigation';
 import {
   CalendarOutlinedIcon,
   EmailOutlinedIcon,
@@ -28,6 +29,7 @@ import {
 } from '@branding/components';
 import { useTheme } from '@branding/provider';
 import { BottomNavigationButton } from '@presentation/components';
+import { useRoute } from '@react-navigation/native';
 import {
   isEmailAddressValid,
   isValidFormattedPHMobile,
@@ -35,7 +37,7 @@ import {
   toBirthDateTextField,
   toPHMobileNumber,
 } from '@utils';
-import { ReactElement, useRef } from 'react';
+import { ReactElement, useEffect, useRef } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -51,7 +53,10 @@ export default function SignUp(): ReactElement {
   const navigator = useNavigator();
   const theme = useTheme();
 
+  const params = useRoute<SignUpRouteProp>().params;
+
   const { colors } = theme;
+  const { emailAddress, firstName, lastName } = params;
 
   const { setShowLoadingModal } = useAppContext();
 
@@ -60,6 +65,7 @@ export default function SignUp(): ReactElement {
   const form = useForm<FormType, IFormControl<FormType>[]>();
 
   const emTextField = useFormControl<string>('email', {
+    defaultValue: emailAddress,
     validations: {
       required: true,
       customValidation(controlValue) {
@@ -71,11 +77,13 @@ export default function SignUp(): ReactElement {
     },
   });
   const fnTextField = useFormControl<string>('first-name', {
+    defaultValue: firstName,
     validations: {
       required: true,
     },
   });
   const lnTextField = useFormControl<string>('last-name', {
+    defaultValue: lastName,
     validations: {
       required: true,
     },
@@ -169,6 +177,18 @@ export default function SignUp(): ReactElement {
     Keyboard.dismiss();
     form.formRef.current?.submit?.();
   };
+
+  useEffect(() => {
+    if (emailAddress) emTextField.setState('disabled');
+  }, [emailAddress]);
+
+  useEffect(() => {
+    if (firstName) fnTextField.setState('disabled');
+  }, [firstName]);
+
+  useEffect(() => {
+    if (lastName) lnTextField.setState('disabled');
+  }, [lastName]);
 
   return (
     <FormProvider {...form} onSubmit={handleFormSubmit}>

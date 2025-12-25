@@ -9,11 +9,12 @@ import { OtpScreenRouteProp } from '@app/navigation';
 import { Header } from '@branding/components';
 import { useTheme } from '@branding/provider';
 import { useRoute } from '@react-navigation/native';
-import { ReactElement, useMemo, useRef } from 'react';
+import { ReactElement, useMemo, useRef, useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 
 import { OtpDescriptionHeader } from './components/OtpDescriptionHeader';
 import { OtpInputTextField } from './components/OtpInputTextField';
+import { OtpState } from './types';
 
 export default function OtpScreen(): ReactElement {
   const navigator = useNavigator();
@@ -24,8 +25,11 @@ export default function OtpScreen(): ReactElement {
   const { colors } = theme;
   const { title, timerInMillis = 300 } = params;
 
-  const scrollViewRef = useRef<ScrollView | null>(null);
   const { setShowLoadingModal } = useAppContext();
+
+  const scrollViewRef = useRef<ScrollView | null>(null);
+
+  const [otpState, setOtpState] = useState<OtpState>('default');
 
   const keyboardBehavior = Platform.OS === 'ios' ? 'padding' : 'height';
 
@@ -51,6 +55,7 @@ export default function OtpScreen(): ReactElement {
     setShowLoadingModal(true);
     setTimeout(() => {
       setShowLoadingModal(false);
+      setOtpState('success');
     }, 2000);
   };
 
@@ -94,6 +99,8 @@ export default function OtpScreen(): ReactElement {
               theme={theme}
             />
             <OtpInputTextField
+              otpState={otpState}
+              onUpdateOTPState={setOtpState}
               onVerifyOTP={handleOnVerifyOTP}
               timerInMillis={timerInMillis}
               theme={theme}

@@ -35,6 +35,8 @@ export type OtpDescriptionHeaderProps = {
 };
 
 export type OtpInputTextFieldProps = {
+  otpState: OtpState;
+  onUpdateOTPState: (otpState: OtpState) => void;
   onVerifyOTP?: (otp: string) => void;
   timerInMillis?: number;
   theme?: Theme;

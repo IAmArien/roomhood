@@ -18,6 +18,7 @@ module.exports = {
           '@branding/types': './src/presentation/components/branding/types/Theme.ts',
           '@presentation/screens': './src/presentation/screens',
           '@presentation/components': './src/presentation/components',
+          '@presentation/hooks': './src/presentation/hooks',
           '@utils': './src/utils',
         },
       },
