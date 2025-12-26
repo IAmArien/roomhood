@@ -35,6 +35,7 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
     onHeaderLeftIconPress,
     headerActions,
     style,
+    icon,
     ...restProps
   } = props;
 
@@ -45,11 +46,12 @@ export const Header: React.FC<HeaderProps> = (props): JSX.Element => {
   };
 
   const headerLeftIcon = useMemo((): ReactElement => {
+    if (icon !== undefined) return icon;
     if (type === 'back') {
       return <ArrowLeftIcon fillColor={colors.text.clearest} />;
     }
     return <CloseIcon fillColor={colors.text.clearest} />;
-  }, [colors.text.clearest, type]);
+  }, [colors.text.clearest, type, icon]);
 
   return (
     <Animated.View

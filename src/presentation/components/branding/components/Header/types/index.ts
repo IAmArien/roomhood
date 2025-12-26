@@ -21,7 +21,8 @@ export type HeaderProps = {
   headerActions?: HeaderActionsProps[];
   style?: StyleProp<ViewStyle>;
   theme?: Theme;
-} & AccessibilityProps;
+} & AccessibilityProps &
+  Pick<HeaderIconProps, 'icon'>;
 
 export type HeaderIconProps = {
   testID?: string;

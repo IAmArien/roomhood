@@ -30,11 +30,14 @@ export default function DashboardBottomNavigation(): ReactElement {
       initialRouteName="Home"
       inactiveColor={colors.text.clear}
       activeColor={colors.ui.primary}
+      activeIndicatorStyle={{ backgroundColor: 'transparent' }}
       shifting={false}
       barStyle={[
         styles.tabBar,
         {
           backgroundColor: colors.ui['pure-white'],
+          borderTopWidth: 1,
+          borderTopColor: colors.border.grey,
         },
       ]}
     >
