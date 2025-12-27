@@ -26,7 +26,7 @@ export const BillsReminderPreview: React.FC<BillsReminderPreviewProps> = (props)
       style={[
         styles.container,
         {
-          backgroundColor: colors.ui['pure-white'],
+          backgroundColor: colors.surface['lightest-periwinkle'],
         },
         style,
       ]}

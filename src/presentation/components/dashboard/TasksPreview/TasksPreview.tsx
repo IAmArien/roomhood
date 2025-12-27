@@ -87,7 +87,7 @@ export const TasksPreview: React.FC<TasksPreviewProps> = (props): ReactElement =
 const styles = StyleSheet.create({
   container: {
     paddingTop: 16,
-    paddingBottom: 4,
+    paddingBottom: 8,
   },
   titleContainer: {
     flexDirection: 'row',

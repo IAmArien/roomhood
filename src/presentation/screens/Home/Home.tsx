@@ -7,7 +7,7 @@ import { DrawerNavigationIcon, NotificationsOutlinedIcon } from '@assets/icons';
 import { Header } from '@branding/components';
 import { useTheme } from '@branding/provider';
 import { MOCK_TASKS_PREVIEW_ITEMS } from '@data/mocks';
-import { BillsReminderPreview, RoomMatesPreview, TasksPreview } from '@presentation/components';
+import { BasicCalendarPreview, BillsReminderPreview, TasksPreview } from '@presentation/components';
 import { ReactElement, useRef } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 
@@ -65,7 +65,7 @@ export default function Home(): ReactElement {
         style={{ flex: 1 }}
       >
         <View style={{ gap: 8 }}>
-          <RoomMatesPreview theme={theme} style={styles.roomMateProfileContainer} />
+          <BasicCalendarPreview theme={theme} style={{ marginTop: 8 }} />
           <BillsReminderPreview theme={theme} />
           <TasksPreview data={MOCK_TASKS_PREVIEW_ITEMS} theme={theme} />
         </View>

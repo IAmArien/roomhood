@@ -50,3 +50,45 @@ export const isValidMMDDYYYY = (dateString: string): boolean => {
     return false;
   }
 };
+
+export const getCurrentMonthShort = (): string => {
+  return new Date().toLocaleString('en-US', { month: 'short' });
+};
+
+export const getCurrentWeekDays = () => {
+  const today = new Date();
+  const todayDate = today.toDateString();
+  const dayOfWeek = today.getDay();
+
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - dayOfWeek);
+
+  const days = [];
+
+  for (let i = 0; i <= dayOfWeek; i++) {
+    const date = new Date(startOfWeek);
+    date.setDate(startOfWeek.getDate() + i);
+
+    days.push({
+      label: date.toLocaleString('en-US', { month: 'short' }),
+      day: date.getDate(),
+      full: date,
+      isToday: date.toDateString() === todayDate,
+      hasEvents: i === 3 || i === 4
+    });
+  }
+
+  return days;
+};
+
+export const getCurrentWeekRangeLabel = () => {
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+
+  const start = new Date(today);
+  start.setDate(today.getDate() - dayOfWeek);
+
+  const month = start.toLocaleString('en-US', { month: 'short' });
+
+  return `${month} ${start.getDate()} - ${today.getDate()}`;
+};

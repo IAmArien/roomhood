@@ -8,6 +8,7 @@ export * from './AppleIcon';
 export * from './ArrowLeftIcon';
 export * from './BillsPaymentReminderIcon';
 export * from './CalendarOutlinedIcon';
+export * from './CalendarTodayOutlinedIcon';
 export * from './ChatOutlinedIcon';
 export * from './CloseIcon';
 export * from './DrawerNavigationIcon';
