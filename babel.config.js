@@ -20,6 +20,7 @@ module.exports = {
           '@presentation/components': './src/presentation/components',
           '@presentation/hooks': './src/presentation/hooks',
           '@utils': './src/utils',
+          '@data/mocks': './src/data/mocks',
         },
       },
     ],

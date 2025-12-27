@@ -3,5 +3,4 @@
  * Reuse as a whole or in part is prohibited without permission.
  */
 
-export * from './common';
-export * from './dashboard';
+export * from './TasksPreviewItems';

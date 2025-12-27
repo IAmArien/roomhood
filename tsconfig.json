@@ -17,7 +17,8 @@
       "@presentation/screens": ["presentation/screens"],
       "@presentation/components": ["presentation/components"],
       "@presentation/hooks": ["presentation/hooks"],
-      "@utils": ["utils"]
+      "@utils": ["utils"],
+      "@data/mocks": ["data/mocks"]
     },
     "types": [
       "node",

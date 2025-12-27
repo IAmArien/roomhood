@@ -4,3 +4,5 @@
  */
 
 export * from './Button/BottomNavigationButton';
+export * from './Divider/Divider';
+export * from './ProfileIcon/ProfileIcon';
